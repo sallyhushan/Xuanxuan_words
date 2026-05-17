@@ -16,805 +16,896 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .splash h1{color:#fff;font-size:32px;margin-bottom:8px}
 .splash p{color:rgba(255,255,255,.8);font-size:16px}
-.splash-btn{margin-top:40px;padding:14px 48px;background:#fff;color:#764ba2;border:none;border-radius:30px;font-size:18px;font-weight:600;cursor:pointer}
-.splash-btn:active{transform:scale(.95)}
+
+.name-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1001}
+.name-box{background:#fff;border-radius:24px;padding:32px;width:90%;max-width:360px;text-align:center}
+.name-box h2{font-size:20px;margin-bottom:8px}
+.name-box p{font-size:14px;color:var(--t2);margin-bottom:20px}
+.name-box input{width:100%;padding:14px;border:2px solid var(--b);border-radius:14px;font-size:16px;text-align:center;margin-bottom:16px}
+.name-box button{width:100%;padding:14px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer}
 
 .app{max-width:480px;margin:0 auto;padding:20px}
-.header{text-align:center;margin-bottom:24px}
+.header{text-align:center;margin-bottom:20px}
 .header h2{font-size:24px;margin-bottom:4px}
 .header .subtitle{color:var(--t2);font-size:14px}
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.stat-card{background:var(--card);border-radius:16px;padding:16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.stat-card .num{font-size:28px;font-weight:700;color:var(--p)}
-.stat-card .num.fire{color:var(--bad)}
+
+.player-bar{display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:16px;padding:14px 18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.player-bar .name{font-size:16px;font-weight:600}
+.player-bar .edit{font-size:13px;color:var(--p);cursor:pointer}
+
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stat-card{background:var(--card);border-radius:16px;padding:14px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.stat-card .num{font-size:26px;font-weight:700;color:var(--p)}
 .stat-card .label{font-size:12px;color:var(--t2);margin-top:4px}
 
-.task-card{background:var(--card);border-radius:20px;padding:24px;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,.06);position:relative;overflow:hidden}
+.task-card{background:var(--card);border-radius:20px;padding:24px;margin-bottom:12px;box-shadow:0 4px 20px rgba(0,0,0,.06);position:relative;overflow:hidden}
 .task-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--p),#a855f7)}
-.task-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.task-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .task-title{font-size:18px;font-weight:600}
 .task-badge{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#ede9fe;color:#7c3aed}
 .task-meta{font-size:13px;color:var(--t2);margin-bottom:16px}
-.task-meta span{margin-right:16px}
 .task-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer}
+.task-btn:disabled{opacity:.5;cursor:not-allowed}
 
-.history-section{margin-top:32px}
-.history-section h3{font-size:16px;color:var(--t2);margin-bottom:12px;padding-left:4px}
-.history-item{display:flex;align-items:center;background:var(--card);border-radius:14px;padding:16px;margin-bottom:10px}
-.history-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-right:14px}
+.duel-card{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border-radius:20px;padding:20px;margin-bottom:12px;box-shadow:0 4px 20px rgba(0,0,0,.08);cursor:pointer}
+.duel-card.locked{background:linear-gradient(135deg,#94a3b8,#64748b);cursor:default}
+.duel-card h3{font-size:18px;margin-bottom:4px}
+.duel-card p{font-size:13px;opacity:.9}
+.duel-card .lock-icon{font-size:24px;margin-bottom:6px}
+
+.review-btn{width:100%;padding:12px;background:var(--card);border:1.5px solid var(--b);border-radius:14px;font-size:14px;color:var(--t2);cursor:pointer;margin-bottom:12px}
+
+.leaderboard-btn{width:100%;padding:12px;background:var(--card);border:1.5px solid var(--b);border-radius:14px;font-size:14px;color:var(--p);font-weight:600;cursor:pointer;margin-bottom:12px}
+
+.history-section{margin-top:24px}
+.history-section h3{font-size:15px;color:var(--t2);margin-bottom:10px;padding-left:4px}
+.history-item{display:flex;align-items:center;background:var(--card);border-radius:14px;padding:14px;margin-bottom:8px}
+.history-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-right:12px}
 .history-icon.g{background:#f0fdf4}.history-icon.y{background:#fffbeb}.history-icon.r{background:#fef2f2}
-.history-info{flex:1}.history-title{font-size:15px;font-weight:500}.history-date{font-size:12px;color:var(--t2);margin-top:2px}
-.history-score{font-size:18px;font-weight:700}.history-score.g{color:var(--ok)}.history-score.y{color:var(--warn)}.history-score.r{color:var(--bad)}
-
-.export-btn,.sync-btn{width:100%;padding:12px;background:var(--card);border:1.5px solid var(--b);border-radius:14px;font-size:14px;color:var(--t2);cursor:pointer;margin-top:10px}
-.sync-btn{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none}
+.history-info{flex:1}.history-title{font-size:14px;font-weight:500}.history-date{font-size:12px;color:var(--t2);margin-top:2px}
+.history-score{font-size:16px;font-weight:700}.history-score.g{color:var(--ok)}.history-score.y{color:var(--warn)}.history-score.r{color:var(--bad)}
 
 .game-screen{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;flex-direction:column}
-.game-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;background:var(--card)}
+.game-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;background:var(--card)}
 .game-header .back{font-size:24px;cursor:pointer;padding:4px}
-.game-progress{flex:1;margin:0 16px}.progress-track{height:8px;background:var(--b);border-radius:4px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--p),#a855f7);border-radius:4px;transition:width .4s}
+.game-progress{flex:1;margin:0 14px}.progress-track{height:6px;background:var(--b);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--p),#a855f7);border-radius:3px;transition:width .3s}
 .game-stats{display:flex;gap:12px;font-size:14px;font-weight:600}.game-stats .c{color:var(--ok)}.game-stats .w{color:var(--bad)}
 
 .card-area{flex:1;display:flex;flex-direction:column;align-items:center;padding:20px;overflow-y:auto}
-.word-card{width:100%;max-width:400px;background:var(--card);border-radius:28px;padding:36px 24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.08);margin-bottom:16px;position:relative}
-.word-display{font-size:40px;font-weight:800;letter-spacing:2px;margin-bottom:4px}
-.phonetic{font-size:16px;color:var(--p);font-weight:600;margin-bottom:8px;min-height:24px}
-.word-sub{font-size:13px;color:var(--t2);margin-bottom:4px}
+.word-card{width:100%;max-width:400px;background:var(--card);border-radius:24px;padding:32px 20px;text-align:center;box-shadow:0 16px 48px rgba(0,0,0,.08);margin-bottom:14px;position:relative}
+.word-display{font-size:38px;font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.phonetic{font-size:15px;color:var(--p);font-weight:600;margin-bottom:6px;min-height:22px}
 
-.retest-tag{position:absolute;top:12px;right:12px;padding:4px 12px;background:#fef2f2;color:var(--bad);border-radius:12px;font-size:12px;font-weight:600}
-.hint-used-tag{position:absolute;top:12px;left:12px;padding:4px 12px;background:#fffbeb;color:var(--warn);border-radius:12px;font-size:12px;font-weight:600}
-
-.timer{width:52px;height:52px;border-radius:50%;border:3px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--t2);margin:0 auto 16px;transition:all .3s}
+.timer{width:48px;height:48px;border-radius:50%;border:3px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--t2);margin:0 auto 12px}
 .timer.urgent{border-color:var(--bad);color:var(--bad);animation:pu .5s infinite}
 @keyframes pu{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 
-.options{display:grid;grid-template-columns:1fr;gap:10px;width:100%;max-width:400px}
-.opt-btn{padding:16px;border:2px solid var(--b);border-radius:14px;background:#fff;font-size:16px;cursor:pointer;text-align:left;transition:all .2s}
-.opt-btn:hover{border-color:var(--p)}
+.options{display:grid;grid-template-columns:1fr;gap:8px;width:100%;max-width:400px}
+.opt-btn{padding:14px;border:2px solid var(--b);border-radius:12px;background:#fff;font-size:15px;cursor:pointer;text-align:left;transition:all .2s}
 .opt-btn.correct{border-color:var(--ok);background:#f0fdf4;color:#166534;font-weight:700}
 .opt-btn.wrong{border-color:var(--bad);background:#fef2f2;color:#991b1b}
 .opt-btn.disabled{opacity:.6;pointer-events:none}
 
-.result-strip{padding:12px;border-radius:12px;text-align:center;font-weight:600;margin-bottom:12px;width:100%;max-width:400px}
+.result-strip{padding:10px 14px;border-radius:10px;text-align:center;font-weight:600;margin-bottom:10px;width:100%;max-width:400px;font-size:14px}
 .result-strip.ok{background:#f0fdf4;color:#166534}
 .result-strip.bad{background:#fef2f2;color:#991b1b}
 .result-strip.info{background:#eff6ff;color:#1e40af}
 
-.hint-box{width:100%;max-width:400px;background:#f8fafc;border-radius:14px;padding:16px;margin-bottom:12px;border-left:3px solid var(--warn)}
-.hint-box .hint-pos{font-size:14px;color:var(--t2);margin-bottom:8px}
-.hint-box .hint-ex{font-size:15px;color:var(--t);line-height:1.6}
-.hint-box .hint-ex b{color:var(--p)}
-
-.speak-btn{width:48px;height:48px;border-radius:50%;border:2px solid var(--p);background:#fff;color:var(--p);font-size:20px;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center}
-.speak-btn:active{background:var(--p);color:#fff}
-
-.hint-btn{width:100%;max-width:400px;padding:12px;background:var(--bg);color:var(--t2);border:1.5px solid var(--b);border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:12px}
+.hint-btn{width:100%;max-width:400px;padding:10px;background:var(--bg);color:var(--t2);border:1.5px solid var(--b);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:10px}
 .hint-btn:disabled{opacity:.5;cursor:not-allowed}
 
-.related-box{width:100%;max-width:400px;background:#f0fdf4;border-radius:14px;padding:16px;margin-top:12px;border-left:3px solid var(--ok)}
-.related-box .rel-title{font-size:13px;color:var(--ok);font-weight:600;margin-bottom:8px}
-.related-box .rel-item{font-size:14px;color:var(--t);margin-bottom:4px}
-.related-box .rel-note{font-size:12px;color:var(--t2);margin-top:6px}
+.hint-box{width:100%;max-width:400px;background:#f8fafc;border-radius:12px;padding:14px;margin-bottom:10px;border-left:3px solid var(--warn);font-size:14px}
 
-.result-screen{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;flex-direction:column;align-items:center;padding:40px 20px;overflow-y:auto}
-.result-emoji{font-size:72px;margin-bottom:12px}
-.result-title{font-size:26px;font-weight:700;margin-bottom:6px}
-.result-subtitle{color:var(--t2);margin-bottom:28px}
-.scorecard{background:var(--card);border-radius:24px;padding:28px;width:100%;max-width:380px;text-align:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.big-score{font-size:52px;font-weight:800;background:linear-gradient(135deg,var(--p),#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.score-label{color:var(--t2);font-size:14px;margin-top:4px}
-.bd{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-.bd-it .bd-n{font-size:22px;font-weight:700}.bd-it .bd-l{font-size:12px;color:var(--t2);margin-top:4px}
-.bd-it.g .bd-n{color:var(--ok)}.bd-it.y .bd-n{color:var(--warn)}.bd-it.r .bd-n{color:var(--bad)}
+.speak-btn{width:44px;height:44px;border-radius:50%;border:2px solid var(--p);background:#fff;color:var(--p);font-size:18px;cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center}
 
-.review-list{width:100%;max-width:380px;background:var(--card);border-radius:20px;padding:20px;margin-bottom:16px}
-.review-list h3{font-size:15px;margin-bottom:14px}
-.rw{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--b)}
-.rw:last-child{border:none}.rw-ic{font-size:18px;margin-right:10px;width:24px;text-align:center}
-.rw-inf{flex:1}.rw-w{font-weight:600;font-size:15px}.rw-m{font-size:12px;color:var(--t2)}
-.rw-tg{padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600;margin-left:6px}
-.rw-tg.m{background:#f0fdf4;color:var(--ok)}.rw-tg.s{background:#fef2f2;color:var(--bad)}.rw-tg.c{background:#fffbeb;color:var(--warn)}
+.retest-tag{position:absolute;top:10px;right:10px;padding:3px 10px;background:#fef2f2;color:var(--bad);border-radius:10px;font-size:11px;font-weight:600}
 
-.act-btns{width:100%;max-width:380px;display:flex;gap:10px}
-.act-btns .btn{flex:1;padding:14px;border:none;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer}
+.result-screen{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;flex-direction:column;align-items:center;padding:32px 20px;overflow-y:auto}
+.result-emoji{font-size:60px;margin-bottom:8px}
+.result-title{font-size:24px;font-weight:700;margin-bottom:4px}
+.result-subtitle{color:var(--t2);font-size:14px;margin-bottom:20px}
+
+.scorecard{background:var(--card);border-radius:20px;padding:24px;width:100%;max-width:360px;text-align:center;margin-bottom:16px;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.big-score{font-size:48px;font-weight:800;background:linear-gradient(135deg,var(--p),#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.score-label{color:var(--t2);font-size:13px;margin-top:4px}
+.bd{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.bd-it .bd-n{font-size:20px;font-weight:700}.bd-it .bd-l{font-size:11px;color:var(--t2);margin-top:4px}
+.bd-it.g .bd-n{color:var(--ok)}.bd-it.r .bd-n{color:var(--bad)}
+
+.review-list{width:100%;max-width:360px;background:var(--card);border-radius:16px;padding:16px;margin-bottom:14px}
+.review-list h3{font-size:14px;margin-bottom:12px}
+.rw{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--b)}
+.rw:last-child{border:none}.rw-ic{font-size:16px;margin-right:8px;width:22px;text-align:center}
+.rw-inf{flex:1}.rw-w{font-weight:600;font-size:14px}.rw-m{font-size:11px;color:var(--t2)}
+.rw-tg{padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600;margin-left:4px}
+.rw-tg.m{background:#f0fdf4;color:var(--ok)}.rw-tg.s{background:#fef2f2;color:var(--bad)}
+
+.act-btns{width:100%;max-width:360px;display:flex;gap:10px}
+.act-btns .btn{flex:1;padding:12px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer}
 .act-btns .btn-sec{background:var(--bg);color:var(--t);border:1.5px solid var(--b)}
 .act-btns .btn-prim{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff}
 
-.cloud-setup{width:100%;max-width:380px;background:var(--card);border-radius:16px;padding:20px;margin-top:16px}
-.cloud-setup h4{font-size:14px;color:var(--t2);margin-bottom:10px}
-.cloud-setup input{width:100%;padding:10px;border:1.5px solid var(--b);border-radius:10px;font-size:14px;margin-bottom:8px}
+.lb-screen{position:fixed;inset:0;background:var(--bg);z-index:300;display:flex;flex-direction:column;padding:20px;overflow-y:auto}
+.lb-header{display:flex;align-items:center;margin-bottom:20px}
+.lb-header .back{font-size:24px;cursor:pointer;padding:4px;margin-right:10px}
+.lb-header h2{font-size:20px}
+.lb-table{width:100%;max-width:460px;background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.lb-row{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid var(--b)}
+.lb-row:last-child{border:none}
+.lb-rank{width:30px;font-size:16px;font-weight:700;color:var(--t2)}
+.lb-rank.top{color:var(--p)}
+.lb-name{flex:1;font-size:15px;font-weight:500;padding:0 12px}
+.lb-acc{font-size:15px;font-weight:700;color:var(--ok);margin-right:8px}
+.lb-time{font-size:12px;color:var(--t2)}
+
+.review-screen{position:fixed;inset:0;background:var(--bg);z-index:300;display:flex;flex-direction:column;padding:20px;overflow-y:auto}
+.review-card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.review-card .r-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.review-card .r-meta{font-size:13px;color:var(--t2)}
+.review-card .r-badge{float:right;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600}
+.review-card .r-badge.done{background:#f0fdf4;color:var(--ok)}
+.review-card .r-badge.retry{background:#fffbeb;color:var(--warn)}
+
+.duel-tag{position:absolute;top:10px;left:10px;padding:3px 10px;background:#fef2f2;color:var(--bad);border-radius:10px;font-size:11px;font-weight:600}
 </style>
 </head>
 <body>
 
-<div class="splash" id="splash"><div class="splash-avatar">👧</div><h1>萱萱单词闯关</h1><p>每天进步一点点，坚持就是胜利</p><button class="splash-btn" onclick="enter()">开始吧</button></div>
+<!-- SPLASH -->
+<div class="splash" id="splash">
+  <div class="splash-avatar">👧</div>
+  <h1>萱萱单词闯关</h1>
+  <p>每天进步一点点，坚持就是胜利</p>
+  <button class="task-btn" style="margin-top:32px;width:auto;padding:14px 48px;border-radius:30px" onclick="enter()">开始吧</button>
+</div>
 
+<!-- NAME MODAL -->
+<div class="name-modal hidden" id="nameModal">
+  <div class="name-box">
+    <h2>🎉 欢迎来到单词闯关</h2>
+    <p>告诉我你的名字，马上开始挑战！</p>
+    <input type="text" id="nameInput" placeholder="输入昵称" maxlength="10">
+    <button onclick="saveName()">开始闯关</button>
+  </div>
+</div>
+
+<!-- HOME -->
 <div class="app hidden" id="app">
-<div class="header"><h2>你好，萱萱！👋</h2><p class="subtitle" id="today"></p></div>
-<div class="stats-row">
-<div class="stat-card"><div class="num" id="s-total">0</div><div class="label">已掌握</div></div>
-<div class="stat-card"><div class="num fire" id="s-streak">0</div><div class="label">连续天数</div></div>
-<div class="stat-card"><div class="num" id="s-rate">0%</div><div class="label">本周正确率</div></div>
+  <div class="header">
+    <h2 id="welcomeTitle">你好！👋</h2>
+    <p class="subtitle" id="today">今日</p>
+  </div>
+  <div class="player-bar">
+    <div class="name" id="playerNameDisplay">玩家</div>
+    <div class="edit" onclick="showNameModal()">修改昵称</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="num" id="s-current">1</div><div class="label">当前轮次</div></div>
+    <div class="stat-card"><div class="num" id="s-completed">0</div><div class="label">已通过</div></div>
+    <div class="stat-card"><div class="num" id="s-rate">0%</div><div class="label">本周正确率</div></div>
+  </div>
+  <div id="mainTask"></div>
+  <div id="duelEntry"></div>
+  <button class="leaderboard-btn" onclick="showLeaderboard()">🏆 查看排行榜</button>
+  <button class="review-btn" onclick="showReview()">📚 复习已解锁轮次</button>
+  <div class="history-section" id="hSec">
+    <h3>📖 闯关记录</h3>
+    <div id="hList"></div>
+  </div>
+  <button class="review-btn" onclick="exportData()">📥 导出本地备份</button>
 </div>
-<div id="tasks"></div>
-<div style="text-align:center;margin-top:8px"><button class="export-btn" onclick="exportData()" style="padding:8px 16px;font-size:12px;background:var(--card);border:1px solid var(--b);border-radius:10px;color:var(--t2);cursor:pointer">📥 导出本地备份</button></div>
-<div class="history-section" id="h-sec"><h3>📚 闯关记录</h3><div id="h-list"></div></div>
 
-
-</div>
-
+<!-- GAME SCREEN (shared for main & duel) -->
 <div class="game-screen hidden" id="game">
-<div class="game-header"><div class="back" onclick="quit()">←</div><div class="game-progress"><div class="progress-track"><div class="progress-fill" id="pg" style="width:0%"></div></div></div><div class="game-stats"><div class="c">✓ <span id="g-ok">0</span></div><div class="w">✗ <span id="g-bad">0</span></div></div></div>
-<div class="card-area">
-<div class="timer" id="timer">10</div>
-<div class="word-card">
-<div class="retest-tag hidden" id="rtag">错题重练</div>
-<div class="hint-used-tag hidden" id="htag">已用提示</div>
-<button class="speak-btn" id="spk" onclick="speakNow()" title="播放发音">🔊</button>
-<div class="word-display" id="wd">word</div>
-<div class="phonetic" id="ph">loading...</div>
-<div class="word-sub" id="sub"></div>
-</div>
-<button class="hint-btn" id="hintBtn" onclick="showHint()">💡 需要提示？</button>
-<div class="hint-box hidden" id="hintBox">
-<div class="hint-pos" id="hintPos"></div>
-<div class="hint-ex" id="hintEx"></div>
-</div>
-<div class="result-strip hidden" id="rstrip"></div>
-<div class="options" id="opts"></div>
-<div class="related-box hidden" id="relBox">
-<div class="rel-title">📝 关联记忆</div>
-<div id="relContent"></div>
-</div>
-</div>
+  <div class="game-header">
+    <div class="back" onclick="quitGame()">←</div>
+    <div class="game-progress"><div class="progress-track"><div class="progress-fill" id="pg" style="width:0%"></div></div></div>
+    <div class="game-stats"><div class="c">✓ <span id="gOk">0</span></div><div class="w">✗ <span id="gBad">0</span></div></div>
+  </div>
+  <div class="card-area">
+    <div class="timer" id="timer">10</div>
+    <div class="word-card">
+      <div class="retest-tag hidden" id="rtag">错题重练</div>
+      <div class="duel-tag hidden" id="dtag">大乱斗</div>
+      <button class="speak-btn" id="spk" onclick="speakNow()" title="播放发音">🔊</button>
+      <div class="word-display" id="wd">word</div>
+      <div class="phonetic" id="ph">loading...</div>
+    </div>
+    <button class="hint-btn" id="hintBtn" onclick="showHint()">💡 需要提示？</button>
+    <div class="hint-box hidden" id="hintBox">
+      <div id="hintPos" style="color:var(--t2);margin-bottom:6px"></div>
+      <div id="hintEx" style="color:var(--t);line-height:1.6"></div>
+    </div>
+    <div class="result-strip hidden" id="rstrip"></div>
+    <div class="options" id="opts"></div>
+  </div>
 </div>
 
+<!-- RESULT SCREEN -->
 <div class="result-screen hidden" id="result">
-<div class="result-emoji" id="re">🎉</div><div class="result-title" id="rt">闯关完成！</div><div class="result-subtitle" id="rs">继续加油</div>
-<div class="scorecard"><div class="big-score" id="bs">80%</div><div class="score-label">正确率</div><div class="bd"><div class="bd-it g"><div class="bd-n" id="b-ok">8</div><div class="bd-l">答对</div></div><div class="bd-it r"><div class="bd-n" id="b-bad">2</div><div class="bd-l">答错</div></div><div class="bd-it"><div class="bd-n" id="b-avg">3.2s</div><div class="bd-l">平均用时</div></div></div></div>
-<div class="review-list"><h3>📝 本次回顾</h3><div id="rv"></div></div>
-<div class="act-btns"><button class="btn btn-sec" onclick="goHome()">回到首页</button><button class="btn btn-prim" id="nxt-btn" onclick="nextRound()">下一轮 →</button></div>
+  <div class="result-emoji" id="re">🎉</div>
+  <div class="result-title" id="rt">闯关完成！</div>
+  <div class="result-subtitle" id="rs">继续加油</div>
+  <div class="scorecard">
+    <div class="big-score" id="bs">80%</div>
+    <div class="score-label">正确率</div>
+    <div class="bd">
+      <div class="bd-it g"><div class="bd-n" id="bOk">8</div><div class="bd-l">答对</div></div>
+      <div class="bd-it r"><div class="bd-n" id="bBad">2</div><div class="bd-l">答错</div></div>
+      <div class="bd-it"><div class="bd-n" id="bAvg">3.2s</div><div class="bd-l">平均用时</div></div>
+    </div>
+  </div>
+  <div class="review-list">
+    <h3>📝 本次回顾</h3>
+    <div id="rv"></div>
+  </div>
+  <div class="act-btns">
+    <button class="btn btn-sec" onclick="goHome()">回到首页</button>
+    <button class="btn btn-prim" id="nxtBtn" onclick="nextAction()">再来一次</button>
+  </div>
+</div>
+
+<!-- DUEL RESULT SCREEN -->
+<div class="result-screen hidden" id="duelResult">
+  <div class="result-emoji" id="dre">🏆</div>
+  <div class="result-title" id="drt">大乱斗完成！</div>
+  <div class="result-subtitle" id="drs">挑战排行榜</div>
+  <div class="scorecard">
+    <div class="big-score" id="dbs">75%</div>
+    <div class="score-label">正确率</div>
+    <div class="bd">
+      <div class="bd-it g"><div class="bd-n" id="dbOk">24</div><div class="bd-l">答对</div></div>
+      <div class="bd-it r"><div class="bd-n" id="dbBad">6</div><div class="bd-l">答错</div></div>
+      <div class="bd-it"><div class="bd-n" id="dbTime">45s</div><div class="bd-l">总用时</div></div>
+    </div>
+  </div>
+  <div class="act-btns">
+    <button class="btn btn-sec" onclick="goHome()">回到首页</button>
+    <button class="btn btn-prim" onclick="showLeaderboard()">查看排行榜</button>
+  </div>
+</div>
+
+<!-- LEADERBOARD SCREEN -->
+<div class="lb-screen hidden" id="lbScreen">
+  <div class="lb-header"><div class="back" onclick="goHome()">←</div><h2>🏆 大乱斗排行榜</h2></div>
+  <div id="lbLoading" style="text-align:center;color:var(--t2);padding:20px">加载中...</div>
+  <div class="lb-table hidden" id="lbTable"></div>
+  <div style="text-align:center;margin-top:20px"><button class="btn btn-sec" onclick="goHome()">回到首页</button></div>
+</div>
+
+<!-- REVIEW SCREEN -->
+<div class="review-screen hidden" id="reviewScreen">
+  <div class="lb-header"><div class="back" onclick="goHome()">←</div><h2>📚 选择复习轮次</h2></div>
+  <div id="reviewList"></div>
 </div>
 
 <script>
 const BANK=[
-{w:"climate",p:"n. (the weather of a place)",m:"气候",e:"She hated the cold **climate** in the northern part of the country.",rel:[]},
-{w:"emergency",p:"n. (a sudden, serious event when people need help immediately)",m:"紧急情况",e:"People drive at maximum speed to get help during an **emergency**.",rel:[]},
-{w:"factory",p:"n. (a building that produces goods)",m:"工厂",e:"This **factory** is the root of the air problem in the area.",rel:[]},
-{w:"freeze",p:"v. (to turn into ice)",m:"结冰",e:"It was so cold that the lake **froze** all the way to the bottom.",rel:[]},
-{w:"population",p:"n. (the total number of people or animals living in a place)",m:"人口/人数",e:"The **population** of penguins has dropped rather than increased.",rel:[]},
-{w:"recently",p:"adv. (not long ago)",m:"不久前",e:"We **recently** put these plants in pots for our class project.",rel:[]},
-{w:"responsible",p:"adj. (able to act correctly and make good decisions)",m:"有责任心的；负责任的",e:"We let Alan borrow our tools because he is a **responsible** person.",rel:[]},
-{w:"storm",p:"n. (a bad weather event with a lot of rain, wind, or snow)",m:"暴风雨",e:"The two men hurried to go inside during the **storm**.",rel:[]},
-{w:"stream",p:"n. (a very small river)",m:"小溪",e:"The man ran through the cool water of the **stream**.",rel:[{w:"lake",m:"",r:"关联记忆"},{w:"river",m:"",r:"关联记忆"},{w:"sea",m:"",r:"关联记忆"}]},
-{w:"temperature",p:"n. (how hot or cold a person or thing is)",m:"温度",e:"When Cassie is sick, her **temperature** rises.",rel:[]},
-{w:"awful",p:"adj. (very bad)",m:"糟糕的",e:"Sam was not proud of the **awful** smell coming from his shoes.",rel:[]},
-{w:"crazy",p:"adj. (very strange)",m:"古怪的",e:"Susan's hair looks really **crazy**, and she has an interview today!",rel:[]},
-{w:"huge",p:"adj. (very large)",m:"巨大",e:"I will give you a million dollars if you eat this **huge** hamburger.",rel:[]},
-{w:"moment",p:"n. (a short period of time)",m:"一会儿",e:"I mixed the vegetables and then fried them for a few **moments**.",rel:[]},
-{w:"odd",p:"adj. (strange or different)",m:"反常的",e:"Lewis's choice of hair color is quite **odd**.",rel:[]},
-{w:"pour",p:"v. (to fill a container with something to drink)",m:"倾倒",e:"Please **pour** some water for me. I do not want any ice.",rel:[]},
-{w:"regret",p:"v. (to feel sorry about something that you did or did not do)",m:"后悔",e:"She **regrets** missing the last bus home. It was a big mistake.",rel:[]},
-{w:"steal",p:"v. (to take something without someone saying you can)",m:"偷",e:"We do not share our food with our cat, but she tries to **steal** it.",rel:[]},
-{w:"thief",p:"n. (someone who steals)",m:"小偷",e:"Lucy saw a **thief** trying to climb into her neighbor's window.",rel:[]},
-{w:"tough",p:"adj. (strong)",m:"强壮，强硬的",e:"Max was the **toughest** man in our village.",rel:[]},
-{w:"captain",p:"n. (a person who is the leader of a team)",m:"队长",e:"Anton is the **captain** of our soccer team this year.",rel:[]},
-{w:"challenge",p:"n. (something that is difficult to do)",m:"难题/挑战",e:"It is a **challenge** for Shelly to wake up early, so she is often late.",rel:[]},
-{w:"complete",p:"v. (to finish something)",m:"完成",e:"Sally **completed** her work carefully to avoid any mistakes.",rel:[]},
-{w:"encourage",p:"v. (to help someone feel confident)",m:"鼓励",e:"The teacher **encouraged** her student to continue writing her story.",rel:[]},
-{w:"noon",p:"n. (12 o'clock in the daytime)",m:"中午",e:"The next class starts at **noon** and ends at 2:00 p.m.",rel:[]},
-{w:"position",p:"n. (the place where a person or thing is)",m:"位置",e:"Jen's **position** near the front of the room allows her to hear well.",rel:[]},
-{w:"race",p:"n. (a contest to decide who is the fastest)",m:"跑步/赛跑",e:"It is necessary for everyone to begin the **race** together.",rel:[]},
-{w:"record",p:"n. (the highest or best result ever in an activity)",m:"记录",e:"He held the **record** as the first person to climb this mountain.",rel:[]},
-{w:"skill",p:"n. (the ability to do something well)",m:"技巧/技能",e:"It takes a bit of **skill** to wrap a gift well. Jenny is really good at it.",rel:[]},
-{w:"wing",p:"n. (one of the body parts that birds and insects use to fly)",m:"翅膀",e:"The bird could not fly because it had a broken **wing**.",rel:[]},
-{w:"certain",p:"adj. (believing something strongly)",m:"确信的/确定的",e:"Sally is **certain** her customers will enjoy her food.",rel:[]},
-{w:"discuss",p:"v. (to talk with someone about something)",m:"讨论",e:"The students **discussed** their troubles with their teacher.",rel:[]},
-{w:"edit",p:"v. (to look at something carefully and correct any mistakes)",m:"修改",e:"Pamela had not expected that she would need to **edit** her story.",rel:[]},
-{w:"gather",p:"v. (to bring things or people together)",m:"聚集/收集",e:"My family usually **gathers** on my grandfather's birthday.",rel:[]},
-{w:"image",p:"n. (a picture)",m:"图像",e:"Gail is confident that she can draw realistic **images** of clothes.",rel:[]},
-{w:"material",p:"n. (something needed to do an activity)",m:"材料",e:"It was a challenge to gather all the **materials** for my art class.",rel:[]},
-{w:"positive",p:"adj. (thinking good things)",m:"积极的",e:"**Positive** students can complete work quickly and easily.",rel:[{w:"negative",m:"",r:"关联记忆"}]},
-{w:"role",p:"n. (a part or job someone has in an activity or event)",m:"角色",e:"Laura was respected for her **role** as team captain.",rel:[]},
-{w:"screen",p:"n. (the part of a computer that shows images and words)",m:"屏幕",e:"The man touched the **screen** to check his email.",rel:[]},
-{w:"technology",p:"n. (any type of useful machine invented by science)",m:"科技/技术",e:"Mrs. Jensen encouraged her students to use **technology**.",rel:[]},
-{w:"attack",p:"v. (to try to hurt physically or say hurtful things)",m:"攻击/批评",e:"When the computer stopped working, Sheryl wanted to **attack** it!",rel:[]},
-{w:"available",p:"adj. (able to be used)",m:"可用的；有空的",e:"There are seats **available** in the back for people who are late.",rel:[]},
-{w:"career",p:"n. (what a person does for his or her job)",m:"职业",e:"You can choose any **career** you want. There are so many!",rel:[]},
-{w:"connect",p:"v. (to join something with something else)",m:"连接",e:"Marvin **connects** a big screen to his dad's computer.",rel:[]},
-{w:"dictionary",p:"n. (a book that gives definitions of words)",m:"词典/字典",e:"**Dictionaries** are helpful for finding the spelling of words.",rel:[]},
-{w:"handle",p:"v. (to deal with a person or thing)",m:"处理/应对",e:"Lisa is good at leading people. She knows how to **handle** them.",rel:[]},
-{w:"major",p:"adj. (very important; very serious)",m:"重大的/主要的",e:"Losing the key to our car was a **major** problem.",rel:[]},
-{w:"provide",p:"v. (to offer or give)",m:"提供",e:"Ms. Clark **provides** extra help to weaker students after school.",rel:[]},
-{w:"section",p:"n. (a part of something)",m:"区域/部分",e:"We can eat in this **section** of the park. Do you see the tables?",rel:[]},
-{w:"site",p:"n. (a spot or place, usually on the Internet)",m:"地点/网站",e:"There are several million **sites** on the Internet which sell things.",rel:[]},
-{w:"band",p:"n. (a group that plays music)",m:"乐队",e:"Everyone in this **band** is male. There are no women or girls.",rel:[]},
-{w:"fortune",p:"n. (a large amount of money)",m:"财富",e:"Jack earned a **fortune** from the new technology he developed.",rel:[]},
-{w:"guest",p:"n. (a person who spends time at another's home)",m:"客人/宾客",e:"Margaret had **guests** at her house at noon for lunch.",rel:[]},
-{w:"host",p:"n. (a person who accepts guests into a home or restaurant)",m:"主人",e:"The **host** prepared a lot of delicious food for his guests.",rel:[]},
-{w:"original",p:"adj. (made or produced for the first time; new)",m:"原始的/原创的",e:"Students are encouraged to create **original** pieces of art.",rel:[]},
-{w:"peace",p:"n. (when people live together well and do not cause trouble)",m:"和平",e:"We all respect each other and live in **peace** in the community.",rel:[]},
-{w:"poem",p:"n. (a type of writing which often uses rhymes)",m:"诗",e:"Jenna writes and edits her **poems** in the park near her school.",rel:[]},
-{w:"sense",p:"v. (to know something without having evidence that it is true)",m:"感觉",e:"The man **sensed** that someone was behind him.",rel:[]},
-{w:"trust",p:"v. (to have confidence in a person or thing)",m:"信任",e:"Rita **trusted** her nurse and enjoyed discussing her problems with her.",rel:[]},
-{w:"wealthy",p:"adj. (having a large amount of money)",m:"富有的",e:"The **wealthy** businessman owns an airplane and an expensive car.",rel:[]},
-{w:"accept",p:"v. (to take or receive)",m:"接受",e:"Polly and Steven gladly **accepted** the key to their new home.",rel:[]},
-{w:"consider",p:"v. (to think about carefully)",m:"考虑",e:"Christine has to **consider** what career she wants very carefully.",rel:[]},
-{w:"exist",p:"v. (to be)",m:"存在",e:"These animals **existed** a long time ago. They are not alive now.",rel:[]},
-{w:"familiar",p:"adj. (commonly known or seen)",m:"眼熟的/熟悉的",e:"The man looked **familiar** to the women gathered at the other table.",rel:[]},
-{w:"joy",p:"n. (great happiness)",m:"欢欣/欢乐",e:"The role of mother brings Molly great **joy**.",rel:[]},
-{w:"married",p:"adj. (being a husband or wife)",m:"已婚的",e:"They got **married** last Saturday. It was a beautiful event.",rel:[]},
-{w:"rather",p:"adv. (used to say what you prefer to do or have)",m:"宁愿",e:"Gloria would **rather** paint her nails than do her homework.",rel:[]},
-{w:"represent",p:"v. (to be a symbol for something)",m:"表示/代表",e:"The sign **represents** which toilet is for women.",rel:[]},
-{w:"root",p:"n. (the cause of something)",m:"根源",e:"The **root** of their fight was a computer. They would not share it.",rel:[]},
-{w:"society",p:"n. (a group of people living in a community)",m:"社会",e:"Tall buildings and heavy traffic are common in our modern **society**.",rel:[]},
-{w:"blood",p:"n. (the red liquid in your body)",m:"血液",e:"Once a month, Ryan gives **blood** during his lunch break.",rel:[]},
-{w:"business",p:"n. (something that makes money by selling goods or services)",m:"商业/生意",e:"Gus's **business** in the rich section of town will make a fortune.",rel:[]},
-{w:"electronic",p:"adj. (relating to things that use electricity)",m:"电子的",e:"Stop using any **electronic** items when the plane is taking off.",rel:[]},
-{w:"influence",p:"n. (the power to affect a person or thing)",m:"影响",e:"Art has had a positive **influence** on Jennifer's career choice.",rel:[]},
-{w:"master",p:"v. (to become very skilled at something)",m:"掌握",e:"Bob feels great joy when he **masters** new skills on his skateboard.",rel:[]},
-{w:"pity",p:"n. (feeling sorry for another person or animal)",m:"同情",e:"Abigail felt **pity** for her mother after she lost her job.",rel:[]},
-{w:"press",p:"n. (all the people and groups who provide the news)",m:"新闻界/媒体",e:"The **press** reported on the event conducted by the city police.",rel:[]},
-{w:"shoot",p:"v. (to make one thing come out of another at a fast speed)",m:"发射/射击",e:"The children like to **shoot** water at one another on hot days.",rel:[]},
-{w:"signal",p:"v. (to communicate by making a sign or sound)",m:"标志/信号",e:"The guide **signaled** for us to follow her through the park.",rel:[]},
-{w:"teenager",p:"n. (a person between the ages of thirteen and nineteen)",m:"青少年",e:"Many parents do not trust **teenagers** to be able to make decisions.",rel:[]},
-{w:"announce",p:"v. (to make something known to many people)",m:"公布/通报",e:"The press has **announced** the birth of the baby princess.",rel:[]},
-{w:"bottom",p:"n. (the lowest point of something)",m:"底部/底",e:"The man found two major problems on the **bottom** of my car.",rel:[]},
-{w:"compete",p:"v. (to try to be better or faster than another)",m:"对抗/竞争",e:"The boys **competed** to see who would win the race.",rel:[]},
-{w:"copy",p:"v. (to make or do the same thing as something else)",m:"复制/拷贝",e:"In the office, Rachel **copies** papers with a machine.",rel:[{w:"paste",m:"",r:"关联记忆"}]},
-{w:"exhibit",p:"n. (something shown in a museum or for an event)",m:"展览品；展出",e:"Lois and her friends were viewing art **exhibits** at the museum.",rel:[]},
-{w:"print",p:"v. (to produce words or images on paper using a machine)",m:"打印/出版",e:"Some businesses make their fortune **printing** things for others.",rel:[]},
-{w:"project",p:"n. (a planned piece of work that takes time to finish)",m:"项目/计划",e:"The teenagers worked together on their history **project**.",rel:[]},
-{w:"proper",p:"adj. (correct or right)",m:"正确的",e:"The **proper** way to recycle is to separate the different items.",rel:[]},
-{w:"select",p:"v. (to choose)",m:"选择",e:"Ben **selected** one of the available images on the screen.",rel:[]},
-{w:"sheet",p:"n. (a piece of flat material like paper)",m:"纸张",e:"I prefer to write on **sheets** of paper. I do not trust electronic things.",rel:[]},
-{w:"concentrate",p:"v. (to put all your energy on one thing)",m:"集中注意力",e:"Nolan **concentrated** on the game and considered his next move.",rel:[]},
-{w:"maximum",p:"adj. (greatest possible)",m:"最大的；最高的",e:"The police officer warned Kay about the **maximum** speed limit.",rel:[]},
-{w:"prize",p:"n. (something you get for winning)",m:"奖品",e:"Rashid received a **prize** for achieving the best test scores.",rel:[]},
-{w:"require",p:"v. (to have to; to be necessary to do)",m:"需要",e:"You are **required** to pay money to leave your car here.",rel:[]},
-{w:"research",p:"v. (to study something carefully and try to discover new facts)",m:"研究",e:"Doctors have been **researching** cures for many diseases.",rel:[]},
-{w:"respond",p:"v. (to answer)",m:"回应",e:"Hanna **responded** to Jim's question on her cell phone.",rel:[]},
-{w:"spell",p:"v. (to write or say the letters of a word)",m:"拼写/拼作",e:"They **spelled** the word \"team\" with their bodies.",rel:[]},
-{w:"state",p:"v. (to say something)",m:"陈述/声明",e:"Anna **stated** that she was happy with her new job.",rel:[]},
-{w:"structure",p:"n. (something that is built)",m:"建筑物；结构",e:"People debate who built this ancient **structure**.",rel:[]},
-{w:"tool",p:"n. (anything used to do a job)",m:"工具",e:"Mr. Taylor has a lot of **tools** similar to these at his home.",rel:[]},
-{w:"flood",p:"n. (a great amount of water over land that is usually dry)",m:"洪水",e:"The awful **flood** destroyed several structures in our town.",rel:[]},
-{w:"gentle",p:"adj. (not mean or unkind)",m:"温柔的",e:"The farmers required that children be **gentle** with their animals.",rel:[]},
-{w:"melt",p:"v. (to change into liquid)",m:"融化",e:"Be careful! Your ice cream is **melting**. You should eat it fast!",rel:[]},
-{w:"operate",p:"v. (to use or make something work)",m:"运转/操作",e:"Cody **operates** this huge machine on his grandparents' farm.",rel:[]},
-{w:"recognize",p:"v. (to know a person or thing because it is familiar)",m:"认识/辨认",e:"Sally **recognized** some of the things she saw from the train.",rel:[]},
-{w:"remain",p:"v. (to stay in one place)",m:"留下/遗留",e:"It was windy, but Eve's hat **remained** on her head.",rel:[]},
-{w:"task",p:"n. (work)",m:"工作/任务",e:"His mom showed him how to complete the **task** the proper way.",rel:[]},
-{w:"various",p:"adj. (of different kinds)",m:"各种各样的",e:"We planted **various** flowers in front of our house this spring.",rel:[]},
-{w:"waste",p:"v. (to use too much of something)",m:"浪费",e:"Do not **waste** water. Turn it off when you are not using it.",rel:[]},
-{w:"worth",p:"adj. (having a value in money)",m:"值…的/价值",e:"This car is **worth** a fortune. I do not think we will be able to buy it.",rel:[]},
-{w:"achieve",p:"v. (to get something by working hard)",m:"（经努力）获得；实现",e:"Roy **achieved** excellent grades in college.",rel:[{w:"achievement",m:"",r:"关联记忆"}]},
-{w:"beg",p:"v. (to ask for something again and again)",m:"乞求/恳求",e:"Lucy **begged** her mother for a new toy, but her mother said no.",rel:[]},
-{w:"control",p:"v. (to be in charge of a person or thing)",m:"控制",e:"The two wealthy men **controlled** a business empire.",rel:[]},
-{w:"debate",p:"v. (to exchange opinions about a topic)",m:"讨论/辩论",e:"The students **debated** their roles before coming to a decision.",rel:[]},
-{w:"improve",p:"v. (to get better at something)",m:"改善；提高",e:"The girls' plan was to practice every day in order to **improve**.",rel:[]},
-{w:"similar",p:"adj. (almost the same)",m:"相似的",e:"The sisters look quite **similar**, but you can tell the difference.",rel:[]},
-{w:"soldier",p:"n. (a person who trains to fight for his or her country)",m:"士兵/兵",e:"**Soldiers** were called in to help people who were in danger.",rel:[]},
-{w:"system",p:"n. (a group of parts that move or work together)",m:"系统",e:"You need to have the right skills to handle this computer **system**.",rel:[]},
-{w:"war",p:"n. (fighting between two countries or groups)",m:"战争",e:"The men fought in the **war** for several years before it ended.",rel:[]},
-{w:"warn",p:"v. (to tell someone to be careful)",m:"警告",e:"Evan did not see the sign **warning** people about the wet floor.",rel:[]},
-{w:"lay",p:"v. (to put something down carefully)",m:"放置",e:"Ricky is **laying** the boards on the floor.",rel:[]},
-{w:"list",p:"n. (a number of items that are needed)",m:"列表",e:"I made a **list** of things I need to buy at the store.",rel:[]},
-{w:"main",p:"adj. (most important)",m:"主要的",e:"We drove through the village on the **main** road.",rel:[]},
-{w:"mark",p:"n. (a symbol or shape drawn on something)",m:"标记",e:"He made a **mark** in the box next to his answer.",rel:[]},
-{w:"mistake",p:"n. (something that is not correct)",m:"错误",e:"Does the teacher know she made a **mistake**?",rel:[]},
-{w:"price",p:"n. (the amount that something costs)",m:"价格",e:"The woman is looking at the **price** of the shirt.",rel:[{w:"value",m:"价值",r:"关联记忆"}]},
-{w:"several",p:"adj. (more than two but not many)",m:"几个",e:"There are **several** goats near the tree.",rel:[]},
-{w:"share",p:"v. (to allow someone to use or enjoy something of yours)",m:"共用",e:"Marcus **shares** the tent with his sister.",rel:[]},
-{w:"soil",p:"n. (dirt)",m:"泥土",e:"Carrots and other vegetables grow in the **soil**.",rel:[]},
-{w:"taste",p:"v. (to get the flavor of food in the mouth)",m:"品尝",e:"The cook **tastes** the food a final time before it is served.",rel:[]},
-{w:"carrot",p:"n. (an orange vegetable that grows under the ground)",m:"胡萝卜",e:"We raised **carrots** in our garden.",rel:[]},
-{w:"cause",p:"v. (to make something happen)",m:"导致；引起",e:"He **caused** the pieces to fall over.",rel:[]},
-{w:"experiment",p:"v. (to try something new)",m:"实验",e:"Kelly enjoys **experimenting** with colors.",rel:[]},
-{w:"fry",p:"v. (to cook in oil)",m:"油炸",e:"He heats the pan and then **fries** food in it.",rel:[]},
-{w:"ground",p:"n. (the land under your feet)",m:"地面",e:"The newspaper lies on the **ground**.",rel:[]},
-{w:"kill",p:"v. (to end a life)",m:"杀死",e:"I felt sad when I **killed** the insect on my desk.",rel:[]},
-{w:"mix",p:"v. (to put two or more things together)",m:"混合",e:"I like to **mix** different kinds of vegetables when I cook.",rel:[]},
-{w:"possible",p:"adj. (able to be done)",m:"可能的",e:"Mary said we could not climb to the top, but I knew it was **possible**.",rel:[]},
-{w:"pot",p:"n. (a deep, round container used for cooking)",m:"锅",e:"The corn is cooking in a **pot**.",rel:[]},
-{w:"proud",p:"adj. (feeling good about something done)",m:"骄傲，自豪",e:"His parents are **proud** of him for completing college.",rel:[]},
-{w:"accident",p:"n. (a sudden bad event in which someone might be hurt)",m:"意外",e:"Dennis had an **accident** riding his bicycle. He hurt his leg.",rel:[]},
-{w:"adventure",p:"n. (an exciting experience)",m:"冒险",e:"They had a fun **adventure** on their vacation.",rel:[]},
-{w:"corn",p:"n. (a vegetable with many small yellow seeds)",m:"玉米",e:"The **corn** looks delicious and fresh. I cannot wait to eat it.",rel:[]},
-{w:"develop",p:"v. (to create something over time)",m:"发展；开发",e:"They **developed** a plan to meet their goal.",rel:[]},
-{w:"medicine",p:"n. (something that helps a sick person or animal)",m:"药",e:"This **medicine** will make your head feel better.",rel:[]},
-{w:"own",p:"v. (to pay for something so it belongs to you)",m:"拥有",e:"They **own** a house in a beautiful community.",rel:[]},
-{w:"product",p:"n. (something that is made or grown and sold)",m:"产品",e:"She is trying to decide which **product** to buy.",rel:[]},
-{w:"quite",p:"adv. (very)",m:"非常",e:"The tower is **quite** tall.",rel:[]},
-{w:"roof",p:"n. (the top covering on a building)",m:"屋顶",e:"He is fixing a hole in the **roof**.",rel:[]},
-{w:"rope",p:"n. (a very thick and strong string)",m:"粗绳",e:"The children are pulling on the **rope**.",rel:[]},
-{w:"brave",p:"adj. (not afraid)",m:"无畏的，勇敢的",e:"The **brave** man returns to the fire to save more people.",rel:[]},
-{w:"goat",p:"n. (a small animal that lives on a farm or in the mountains)",m:"山羊",e:"The **goat** is crossing the field.",rel:[]},
-{w:"hang",p:"v. (to place something so that it is held at the top)",m:"挂",e:"They **hang** their clothes on the line to dry.",rel:[]},
-{w:"ice",p:"n. (frozen water)",m:"冰",e:"We put **ice** in our drinks to cool them.",rel:[]},
-{w:"insect",p:"n. (a small animal with six legs)",m:"昆虫",e:"The **insect** is especially beautiful.",rel:[]},
-{w:"raise",p:"v. (to care for an animal or plant as it grows)",m:"养",e:"He spreads food on the ground for the chickens he is **raising**.",rel:[]},
-{w:"roll",p:"v. (to turn over and over)",m:"滚",e:"He **rolls** the snowball across the yard.",rel:[]},
-{w:"sore",p:"adj. (hurting)",m:"疼痛的，受伤的",e:"She is putting something cold on her **sore** arm.",rel:[]},
-{w:"tent",p:"n. (a covered place to sleep outside)",m:"帐篷",e:"The children will sleep in **tents**.",rel:[]},
-{w:"village",p:"n. (a very small town)",m:"村庄",e:"A story about this **village** appeared in the newspaper.",rel:[]},
-{w:"appear",p:"v. (to be seen)",m:"出现",e:"The actress will **appear** in the play every night this week.",rel:[{w:"disappear",m:"消失",r:"同根词"}]},
-{w:"community",p:"n. (a group of people living in the same area)",m:"社区，国家，社会",e:"Alice lives in a very nice **community**.",rel:[]},
-{w:"festival",p:"n. (a special party with events to celebrate something)",m:"节日",e:"People in India throw colors at each other during the Holi **festival**.",rel:[]},
-{w:"interview",p:"v. (to ask someone many questions)",m:"面试",e:"Jill was **interviewed** for an important job at an international airport.",rel:[]},
-{w:"million",p:"adj. (of the number 1,000,000)",m:"一百万",e:"The bag is filled with a **million** dollars.",rel:[{w:"billion",m:"",r:"关联记忆"}]},
-{w:"newspaper",p:"n. (a set of large papers with stories about true events)",m:"报纸",e:"The **newspaper** describes events around the world.",rel:[]},
-{w:"report",p:"v. (to give news on television or in a newspaper)",m:"报道，汇报",e:"Maria is **reporting** the event while it is happening.",rel:[]},
-{w:"sport",p:"n. (an active game with rules that people play)",m:"运动",e:"The three children like different **sports**.",rel:[]},
-{w:"support",p:"v. (to show you like and want to help a person or group)",m:"支持",e:"They are **supporting** William during this difficult time.",rel:[]},
-{w:"uniform",p:"n. (the clothing worn by members of a group)",m:"衣服，服装，制服",e:"The workers wear different **uniforms** for their jobs.",rel:[]},
-{w:"bake",p:"v. (to make something and cook it in an oven)",m:"烤",e:"Mom is **baking** some muffins.",rel:[]},
-{w:"communicate",p:"v. (to share thoughts and feelings with another person)",m:"沟通",e:"The man and woman **communicate** well at work.",rel:[]},
-{w:"deliver",p:"v. (to take something to a person or place)",m:"送",e:"He **delivers** the box to the woman.",rel:[]},
-{w:"direct",p:"v. (to tell an actor or a group of actors what to do)",m:"导演",e:"The woman in the middle is **directing** the movie.",rel:[{w:"director",m:"",r:"关联记忆"},{w:"direction",m:"",r:"关联记忆"}]},
-{w:"goal",p:"n. (something you are trying to do)",m:"目标",e:"He reached his **goal** of climbing to the top of the mountain.",rel:[{w:"target",m:"",r:"关联记忆"}]},
-{w:"history",p:"n. (events in the past)",m:"历史",e:"The pyramids in Egypt are an important part of **history**.",rel:[]},
-{w:"inform",p:"v. (to let others know about something)",m:"告知",e:"Ed **informed** the man that he got the job.",rel:[]},
-{w:"mail",p:"n. (letters or packages sent to others)",m:"邮件",e:"He collects the **mail** in the afternoon.",rel:[]},
-{w:"march",p:"v. (to walk as a group in step with each other)",m:"行进",e:"The band is **marching** down the street.",rel:[]},
-{w:"whole",p:"adj. (all of something)",m:"整个",e:"I do not want one piece of pizza. I want to eat the **whole** thing!",rel:[]},
-{w:"climb",p:"v. (to go up or down using your feet and hands)",m:"爬",e:"Pam likes to exercise by **climbing** the wall.",rel:[]},
-{w:"describe",p:"v. (to talk about what something is like)",m:"描述",e:"She is **describing** the result on the board.",rel:[]},
-{w:"energy",p:"n. (power; the ability to be active)",m:"能量",e:"The dog has a lot of **energy**. He plays all day.",rel:[]},
-{w:"engine",p:"n. (the part of a car that makes power for it to move)",m:"引擎，发动机",e:"Al reaches into the **engine** to fix the problem.",rel:[]},
-{w:"field",p:"n. (a grassy area that has no trees or buildings)",m:"田野",e:"Bob's neighbor allows him to hunt in his **field**.",rel:[]},
-{w:"include",p:"v. (to have a person or thing as part of a group)",m:"包含",e:"Our new team members **include** Joe, Min, and Brian.",rel:[]},
-{w:"perfect",p:"adj. (not having anything wrong)",m:"完美的",e:"Marvin received a **perfect** score on his college exam.",rel:[]},
-{w:"rise",p:"v. (to move upward)",m:"上升",e:"The airplane **rises** in the sky.",rel:[]},
-{w:"shape",p:"n. (the outline of something)",m:"形状",e:"The cookie is in the **shape** of a heart.",rel:[]},
-{w:"stone",p:"n. (a small rock)",m:"石头",e:"Meg added two new **stones** to her collection.",rel:[]},
-{w:"cross",p:"v. (to go from one side to the other)",m:"穿过",e:"They are especially careful when they **cross** a busy road.",rel:[]},
-{w:"finally",p:"adv. (after a long time)",m:"最后",e:"The long meeting **finally** finished.",rel:[]},
-{w:"follow",p:"v. (to go after; to do what a person or thing says)",m:"跟随",e:"The baby is **following** close to its mother.",rel:[]},
-{w:"heat",p:"v. (to make something hot)",m:"加热",e:"He lighted the fire to **heat** the cold room.",rel:[]},
-{w:"rainbow",p:"n. (a curved line of colors in the sky)",m:"彩虹",e:"There are two **rainbows** in the sky.",rel:[]},
-{w:"spread",p:"v. (to open or place something so that it covers a large area)",m:"展开",e:"She is **spreading** the blanket on the grass.",rel:[]},
-{w:"tired",p:"adj. (needing rest or sleep)",m:"累的",e:"Nancy was so **tired** that she fell asleep in English class.",rel:[]},
-{w:"tower",p:"n. (a tall and narrow building)",m:"塔",e:"Seeing the Eiffel **Tower** is one of the best memories of my trip.",rel:[]},
-{w:"unit",p:"n. (one part of something)",m:"单元",e:"The topic of this math **unit** is difficult.",rel:[]},
-{w:"vote",p:"v. (to make a choice for or against a person or thing)",m:"投票",e:"The audience **voted** for the best singer.",rel:[]},
-{w:"board",p:"n. (a flat, wide piece of wood)",m:"木板",e:"They invented a simple, outdoor game using a **board**.",rel:[{w:"broad",m:"",r:"关联记忆"},{w:"aboard",m:"",r:"关联记忆"}]},
-{w:"brain",p:"n. (the part of the body inside your head)",m:"大脑",e:"The picture focuses on the man's **brain**.",rel:[]},
-{w:"celebrate",p:"v. (to do something special for an important event)",m:"庆祝",e:"The members of the soccer team **celebrate** after the game.",rel:[]},
-{w:"especially",p:"adv. (in a way that is greater than usual)",m:"非常",e:"He is **especially** smart for his age.",rel:[]},
-{w:"hole",p:"n. (an opening that something can pass through)",m:"洞",e:"There is a **hole** in the wall.",rel:[]},
-{w:"item",p:"n. (a thing that is usually part of a group)",m:"东西",e:"There are many **items** in the box.",rel:[]},
-{w:"match",p:"v. (to look similar to something)",m:"相配",e:"Stacy's boots **match** her umbrella.",rel:[]},
-{w:"princess",p:"n. (the daughter of a king or queen)",m:"公主",e:"She imagines she is a **princess**.",rel:[]},
-{w:"social",p:"adj. (having a need to be with others)",m:"交际",e:"Diane is very **social**. She has many friends.",rel:[]},
-{w:"tear",p:"v. (to pull something into parts)",m:"撕裂",e:"The angry man **tears** the paper in half.",rel:[]},
-{w:"add",p:"v. (to put one thing with another thing or things)",m:"添加",e:"She **adds** salt to her meal.",rel:[{w:"additional",m:"",r:"关联记忆"}]},
-{w:"blind",p:"adj. (not able to see)",m:"盲的",e:"The dog helps the **blind** man.",rel:[]},
-{w:"button",p:"n. (a small round thing used to close an opening in clothing)",m:"纽扣",e:"Casey's grandmother collects **buttons**.",rel:[]},
-{w:"create",p:"v. (to make something)",m:"创造，设计",e:"He **creates** a unique piece of art with leaves on the top.",rel:[{w:"creature",m:"",r:"关联记忆"}]},
-{w:"memory",p:"n. (something from the past that is remembered)",m:"记忆",e:"They have great **memories** of their trip to the island.",rel:[]},
-{w:"prince",p:"n. (the son of a king or queen)",m:"王子",e:"Katherine married a real **prince**.",rel:[]},
-{w:"string",p:"n. (a long thread used to keep things together)",m:"细绳",e:"The clerk put a **string** around the gift.",rel:[]},
-{w:"thick",p:"adj. (having a large distance from top to bottom)",m:"厚",e:"She borrowed a lot of **thick** books at college.",rel:[{w:"thin",m:"",r:"关联记忆"}]},
-{w:"tight",p:"adj. (fitting close to the body)",m:"紧身",e:"Max is not comfortable wearing this **tight** shirt.",rel:[]},
-{w:"tradition",p:"n. (a custom that has been around for a long time)",m:"传统",e:"In some cultures, it is a **tradition** to paint eggs.",rel:[]},
-{w:"audience",p:"n. (a group of people watching an event or show)",m:"观众",e:"The **audience** waits for the movie to begin.",rel:[]},
-{w:"college",p:"n. (a school where students study after high school)",m:"大学",e:"Susan attends a **college** with many international students.",rel:[{w:"university",m:"",r:"关联记忆"}]},
-{w:"comfortable",p:"adj. (feeling relaxed)",m:"舒服的",e:"She is **comfortable** on her new sofa.",rel:[]},
-{w:"honest",p:"adj. (good and saying things that are true)",m:"诚实，正直",e:"Nick is very **honest**. He returned the money he found.",rel:[]},
-{w:"imagine",p:"v. (to think of things that are not real)",m:"想象",e:"The little girl **imagines** she is a big person in a small world.",rel:[{w:"image",m:"图像",r:"同类词"},{w:"imagination",m:"",r:"关联记忆"}]},
-{w:"level",p:"n. (an amount of something)",m:"级别，水位",e:"They watched as the water **level** continued to go up.",rel:[]},
-{w:"sentence",p:"n. (a set of words that make a statement or question)",m:"句子",e:"Mrs. Hays was upset with Tom, so she made him write **sentences**.",rel:[]},
-{w:"stress",p:"n. (worry caused by problems in your life)",m:"压力",e:"She is under a lot of **stress** from her job.",rel:[]},
-{w:"suddenly",p:"adv. (very quickly)",m:"突然",e:"**Suddenly**, a storm blew sand across the road.",rel:[]},
-{w:"topic",p:"n. (a subject people talk or write about)",m:"题目",e:"The teacher wrote the **topic** on the board.",rel:[]},
-{w:"afraid",p:"adj. (feeling fear)",m:"害怕",e:"Marta is **afraid** of bats.",rel:[{w:"scared",m:"",r:"关联记忆"}]},
-{w:"fair",p:"adj. (good for everyone)",m:"公平",e:"They made a **fair** exchange.",rel:[{w:"justice",m:"",r:"关联记忆"}]},
-{w:"focus",p:"v. (to put all of your thoughts on one thing)",m:"聚焦，中心点",e:"He **focuses** on the yellow spot in the center.",rel:[]},
-{w:"foreign",p:"adj. (from a different country)",m:"外国",e:"Kate went on a journey to a **foreign** country in Africa.",rel:[]},
-{w:"habit",p:"n. (something you do often, usually without thinking about it)",m:"习惯",e:"Drinking soda is a terrible **habit**.",rel:[]},
-{w:"invent",p:"v. (to make something for the first time)",m:"发明",e:"Nathan **invented** a robot that can solve puzzles.",rel:[]},
-{w:"language",p:"n. (the words and symbols used by people of one country or area)",m:"语言",e:"I cannot read the sign. It is in a foreign **language**.",rel:[]},
-{w:"nation",p:"n. (a country)",m:"国家",e:"Switzerland is a small **nation**.",rel:[]},
-{w:"still",p:"adj. (not moving)",m:"静止的；不动的",e:"The woman is very **still**.",rel:[]},
-{w:"wise",p:"adj. (knowing the right things to do)",m:"高明的",e:"My grandfather gives good advice because he is **wise**.",rel:[]},
-{w:"actually",p:"adv. (in fact)",m:"实际",e:"**Actually**, we do not mind waiting for you at the airport.",rel:[]},
-{w:"camp",p:"v. (to sleep outside in a tent)",m:"营地，扎寨",e:"They **camped** on an island.",rel:[]},
-{w:"collect",p:"v. (to bring things together into one group)",m:"收集",e:"She **collects** shells that she finds in the sand.",rel:[]},
-{w:"form",p:"v. (to make)",m:"形成",e:"He **forms** a pot with his hands.",rel:[]},
-{w:"kick",p:"v. (to hit something with your foot)",m:"踢",e:"Lee **kicked** the ball to Henry.",rel:[]},
-{w:"reach",p:"v. (to stretch out the arm to touch or get with your hand)",m:"伸手",e:"She **reaches** for the baby.",rel:[]},
-{w:"review",p:"v. (to look at or study something again)",m:"复习",e:"The students **review** their notes for the exam.",rel:[]},
-{w:"simple",p:"adj. (easy)",m:"简单",e:"He solved a **simple** problem.",rel:[{w:"complex",m:"",r:"关联记忆"}]},
-{w:"soccer",p:"n. (a sport in which a ball is kicked into a goal)",m:"足球",e:"**Soccer** is a popular sport in many cultures.",rel:[]},
-{w:"symbol",p:"n. (a shape with a special meaning)",m:"象征",e:"A heart shape is a **symbol** of love.",rel:[]},
-{w:"allow",p:"v. (to let someone do something)",m:"允许",e:"Her parents **allow** her to have a strange hair color.",rel:[]},
-{w:"bat",p:"n. (a flying animal that hunts at night)",m:"蝙蝠",e:"The **bat** returns to the forest to hunt for food.",rel:[]},
-{w:"exercise",p:"v. (to move the body as a way to get healthy)",m:"锻炼",e:"They decided to **exercise** in the park.",rel:[]},
-{w:"force",p:"v. (to make people do things they do not want to do)",m:"强迫",e:"Wayne's mom **forced** him to eat all of his meal.",rel:[]},
-{w:"leaf",p:"n. (the flat green part of a plant)",m:"叶子",e:"Each kind of plant has unique **leaves**.",rel:[]},
-{w:"member",p:"n. (a person in a group or club)",m:"成员",e:"All of the **members** wear the same clothing.",rel:[]},
-{w:"real",p:"adj. (actually happening; being what it looks like)",m:"真的",e:"He looks at the bill to see if it is **real**.",rel:[]},
-{w:"sign",p:"n. (a flat board or paper with a message on it)",m:"标志",e:"Follow the **sign** to the international airport.",rel:[]},
-{w:"step",p:"v. (to move your foot up and put it down in a different spot)",m:"迈步",e:"Sarah **stepped** on the stones to cross the river.",rel:[]},
-{w:"treat",p:"n. (something nice that you do not eat or do often)",m:"款待",e:"They enjoy a **treat** after school.",rel:[]},
-{w:"bill",p:"n. (a piece of paper money)",m:"纸币；账单",e:"Josh folds the **bills** before he puts them in his pocket.",rel:[]},
-{w:"blow",p:"v. (to move something with air)",m:"吹",e:"Kerri **blows** the seeds into the air.",rel:[]},
-{w:"century",p:"n. (one hundred years)",m:"一百，世纪",e:"Bob was born one **century** ago.",rel:[]},
-{w:"custom",p:"n. (the usual way of doing something in a culture)",m:"习俗",e:"It is a **custom** in many countries to give birthday gifts.",rel:[]},
-{w:"experience",p:"v. (to see, feel, or do something)",m:"体验",e:"They want to **experience** sleeping in nature.",rel:[]},
-{w:"international",p:"adj. (happening in or between two or more countries)",m:"国际",e:"Many people attended the **international** meeting.",rel:[]},
-{w:"island",p:"n. (a piece of land in the middle of water)",m:"岛",e:"There is no electricity on the **island**.",rel:[]},
-{w:"journey",p:"n. (a long trip)",m:"旅行",e:"They are going on a **journey** through the sand.",rel:[{w:"trip",m:"",r:"关联记忆"},{w:"travel",m:"",r:"关联记忆"}]},
-{w:"meal",p:"n. (food that is prepared and eaten)",m:"进餐",e:"She made a terrible **meal**. No one liked it.",rel:[]},
-{w:"return",p:"v. (to come back after being away)",m:"回；回报",e:"We are always happy to **return** home.",rel:[]},
-{w:"airplane",p:"n. (a flying machine)",m:"飞机",e:"The **airplane** flies through the sky.",rel:[{w:"aircraft",m:"",r:"关联记忆"},{w:"helicopter",m:"",r:"关联记忆"},{w:"jet",m:"",r:"关联记忆"}]},
-{w:"airport",p:"n. (a place where airplanes arrive and leave)",m:"机场",e:"The airplane arrived at the **airport** early.",rel:[]},
-{w:"culture",p:"n. (the way of life of a group of people)",m:"文化",e:"Melissa went to Japan to learn about its unique **culture**.",rel:[]},
-{w:"decide",p:"v. (to make a choice)",m:"决定",e:"She **decided** to wear the blue shirt to the event.",rel:[{w:"decision",m:"决定",r:"关联记忆"},{w:"decide to do",m:"",r:"关联记忆"}]},
-{w:"leave",p:"v. (to go away from)",m:"离开",e:"They are **leaving** their office to go home.",rel:[{w:"left (过去式)",m:"",r:"关联记忆"}]},
-{w:"modern",p:"adj. (of the latest kind)",m:"现代的/时髦",e:"I saw Jeff's **modern** house in a magazine.",rel:[]},
-{w:"order",p:"v. (to ask for food or drink at a restaurant)",m:"点",e:"They took the waiter's advice and **ordered** fish for dinner.",rel:[]},
-{w:"sand",p:"n. (very tiny pieces of rock)",m:"沙子",e:"Olivia wrote a message in the **sand**.",rel:[{w:"beach",m:"",r:"关联记忆"}]},
-{w:"spot",p:"n. (an area, place, or location)",m:"地点",e:"The beach is a popular **spot** in the summer.",rel:[]},
-{w:"strange",p:"adj. (different from what is usual)",m:"奇怪的，陌生的",e:"The **strange** animal looks like it is dancing.",rel:[]},
-{w:"advice",p:"n. (an opinion about what someone should or should not do)",m:"建议",e:"He gives them **advice** about saving money.",rel:[{w:"suggestion",m:"",r:"关联记忆"},{w:"suggest",m:"建议",r:"关联记忆"}]},
-{w:"case",p:"n. (a small box or bag)",m:"盒，袋",e:"Max will buy a larger pencil **case** when he is in the sixth grade.",rel:[]},
-{w:"exam",p:"n. (a test)",m:"考试",e:"He takes an **exam** to attend the new school.",rel:[{w:"examination",m:"",r:"关联记忆"}]},
-{w:"happen",p:"v. (to take place)",m:"发生",e:"The car crash **happened** in front of the theater.",rel:[{w:"take place",m:"",r:"关联记忆"}]},
-{w:"lazy",p:"adj. (not wanting to work or move)",m:"懒",e:"John is smart, but he is very **lazy**.",rel:[{w:"hardworking",m:"",r:"关联记忆"}]},
-{w:"message",p:"n. (information that is sent or given to someone)",m:"消息",e:"Gary received an important **message** last night.",rel:[]},
-{w:"stupid",p:"adj. (dumb; foolish)",m:"糊涂的",e:"Riding down the rocks in the toy car is a **stupid** idea.",rel:[]},
-{w:"succeed",p:"v. (to do well; to do what you tried to do)",m:"成功，达成的",e:"Pam's family is happy that she **succeeded** in school.",rel:[{w:"success",m:"",r:"关联记忆"},{w:"successful",m:"",r:"关联记忆"}]},
-{w:"terrible",p:"adj. (very bad)",m:"可怕的，糟糕的，差的",e:"Dan got a **terrible** grade on his exam.",rel:[]},
-{w:"upset",p:"adj. (worried; not happy)",m:"烦躁",e:"She is **upset** because she cannot find the book she needs.",rel:[{w:"nervous",m:"",r:"关联记忆"}]},
-{w:"electricity",p:"n. (something used to give light and make things work)",m:"电",e:"Humans use a lot of **electricity**.",rel:[]},
-{w:"fact",p:"n. (something that is true)",m:"事实",e:"South Korea is a country in Asia. That is a **fact**.",rel:[]},
-{w:"fold",p:"v. (to bend one part of something over another part)",m:"叠",e:"She **folds** her clothes to make more space for them.",rel:[]},
-{w:"key",p:"n. (an object used to lock or unlock a door or to start a car)",m:"钥匙",e:"I usually keep my house **key** in a secret place.",rel:[]},
-{w:"mind",p:"v. (to be unhappy about something, usually used with not)",m:"介意",e:"She does not **mind** if you borrow her car.",rel:[]},
-{w:"power",p:"n. (something you cannot see that is used to make things work)",m:"力",e:"They turned the **power** off for a special event.",rel:[]},
-{w:"sock",p:"n. (a soft piece of clothing that covers the foot)",m:"袜子",e:"Jessica gave Holly **socks** for her birthday.",rel:[]},
-{w:"solve",p:"v. (to find the answer)",m:"解决",e:"He has to choose the correct path to **solve** the puzzle.",rel:[]},
-{w:"stick",p:"v. (to attach to something)",m:"贴",e:"Marsha **sticks** special notes on the door for her husband.",rel:[]},
-{w:"traffic",p:"n. (cars on the road)",m:"拥挤，交通",e:"It is not safe to drive in this area. There is too much **traffic**.",rel:[]},
-{w:"cheer",p:"v. (to shout to show happiness or to make others feel good)",m:"欢呼",e:"The fans are **cheering** for their favorite baseball team.",rel:[]},
-{w:"contest",p:"n. (an event in which there is a winner)",m:"比赛",e:"Mila and Victor won the dance **contest**!",rel:[]},
-{w:"gift",p:"n. (something given to someone)",m:"礼物",e:"His **gift** came in a pretty red box.",rel:[]},
-{w:"magazine",p:"n. (a thin book that comes out once a week or month)",m:"杂志",e:"\"The Week\" is my favorite news **magazine**.",rel:[]},
-{w:"perform",p:"v. (to do something like singing or acting in front of people)",m:"表演",e:"The popular singer **performs** all over the world.",rel:[]},
-{w:"public",p:"n. ((after in) a place where many people can see you)",m:"公众；公共场所",e:"Shy people do not like to speak in **public**.",rel:[]},
-{w:"scene",p:"n. (a part of a play or movie)",m:"场面",e:"The **scene** with the fight is the most exciting part of the play.",rel:[]},
-{w:"secret",p:"n. (something that is kept hidden from other people)",m:"秘密",e:"Greg is telling Jessica a **secret**. I wonder what it is!",rel:[]},
-{w:"stage",p:"n. (the part of a theater where people perform)",m:"舞台",e:"Many great actors have performed on this **stage**.",rel:[]},
-{w:"unique",p:"adj. (not like anyone or anything else)",m:"特别的，独一无二的",e:"That man's hair is **unique**.",rel:[]},
-{w:"area",p:"n. (a part of a larger place)",m:"地区",e:"The people living in this **area** are very poor.",rel:[]},
-{w:"choice",p:"n. (something you can choose)",m:"选择",e:"It is your **choice**. Do you want to go north or south?",rel:[]},
-{w:"enter",p:"v. (to go in)",m:"进入",e:"She **enters** through the front gate.",rel:[]},
-{w:"important",p:"adj. (having great meaning)",m:"重大的",e:"The king is the most **important** piece in the game.",rel:[]},
-{w:"lie",p:"v. (to be on your back on the ground or in a bed)",m:"躺下",e:"She **lies** in the grass and looks up at the sky.",rel:[]},
-{w:"mad",p:"adj. (angry)",m:"生气的",e:"The woman is **mad** because someone hit her car.",rel:[]},
-{w:"nature",p:"n. (everything in the world that is not made by humans)",m:"自然",e:"She likes to take pictures of **nature**.",rel:[]},
-{w:"protect",p:"v. (to keep safe from harm)",m:"保护",e:"The umbrella **protects** the people from the hot sun.",rel:[]},
-{w:"shout",p:"v. (to say something very loudly)",m:"喊",e:"The shy boy surprised everyone by **shouting**.",rel:[]},
-{w:"usually",p:"adv. (most of the time)",m:"经常",e:"People **usually** shake hands when they introduce themselves.",rel:[]},
-{w:"active",p:"adj. (doing many things)",m:"好动，活泼",e:"Children are very **active** and like to run and jump.",rel:[]},
-{w:"believe",p:"v. (to think that something is true)",m:"相信",e:"He **believes** he is a smart boy.",rel:[]},
-{w:"environment",p:"n. (all of the things found in an area, indoors or outdoors)",m:"环境",e:"Fresh air is a good reason to live in a clean **environment**.",rel:[]},
-{w:"forest",p:"n. (a big area of trees)",m:"森林",e:"The **forest** seems to be burning.",rel:[]},
-{w:"human",p:"n. (a person)",m:"人；人类",e:"The old bridge was built by **humans** a long time ago.",rel:[]},
-{w:"hunt",p:"v. (to look for animals to kill)",m:"打猎",e:"Some people in North America like to **hunt**.",rel:[]},
-{w:"path",p:"n. (a way to go from one place to another)",m:"小路",e:"Both **paths** take you to the gate of the park.",rel:[]},
-{w:"safe",p:"adj. (not dangerous)",m:"安全的",e:"The gentleman stands in a **safe** place away from the subway.",rel:[{w:"dangerous",m:"",r:"关联记忆"}]},
-{w:"service",p:"n. (the job of helping visitors at a place like a restaurant)",m:"服务",e:"The new restaurant has delicious food and great **service**.",rel:[]},
-{w:"wild",p:"adj. (living or growing without humans' help)",m:"野生的",e:"Africa is a popular place to see **wild** animals.",rel:[]},
-{w:"bell",p:"n. (something that makes a ringing sound when hit)",m:"铃，钟",e:"The **bell** rings when the gate opens.",rel:[]},
-{w:"block",p:"n. (a part of a city with streets on all four sides)",m:"街区",e:"There are many houses on each **block**.",rel:[]},
-{w:"borrow",p:"v. (to take and use something belonging to another person)",m:"借",e:"Thank you for letting me **borrow** your math book this week.",rel:[]},
-{w:"bowl",p:"n. (a dish with tall sides)",m:"碗",e:"I had a big **bowl** of soup for lunch.",rel:[]},
-{w:"confuse",p:"v. (to make it difficult for someone to understand)",m:"混淆",e:"Math **confuses** Scott.",rel:[]},
-{w:"knock",p:"v. (to hit something with part of your hand)",m:"敲",e:"She continued to **knock** on the door.",rel:[]},
-{w:"result",p:"n. (an exam grade; something that is caused by another)",m:"结果",e:"John's doctor was very happy with his test **results**.",rel:[]},
-{w:"seem",p:"v. (to look to be)",m:"看来",e:"They **seem** to be enjoying the funny movie tonight.",rel:[]},
-{w:"smart",p:"adj. (good at learning or thinking about things)",m:"聪明",e:"Chris is a very **smart** boy.",rel:[]},
-{w:"subject",p:"n. (something you study in school)",m:"课程",e:"English is the most popular **subject** at my school.",rel:[]},
-{w:"burn",p:"v. (to be on fire)",m:"烧伤",e:"The paper is **burning**.",rel:[]},
-{w:"exchange",p:"v. (to give something and get something at the same time)",m:"交换",e:"The gentlemen **exchange** phone numbers.",rel:[]},
-{w:"introduce",p:"v. (to make a person known to another person)",m:"介绍",e:"Jane's husband **introduces** her to his handsome friend.",rel:[]},
-{w:"offer",p:"v. (to try to give or do something to help someone)",m:"提供",e:"Paul **offered** the man money, but he was not interested.",rel:[]},
-{w:"pardon",p:"v. (to forgive, often used with me)",m:"原谅，对不起",e:"\"**Pardon** me. Can you tell me how to get to the subway?\"",rel:[]},
-{w:"popular",p:"adj. (liked by many people)",m:"流行的，受大众欢迎的",e:"This busy street is a **popular** place to shop.",rel:[]},
-{w:"prepare",p:"v. (to make)",m:"准备",e:"The cooks **prepare** a delicious meal in the restaurant.",rel:[]},
-{w:"reason",p:"n. (something that says why something was or was not done)",m:"原因",e:"He did not have a **reason** for arriving late at the theater.",rel:[]},
-{w:"shake",p:"v. (to hold and move up and down)",m:"握，摇动",e:"The woman **shakes** Sue's hand and congratulates her.",rel:[]},
-{w:"shy",p:"adj. (quiet and not wanting to talk to others)",m:"害羞",e:"The young boy is very **shy**.",rel:[]},
-{w:"appreciate",p:"v. (to understand the importance of a person or thing)",m:"**感激；重视**",e:"Everyone **appreciates** Ted's hard work on the project.",rel:[]},
-{w:"avoid",p:"v. (to stay away from)",m:"防止，避开",e:"Sarah **avoided** Sam so she did not have to talk to him.",rel:[]},
-{w:"convenient",p:"adj. (easy to do and time-saving)",m:"方便的",e:"The local stores stay open all night, which is very **convenient**.",rel:[]},
-{w:"customer",p:"n. (someone who buys goods or services from a store)",m:"顾客",e:"Mark explains the difference between the items to his **customer**.",rel:[]},
-{w:"destroy",p:"v. (to cause something to end or not be of use anymore)",m:"摧毁",e:"We did not expect the road to be **destroyed** in the storm.",rel:[]},
-{w:"disappointed",p:"adj. (unhappy because something is not as you expected)",m:"失望的",e:"Her father was **disappointed** that she had failed her exams.",rel:[]},
-{w:"medium",p:"adj. (of a size between big and small)",m:"中等的",e:"Most customers prefer the **medium**-sized cakes at Kara's bakery.",rel:[]},
-{w:"pattern",p:"n. (colors or shapes which are repeated on something)",m:"模式，方式",e:"They prefer paper with a simple **pattern** to cover their bedroom walls.",rel:[]},
-{w:"trick",p:"v. (to make someone believe something that is not true)",m:"欺骗",e:"Jenny **tricked** me when she put salt in my coffee.",rel:[]},
-{w:"value",p:"n. (how much something costs)",m:"价值",e:"The **value** of houses has increased by ten percent this year.",rel:[]},
-{w:"cloth",p:"n. (something used to make clothes)",m:"布料",e:"This store has a lot of good-quality **cloth** for sale.",rel:[]},
-{w:"equal",p:"adj. (of the same size or number)",m:"**相等的**",e:"We cut the cake into **equal** pieces.",rel:[]},
-{w:"fail",p:"v. (not to succeed)",m:"失败",e:"Simon regretted not working hard when he **failed** the test.",rel:[]},
-{w:"false",p:"adj. (not true)",m:"错误的",e:"He thought the story was based on fact, but it was **false**.",rel:[]},
-{w:"goods",p:"n. (things which are made and sold)",m:"商品",e:"She found many **goods** at the local market.",rel:[]},
-{w:"increase",p:"v. (to make bigger or more)",m:"**增加**",e:"As time passed, the tree **increased** in size.",rel:[]},
-{w:"penny",p:"n. (a coin equal to one cent in the US)",m:"美分",e:"She has saved a lot of **pennies** to buy a new toy.",rel:[]},
-{w:"separate",p:"v. (not to be joined)",m:"分开，分散",e:"Kelly **separated** the bottles into different types for recycling.",rel:[]},
-{w:"total",p:"n. (the number of everything counted)",m:"总计",e:"There is a **total** of three fruits: two oranges and one apple.",rel:[]},
-{w:"wrap",p:"v. (to cover with something)",m:"包",e:"Marisa promised to **wrap** Katy's gift before the party.",rel:[]},
-{w:"cough",p:"v. (to force air out through your throat, often when sick)",m:"咳嗽",e:"Christine usually **coughs** a lot when she is sick.",rel:[]},
-{w:"crowd",p:"n. (a large group of people)",m:"观众，人群",e:"The **crowd** found pleasure in watching a really great game.",rel:[]},
-{w:"curious",p:"adj. (wanting to know about something)",m:"好奇的",e:"Tim was **curious** to see what was inside the attractive red box.",rel:[]},
-{w:"disappear",p:"v. (not to be seen or found)",m:"消失",e:"Jacob's picture will **disappear** when it starts to rain.",rel:[{w:"appear 出现",m:"",r:"关联记忆"}]},
-{w:"edge",p:"n. (the part of something where it ends or starts)",m:"边缘",e:"Susan stood at the **edge** of the cliff and looked down.",rel:[]},
-{w:"guide",p:"n. (someone who directs others on a trip)",m:"导游",e:"Our **guide** in Paris showed us many incredible places.",rel:[]},
-{w:"local",p:"adj. (from the place where you live)",m:"当地的",e:"We prefer to buy our food from the **local** market.",rel:[]},
-{w:"machine",p:"n. (something that does work using moving parts)",m:"机器",e:"She put a small amount of clothes into the washing **machine**.",rel:[]},
-{w:"native",p:"n. (a person who was born or grew up in a certain place)",m:"本地人",e:"Maya is a **native** of a city in southern Michigan.",rel:[]},
-{w:"smoke",p:"n. (the cloud of gases that is made by fire)",m:"烟",e:"Thick black **smoke** rose from the burning truck.",rel:[]},
-{w:"amount",p:"n. (how much there is of something)",m:"数量",e:"Make sure to use the right **amount** of oil to fry the food.",rel:[]},
-{w:"cure",p:"n. (something that makes sick people better)",m:"治疗",e:"The new **cure** made John feel better almost immediately.",rel:[]},
-{w:"disease",p:"n. (a sickness)",m:"疾病",e:"A **disease** made the tree's leaves turn brown.",rel:[]},
-{w:"medical",p:"adj. (of medicine; treating people who are sick or hurt)",m:"医学的",e:"If you often have awful headaches, you should get **medical** help.",rel:[{w:"medicine 药",m:"",r:"关联记忆"}]},
-{w:"necessary",p:"adj. (needed)",m:"必要的",e:"When getting ready for a trip, take only what is **necessary**.",rel:[]},
-{w:"produce",p:"v. (to make or cause)",m:"引起，造成",e:"Cars **produce** a lot of problems for the environment.",rel:[]},
-{w:"reduce",p:"v. (to make smaller in size, number, or amount)",m:"减少",e:"The store has **reduced** its prices on everything.",rel:[{w:"increase 增加",m:"",r:"关联记忆"}]},
-{w:"serious",p:"adj. (having important or dangerous possible results)",m:"严重的",e:"We saw a **serious** car accident this afternoon.",rel:[]},
-{w:"source",p:"n. (a person or thing that gives what is wanted or needed)",m:"来源",e:"This river is the main **source** of water for many animals.",rel:[]},
-{w:"supply",p:"v. (to give someone something so they can use it)",m:"供给",e:"My father **supplies** carrots to a restaurant in our town.",rel:[{w:"demand 需求",m:"",r:"关联记忆"}]},
-{w:"castle",p:"n. (a large home where a king or queen usually lives)",m:"城堡",e:"Jim learned that it was common to find huge **castles** in the past.",rel:[]},
-{w:"decision",p:"n. (a choice)",m:"决定",e:"Tim made the **decision** to eat the carrots to be healthier.",rel:[{w:"decide",m:"决定",r:"关联记忆"}]},
-{w:"empire",p:"n. (a kingdom)",m:"王国",e:"The Roman **Empire** included several hundred towns and cities.",rel:[]},
-{w:"explore",p:"v. (to look at something in a careful way to learn about it)",m:"探究",e:"The woman, who is alone, loves to **explore** nature.",rel:[]},
-{w:"flight",p:"n. (a trip on an airplane)",m:"航班",e:"Max and Shelly shared a **flight** to Mexico City last summer.",rel:[]},
-{w:"guard",p:"v. (to watch in order to protect)",m:"看守",e:"Our dog Rover is **guarding** the house at the moment.",rel:[]},
-{w:"incredible",p:"adj. (very good)",m:"不可思议的",e:"This book mentions how **incredible** the beaches are in Hawaii.",rel:[]},
-{w:"serve",p:"v. (to give someone food in a restaurant or at home)",m:"服务",e:"They **serve** many types of food at this restaurant.",rel:[]},
-{w:"skin",p:"n. (the outer part that covers humans and animals)",m:"皮",e:"For beautiful **skin**, a healthy diet and good habits are necessary.",rel:[]},
-{w:"southern",p:"adj. (being in or toward the south)",m:"南方的",e:"The man regretted not visiting **southern** California last summer.",rel:[]},
-{w:"adult",p:"n. (someone who is fully grown)",m:"成年",e:"The **adult** I respect the most is my mother.",rel:[{w:"teenage",m:"",r:"关联记忆"},{w:"child",m:"",r:"关联记忆"},{w:"infant",m:"",r:"关联记忆"}]},
-{w:"classic",p:"adj. (of good quality and popular for a long time)",m:"经典的，流行的",e:"Jason enjoys driving **classic** cars. He owns several of them.",rel:[]},
-{w:"desert",p:"v. (to leave a place so it is empty)",m:"荒废，弃去",e:"They **deserted** the building after the terrible fire.",rel:[]},
-{w:"discover",p:"v. (to find)",m:"发现",e:"She is trying to **discover** a cure for a serious disease.",rel:[]},
-{w:"female",p:"adj. (being a girl or woman)",m:"女性的",e:"Mrs. Jennings prefers to visit a **female** doctor.",rel:[{w:"male",m:"",r:"关联记忆"}]},
-{w:"flow",p:"v. (to move like water)",m:"流动",e:"This river **flows** from east to west.",rel:[]},
-{w:"mystery",p:"n. (something strange and not understood)",m:"谜",e:"That strange light in the forest is a **mystery**.",rel:[]},
-{w:"opinion",p:"n. (a belief about something)",m:"意见，认为",e:"It is just my **opinion**, but this store is the best one in the mall.",rel:[]},
-{w:"pleasure",p:"n. (a feeling of happiness)",m:"**快乐；愉悦**",e:"She finds **pleasure** in lying in the field and looking at the sky.",rel:[]},
-{w:"publish",p:"v. (to make books or magazines for sale)",m:"出版",e:"The group worked together to **publish** the story.",rel:[]},
-{w:"base",p:"v. (to use as the starting point for something)",m:"基于，开头，起点",e:"This incredible show was **based** on a story by a famous writer.",rel:[]},
-{w:"character",p:"n. (a person in a book or movie)",m:"人物",e:"The main **character** in my favorite TV show is a very small girl.",rel:[]},
-{w:"clever",p:"adj. (very smart)",m:"聪明的",e:"Sasha's cat is very **clever**. It can use the computer!",rel:[]},
-{w:"enemy",p:"n. (someone who hates you)",m:"敌人",e:"Helen and I used to be friends, but she is my **enemy** now.",rel:[]},
-{w:"length",p:"n. (how long something is from one end to the other)",m:"长度",e:"She wants to know the **length** of the piece of wood.",rel:[]},
-{w:"promise",p:"v. (to tell someone that you will do something for sure)",m:"允诺",e:"Rodney **promised** not to tell Connie's secret.",rel:[]},
-{w:"quality",p:"n. (how good or bad something is)",m:"**质量**",e:"Sam makes attractive clothes of good **quality**.",rel:[]},
-{w:"regularly",p:"adv. (often)",m:"经常的，频繁的",e:"He **regularly** helps his dad put away the clean towels.",rel:[]},
-{w:"survive",p:"v. (to stay alive)",m:"幸存",e:"Lost in the forest, Bob **survived** by living like ancient humans.",rel:[]},
-{w:"title",p:"n. (a name of something like a book or movie)",m:"标题",e:"The **title** of her book is \"The Ancient Castle.\"",rel:[]},
-{w:"admire",p:"v. (to like and think good things about others)",m:"崇拜，仰慕",e:"I **admire** my mother more than anyone else.",rel:[]},
-{w:"ancient",p:"adj. (very old)",m:"古老的",e:"This city in Peru is evidence of an **ancient** culture.",rel:[]},
-{w:"attractive",p:"adj. (looking or sounding nice)",m:"迷人的",e:"Jess is looking for an **attractive** dress for her party.",rel:[]},
-{w:"giant",p:"adj. (very large)",m:"巨大",e:"They had the chance to ride on a **giant** elephant at the zoo.",rel:[]},
-{w:"pack",p:"v. (to put items into a bag or suitcase to take somewhere)",m:"收拾，打包",e:"She needs to limit the items she is **packing** in her suitcase.",rel:[]},
-{w:"prefer",p:"v. (to like something more than something else)",m:"更喜欢",e:"Gabby **prefers** to eat fresh fruit instead of junk food.",rel:[]},
-{w:"rent",p:"v. (to pay money to use a thing that belongs to someone else)",m:"出租",e:"They **rent** a nice house for a small amount of money.",rel:[]},
-{w:"respect",p:"v. (to think someone is special and important)",m:"尊重",e:"It is necessary to **respect** your teachers by listening during class.",rel:[]},
-{w:"view",p:"v. (to look at or watch something)",m:"观看",e:"Ron **viewed** the odd artwork in the museum.",rel:[]},
-{w:"wave",p:"v. (to move your hand to say hello or goodbye)",m:"挥手",e:"He **waved** goodbye to his parents before going back to college.",rel:[]},
-{w:"avenue",p:"n. (a wide street)",m:"大街",e:"We will go down this **avenue** for a few blocks before turning.",rel:[]},
-{w:"expect",p:"v. (to think something is likely to happen)",m:"预计",e:"It is cloudy, so Tim **expects** it to rain.",rel:[]},
-{w:"explain",p:"v. (to make something easy to understand)",m:"说明",e:"They **explained** their opinions about the plan to their boss.",rel:[]},
-{w:"rub",p:"v. (to press with the fingers and move them from side to side)",m:"擦",e:"Kate **rubbed** lotion onto her baby's skin.",rel:[]},
-{w:"shine",p:"v. (to produce bright light)",m:"照耀",e:"The sun **shines** through the trees every morning.",rel:[]},
-{w:"strength",p:"n. (great physical power)",m:"力量",e:"Rocco trains hard to build his **strength** and stay healthy.",rel:[]},
-{w:"suggest",p:"v. (to say that something is good or a good idea)",m:"建议",e:"She asked him to **suggest** a medicine for her cough.",rel:[]},
-{w:"tour",p:"n. (a journey to see several places)",m:"参观",e:"We went on a **tour** of England and saw many famous places.",rel:[]},
-{w:"western",p:"adj. (of or from the west)",m:"西方的",e:"It is a mystery why this **western** town is deserted.",rel:[]},
-{w:"wheel",p:"n. (something round which moves by turning)",m:"车轮",e:"The **wheels** on our car needed a bit more air.",rel:[]},
-{w:"chance",p:"n. (an opportunity to do something)",m:"**机会**",e:"Mia and Phil got the **chance** to go on a European adventure.",rel:[]},
-{w:"extra",p:"adj. (more than is usual)",m:"额外",e:"I have added **extra** cheese to make the pasta taste better.",rel:[]},
-{w:"hall",p:"n. (a large open space in a building)",m:"礼堂",e:"It was possible to have a large party in the grand **hall**.",rel:[]},
-{w:"immediately",p:"adv. (right away)",m:"立即",e:"The workers came **immediately** after the accident.",rel:[]},
-{w:"intend",p:"v. (to want or plan to do)",m:"打算",e:"For good health, she **intends** to eat several carrots every day.",rel:[]},
-{w:"mention",p:"v. (to talk or write about something, often quickly)",m:"提到",e:"Jude forgot to **mention** that he had to leave class early.",rel:[]},
-{w:"reaction",p:"n. (the way someone acts or feels after something happens)",m:"反应",e:"It was a mistake to tell Jim the news. His **reaction** was very bad.",rel:[]},
-{w:"score",p:"v. (to win a point in a game)",m:"得分",e:"Jose **scored** the winning goal at last night's game.",rel:[]},
-{w:"search",p:"v. (to look for)",m:"搜查",e:"Alex **searched** the sky for the cause of the noise.",rel:[]},
-{w:"worse",p:"adj. (more terrible than other things)",m:"更糟",e:"There is nothing **worse** than cleaning the floor.",rel:[]},
-{w:"bit",p:"n. (a small piece or amount)",m:"小块",e:"I broke the chocolate into **bits** so I could share it with my friends.",rel:[]},
-{w:"common",p:"adj. (usual; happening or seen often)",m:"**常见的；普通的**",e:"Colds are quite **common** in the winter.",rel:[]},
-{w:"diet",p:"n. (the food that someone usually eats)",m:"饮食",e:"I intend to have a healthier **diet** by eating more fruit.",rel:[]},
-{w:"evidence",p:"n. (something that shows something else is true)",m:"证明",e:"The police found **evidence** that Chris was the thief.",rel:[]},
-{w:"fit",p:"adj. (strong and healthy)",m:"合适，健康",e:"They stay **fit** by running whenever possible.",rel:[]},
-{w:"limit",p:"v. (to keep at a low level or keep from getting larger)",m:"限制",e:"She has little money and must **limit** how much she spends.",rel:[]},
-{w:"physical",p:"adj. (of the body)",m:"身体的",e:"Playing sports is a good way to get **physical** exercise.",rel:[]},
-{w:"poison",p:"n. (something that can make you sick if eaten or drunk)",m:"毒",e:"The symbol on the bottle says that it is **poison**.",rel:[]},
-{w:"sale",p:"n. (the act of selling something for money)",m:"出售",e:"There is a nice house for **sale** in my neighborhood.",rel:[]},
-{w:"type",p:"n. (a kind or variety)",m:"类型",e:"Bakeries usually sell several different **types** of bread.",rel:[]}
+{w:"climate",p:"n. (the weather of a place)",m:"气候",e:"",rel:[]},
+{w:"emergency",p:"n. (a sudden, serious event when people need help immediately)",m:"紧急情况",e:"",rel:[]},
+{w:"factory",p:"n. (a building that produces goods)",m:"工厂",e:"",rel:[]},
+{w:"freeze",p:"v. (to turn into ice)",m:"结冰",e:"",rel:[]},
+{w:"population",p:"n. (the total number of people or animals living in a place)",m:"人口/人数",e:"",rel:[]},
+{w:"recently",p:"adv. (not long ago)",m:"不久前",e:"",rel:[]},
+{w:"responsible",p:"adj. (able to act correctly and make good decisions)",m:"有责任心的；负责任的",e:"",rel:[]},
+{w:"storm",p:"n. (a bad weather event with a lot of rain, wind, or snow)",m:"暴风雨",e:"",rel:[]},
+{w:"stream",p:"n. (a very small river)",m:"小溪",e:"",rel:[{w:"lake",m:"",r:"关联记忆"},{w:"river",m:"",r:"关联记忆"},{w:"sea",m:"",r:"关联记忆"}]},
+{w:"temperature",p:"n. (how hot or cold a person or thing is)",m:"温度",e:"",rel:[]},
+{w:"awful",p:"adj. (very bad)",m:"糟糕的",e:"",rel:[]},
+{w:"crazy",p:"adj. (very strange)",m:"古怪的",e:"",rel:[]},
+{w:"huge",p:"adj. (very large)",m:"巨大",e:"",rel:[]},
+{w:"moment",p:"n. (a short period of time)",m:"一会儿",e:"",rel:[]},
+{w:"odd",p:"adj. (strange or different)",m:"反常的",e:"",rel:[]},
+{w:"pour",p:"v. (to fill a container with something to drink)",m:"倾倒",e:"",rel:[]},
+{w:"regret",p:"v. (to feel sorry about something that you did or did not do)",m:"后悔",e:"",rel:[]},
+{w:"steal",p:"v. (to take something without someone saying you can)",m:"偷",e:"",rel:[]},
+{w:"thief",p:"n. (someone who steals)",m:"小偷",e:"",rel:[]},
+{w:"tough",p:"adj. (strong)",m:"强壮，强硬的",e:"",rel:[]},
+{w:"captain",p:"n. (a person who is the leader of a team)",m:"队长",e:"",rel:[]},
+{w:"challenge",p:"n. (something that is difficult to do)",m:"难题/挑战",e:"",rel:[]},
+{w:"complete",p:"v. (to finish something)",m:"完成",e:"",rel:[]},
+{w:"encourage",p:"v. (to help someone feel confident)",m:"鼓励",e:"",rel:[]},
+{w:"noon",p:"n. (12 o'clock in the daytime)",m:"中午",e:"",rel:[]},
+{w:"position",p:"n. (the place where a person or thing is)",m:"位置",e:"",rel:[]},
+{w:"race",p:"n. (a contest to decide who is the fastest)",m:"跑步/赛跑",e:"",rel:[]},
+{w:"record",p:"n. (the highest or best result ever in an activity)",m:"记录",e:"",rel:[]},
+{w:"skill",p:"n. (the ability to do something well)",m:"技巧/技能",e:"",rel:[]},
+{w:"wing",p:"n. (one of the body parts that birds and insects use to fly)",m:"翅膀",e:"",rel:[]},
+{w:"certain",p:"adj. (believing something strongly)",m:"确信的/确定的",e:"",rel:[]},
+{w:"discuss",p:"v. (to talk with someone about something)",m:"讨论",e:"",rel:[]},
+{w:"edit",p:"v. (to look at something carefully and correct any mistakes)",m:"修改",e:"",rel:[]},
+{w:"gather",p:"v. (to bring things or people together)",m:"聚集/收集",e:"",rel:[]},
+{w:"image",p:"n. (a picture)",m:"图像",e:"",rel:[]},
+{w:"material",p:"n. (something needed to do an activity)",m:"材料",e:"",rel:[]},
+{w:"positive",p:"adj. (thinking good things)",m:"积极的",e:"",rel:[{w:"negative",m:"",r:"关联记忆"}]},
+{w:"role",p:"n. (a part or job someone has in an activity or event)",m:"角色",e:"",rel:[]},
+{w:"screen",p:"n. (the part of a computer that shows images and words)",m:"屏幕",e:"",rel:[]},
+{w:"technology",p:"n. (any type of useful machine invented by science)",m:"科技/技术",e:"",rel:[]},
+{w:"attack",p:"v. (to try to hurt physically or say hurtful things)",m:"攻击/批评",e:"",rel:[]},
+{w:"available",p:"adj. (able to be used)",m:"可用的；有空的",e:"",rel:[]},
+{w:"career",p:"n. (what a person does for his or her job)",m:"职业",e:"",rel:[]},
+{w:"connect",p:"v. (to join something with something else)",m:"连接",e:"",rel:[]},
+{w:"dictionary",p:"n. (a book that gives definitions of words)",m:"词典/字典",e:"",rel:[]},
+{w:"handle",p:"v. (to deal with a person or thing)",m:"处理/应对",e:"",rel:[]},
+{w:"major",p:"adj. (very important; very serious)",m:"重大的/主要的",e:"",rel:[]},
+{w:"provide",p:"v. (to offer or give)",m:"提供",e:"",rel:[]},
+{w:"section",p:"n. (a part of something)",m:"区域/部分",e:"",rel:[]},
+{w:"site",p:"n. (a spot or place, usually on the Internet)",m:"地点/网站",e:"",rel:[]},
+{w:"band",p:"n. (a group that plays music)",m:"乐队",e:"",rel:[]},
+{w:"fortune",p:"n. (a large amount of money)",m:"财富",e:"",rel:[]},
+{w:"guest",p:"n. (a person who spends time at another's home)",m:"客人/宾客",e:"",rel:[]},
+{w:"host",p:"n. (a person who accepts guests into a home or restaurant)",m:"主人",e:"",rel:[]},
+{w:"original",p:"adj. (made or produced for the first time; new)",m:"原始的/原创的",e:"",rel:[]},
+{w:"peace",p:"n. (when people live together well and do not cause trouble)",m:"和平",e:"",rel:[]},
+{w:"poem",p:"n. (a type of writing which often uses rhymes)",m:"诗",e:"",rel:[]},
+{w:"sense",p:"v. (to know something without having evidence that it is true)",m:"感觉",e:"",rel:[]},
+{w:"trust",p:"v. (to have confidence in a person or thing)",m:"信任",e:"",rel:[]},
+{w:"wealthy",p:"adj. (having a large amount of money)",m:"富有的",e:"",rel:[]},
+{w:"accept",p:"v. (to take or receive)",m:"接受",e:"",rel:[]},
+{w:"consider",p:"v. (to think about carefully)",m:"考虑",e:"",rel:[]},
+{w:"exist",p:"v. (to be)",m:"存在",e:"",rel:[]},
+{w:"familiar",p:"adj. (commonly known or seen)",m:"眼熟的/熟悉的",e:"",rel:[]},
+{w:"joy",p:"n. (great happiness)",m:"欢欣/欢乐",e:"",rel:[]},
+{w:"married",p:"adj. (being a husband or wife)",m:"已婚的",e:"",rel:[]},
+{w:"rather",p:"adv. (used to say what you prefer to do or have)",m:"宁愿",e:"",rel:[]},
+{w:"represent",p:"v. (to be a symbol for something)",m:"表示/代表",e:"",rel:[]},
+{w:"root",p:"n. (the cause of something)",m:"根源",e:"",rel:[]},
+{w:"society",p:"n. (a group of people living in a community)",m:"社会",e:"",rel:[]},
+{w:"blood",p:"n. (the red liquid in your body)",m:"血液",e:"",rel:[]},
+{w:"business",p:"n. (something that makes money by selling goods or services)",m:"商业/生意",e:"",rel:[]},
+{w:"electronic",p:"adj. (relating to things that use electricity)",m:"电子的",e:"",rel:[]},
+{w:"influence",p:"n. (the power to affect a person or thing)",m:"影响",e:"",rel:[]},
+{w:"master",p:"v. (to become very skilled at something)",m:"掌握",e:"",rel:[]},
+{w:"pity",p:"n. (feeling sorry for another person or animal)",m:"同情",e:"",rel:[]},
+{w:"press",p:"n. (all the people and groups who provide the news)",m:"新闻界/媒体",e:"",rel:[]},
+{w:"shoot",p:"v. (to make one thing come out of another at a fast speed)",m:"发射/射击",e:"",rel:[]},
+{w:"signal",p:"v. (to communicate by making a sign or sound)",m:"标志/信号",e:"",rel:[]},
+{w:"teenager",p:"n. (a person between the ages of thirteen and nineteen)",m:"青少年",e:"",rel:[]},
+{w:"announce",p:"v. (to make something known to many people)",m:"公布/通报",e:"",rel:[]},
+{w:"bottom",p:"n. (the lowest point of something)",m:"底部/底",e:"",rel:[]},
+{w:"compete",p:"v. (to try to be better or faster than another)",m:"对抗/竞争",e:"",rel:[]},
+{w:"copy",p:"v. (to make or do the same thing as something else)",m:"复制/拷贝",e:"",rel:[{w:"paste",m:"",r:"关联记忆"}]},
+{w:"exhibit",p:"n. (something shown in a museum or for an event)",m:"展览品；展出",e:"",rel:[]},
+{w:"print",p:"v. (to produce words or images on paper using a machine)",m:"打印/出版",e:"",rel:[]},
+{w:"project",p:"n. (a planned piece of work that takes time to finish)",m:"项目/计划",e:"",rel:[]},
+{w:"proper",p:"adj. (correct or right)",m:"正确的",e:"",rel:[]},
+{w:"select",p:"v. (to choose)",m:"选择",e:"",rel:[]},
+{w:"sheet",p:"n. (a piece of flat material like paper)",m:"纸张",e:"",rel:[]},
+{w:"concentrate",p:"v. (to put all your energy on one thing)",m:"集中注意力",e:"",rel:[]},
+{w:"maximum",p:"adj. (greatest possible)",m:"最大的；最高的",e:"",rel:[]},
+{w:"prize",p:"n. (something you get for winning)",m:"奖品",e:"",rel:[]},
+{w:"require",p:"v. (to have to; to be necessary to do)",m:"需要",e:"",rel:[]},
+{w:"research",p:"v. (to study something carefully and try to discover new facts)",m:"研究",e:"",rel:[]},
+{w:"respond",p:"v. (to answer)",m:"回应",e:"",rel:[]},
+{w:"spell",p:"v. (to write or say the letters of a word)",m:"拼写/拼作",e:"",rel:[]},
+{w:"state",p:"v. (to say something)",m:"陈述/声明",e:"",rel:[]},
+{w:"structure",p:"n. (something that is built)",m:"建筑物；结构",e:"",rel:[]},
+{w:"tool",p:"n. (anything used to do a job)",m:"工具",e:"",rel:[]},
+{w:"flood",p:"n. (a great amount of water over land that is usually dry)",m:"洪水",e:"",rel:[]},
+{w:"gentle",p:"adj. (not mean or unkind)",m:"温柔的",e:"",rel:[]},
+{w:"melt",p:"v. (to change into liquid)",m:"融化",e:"",rel:[]},
+{w:"operate",p:"v. (to use or make something work)",m:"运转/操作",e:"",rel:[]},
+{w:"recognize",p:"v. (to know a person or thing because it is familiar)",m:"认识/辨认",e:"",rel:[]},
+{w:"remain",p:"v. (to stay in one place)",m:"留下/遗留",e:"",rel:[]},
+{w:"task",p:"n. (work)",m:"工作/任务",e:"",rel:[]},
+{w:"various",p:"adj. (of different kinds)",m:"各种各样的",e:"",rel:[]},
+{w:"waste",p:"v. (to use too much of something)",m:"浪费",e:"",rel:[]},
+{w:"worth",p:"adj. (having a value in money)",m:"值…的/价值",e:"",rel:[]},
+{w:"achieve",p:"v. (to get something by working hard)",m:"（经努力）获得；实现",e:"",rel:[{w:"achievement",m:"",r:"关联记忆"}]},
+{w:"beg",p:"v. (to ask for something again and again)",m:"乞求/恳求",e:"",rel:[]},
+{w:"control",p:"v. (to be in charge of a person or thing)",m:"控制",e:"",rel:[]},
+{w:"debate",p:"v. (to exchange opinions about a topic)",m:"讨论/辩论",e:"",rel:[]},
+{w:"improve",p:"v. (to get better at something)",m:"改善；提高",e:"",rel:[]},
+{w:"similar",p:"adj. (almost the same)",m:"相似的",e:"",rel:[]},
+{w:"soldier",p:"n. (a person who trains to fight for his or her country)",m:"士兵/兵",e:"",rel:[]},
+{w:"system",p:"n. (a group of parts that move or work together)",m:"系统",e:"",rel:[]},
+{w:"war",p:"n. (fighting between two countries or groups)",m:"战争",e:"",rel:[]},
+{w:"warn",p:"v. (to tell someone to be careful)",m:"警告",e:"",rel:[]},
+{w:"lay",p:"v. (to put something down carefully)",m:"放置",e:"",rel:[]},
+{w:"list",p:"n. (a number of items that are needed)",m:"列表",e:"",rel:[]},
+{w:"main",p:"adj. (most important)",m:"主要的",e:"",rel:[]},
+{w:"mark",p:"n. (a symbol or shape drawn on something)",m:"标记",e:"",rel:[]},
+{w:"mistake",p:"n. (something that is not correct)",m:"错误",e:"",rel:[]},
+{w:"price",p:"n. (the amount that something costs)",m:"价格",e:"",rel:[{w:"value",m:"价值",r:"关联记忆"}]},
+{w:"several",p:"adj. (more than two but not many)",m:"几个",e:"",rel:[]},
+{w:"share",p:"v. (to allow someone to use or enjoy something of yours)",m:"共用",e:"",rel:[]},
+{w:"soil",p:"n. (dirt)",m:"泥土",e:"",rel:[]},
+{w:"taste",p:"v. (to get the flavor of food in the mouth)",m:"品尝",e:"",rel:[]},
+{w:"carrot",p:"n. (an orange vegetable that grows under the ground)",m:"胡萝卜",e:"",rel:[]},
+{w:"cause",p:"v. (to make something happen)",m:"导致；引起",e:"",rel:[]},
+{w:"experiment",p:"v. (to try something new)",m:"实验",e:"",rel:[]},
+{w:"fry",p:"v. (to cook in oil)",m:"油炸",e:"",rel:[]},
+{w:"ground",p:"n. (the land under your feet)",m:"地面",e:"",rel:[]},
+{w:"kill",p:"v. (to end a life)",m:"杀死",e:"",rel:[]},
+{w:"mix",p:"v. (to put two or more things together)",m:"混合",e:"",rel:[]},
+{w:"possible",p:"adj. (able to be done)",m:"可能的",e:"",rel:[]},
+{w:"pot",p:"n. (a deep, round container used for cooking)",m:"锅",e:"",rel:[]},
+{w:"proud",p:"adj. (feeling good about something done)",m:"骄傲，自豪",e:"",rel:[]},
+{w:"accident",p:"n. (a sudden bad event in which someone might be hurt)",m:"意外",e:"",rel:[]},
+{w:"adventure",p:"n. (an exciting experience)",m:"冒险",e:"",rel:[]},
+{w:"corn",p:"n. (a vegetable with many small yellow seeds)",m:"玉米",e:"",rel:[]},
+{w:"develop",p:"v. (to create something over time)",m:"发展；开发",e:"",rel:[]},
+{w:"medicine",p:"n. (something that helps a sick person or animal)",m:"药",e:"",rel:[]},
+{w:"own",p:"v. (to pay for something so it belongs to you)",m:"拥有",e:"",rel:[]},
+{w:"product",p:"n. (something that is made or grown and sold)",m:"产品",e:"",rel:[]},
+{w:"quite",p:"adv. (very)",m:"非常",e:"",rel:[]},
+{w:"roof",p:"n. (the top covering on a building)",m:"屋顶",e:"",rel:[]},
+{w:"rope",p:"n. (a very thick and strong string)",m:"粗绳",e:"",rel:[]},
+{w:"brave",p:"adj. (not afraid)",m:"无畏的，勇敢的",e:"",rel:[]},
+{w:"goat",p:"n. (a small animal that lives on a farm or in the mountains)",m:"山羊",e:"",rel:[]},
+{w:"hang",p:"v. (to place something so that it is held at the top)",m:"挂",e:"",rel:[]},
+{w:"ice",p:"n. (frozen water)",m:"冰",e:"",rel:[]},
+{w:"insect",p:"n. (a small animal with six legs)",m:"昆虫",e:"",rel:[]},
+{w:"raise",p:"v. (to care for an animal or plant as it grows)",m:"养",e:"",rel:[]},
+{w:"roll",p:"v. (to turn over and over)",m:"滚",e:"",rel:[]},
+{w:"sore",p:"adj. (hurting)",m:"疼痛的，受伤的",e:"",rel:[]},
+{w:"tent",p:"n. (a covered place to sleep outside)",m:"帐篷",e:"",rel:[]},
+{w:"village",p:"n. (a very small town)",m:"村庄",e:"",rel:[]},
+{w:"appear",p:"v. (to be seen)",m:"出现",e:"",rel:[{w:"disappear",m:"消失",r:"同根词"}]},
+{w:"community",p:"n. (a group of people living in the same area)",m:"社区，国家，社会",e:"",rel:[]},
+{w:"festival",p:"n. (a special party with events to celebrate something)",m:"节日",e:"",rel:[]},
+{w:"interview",p:"v. (to ask someone many questions)",m:"面试",e:"",rel:[]},
+{w:"million",p:"adj. (of the number 1,000,000)",m:"一百万",e:"",rel:[{w:"billion",m:"",r:"关联记忆"}]},
+{w:"newspaper",p:"n. (a set of large papers with stories about true events)",m:"报纸",e:"",rel:[]},
+{w:"report",p:"v. (to give news on television or in a newspaper)",m:"报道，汇报",e:"",rel:[]},
+{w:"sport",p:"n. (an active game with rules that people play)",m:"运动",e:"",rel:[]},
+{w:"support",p:"v. (to show you like and want to help a person or group)",m:"支持",e:"",rel:[]},
+{w:"uniform",p:"n. (the clothing worn by members of a group)",m:"衣服，服装，制服",e:"",rel:[]},
+{w:"bake",p:"v. (to make something and cook it in an oven)",m:"烤",e:"",rel:[]},
+{w:"communicate",p:"v. (to share thoughts and feelings with another person)",m:"沟通",e:"",rel:[]},
+{w:"deliver",p:"v. (to take something to a person or place)",m:"送",e:"",rel:[]},
+{w:"direct",p:"v. (to tell an actor or a group of actors what to do)",m:"导演",e:"",rel:[{w:"director",m:"",r:"关联记忆"},{w:"direction",m:"",r:"关联记忆"}]},
+{w:"goal",p:"n. (something you are trying to do)",m:"目标",e:"",rel:[{w:"target",m:"",r:"关联记忆"}]},
+{w:"history",p:"n. (events in the past)",m:"历史",e:"",rel:[]},
+{w:"inform",p:"v. (to let others know about something)",m:"告知",e:"",rel:[]},
+{w:"mail",p:"n. (letters or packages sent to others)",m:"邮件",e:"",rel:[]},
+{w:"march",p:"v. (to walk as a group in step with each other)",m:"行进",e:"",rel:[]},
+{w:"whole",p:"adj. (all of something)",m:"整个",e:"",rel:[]},
+{w:"climb",p:"v. (to go up or down using your feet and hands)",m:"爬",e:"",rel:[]},
+{w:"describe",p:"v. (to talk about what something is like)",m:"描述",e:"",rel:[]},
+{w:"energy",p:"n. (power; the ability to be active)",m:"能量",e:"",rel:[]},
+{w:"engine",p:"n. (the part of a car that makes power for it to move)",m:"引擎，发动机",e:"",rel:[]},
+{w:"field",p:"n. (a grassy area that has no trees or buildings)",m:"田野",e:"",rel:[]},
+{w:"include",p:"v. (to have a person or thing as part of a group)",m:"包含",e:"",rel:[]},
+{w:"perfect",p:"adj. (not having anything wrong)",m:"完美的",e:"",rel:[]},
+{w:"rise",p:"v. (to move upward)",m:"上升",e:"",rel:[]},
+{w:"shape",p:"n. (the outline of something)",m:"形状",e:"",rel:[]},
+{w:"stone",p:"n. (a small rock)",m:"石头",e:"",rel:[]},
+{w:"cross",p:"v. (to go from one side to the other)",m:"穿过",e:"",rel:[]},
+{w:"finally",p:"adv. (after a long time)",m:"最后",e:"",rel:[]},
+{w:"follow",p:"v. (to go after; to do what a person or thing says)",m:"跟随",e:"",rel:[]},
+{w:"heat",p:"v. (to make something hot)",m:"加热",e:"",rel:[]},
+{w:"rainbow",p:"n. (a curved line of colors in the sky)",m:"彩虹",e:"",rel:[]},
+{w:"spread",p:"v. (to open or place something so that it covers a large area)",m:"展开",e:"",rel:[]},
+{w:"tired",p:"adj. (needing rest or sleep)",m:"累的",e:"",rel:[]},
+{w:"tower",p:"n. (a tall and narrow building)",m:"塔",e:"",rel:[]},
+{w:"unit",p:"n. (one part of something)",m:"单元",e:"",rel:[]},
+{w:"vote",p:"v. (to make a choice for or against a person or thing)",m:"投票",e:"",rel:[]},
+{w:"board",p:"n. (a flat, wide piece of wood)",m:"木板",e:"",rel:[{w:"broad",m:"",r:"关联记忆"},{w:"aboard",m:"",r:"关联记忆"}]},
+{w:"brain",p:"n. (the part of the body inside your head)",m:"大脑",e:"",rel:[]},
+{w:"celebrate",p:"v. (to do something special for an important event)",m:"庆祝",e:"",rel:[]},
+{w:"especially",p:"adv. (in a way that is greater than usual)",m:"非常",e:"",rel:[]},
+{w:"hole",p:"n. (an opening that something can pass through)",m:"洞",e:"",rel:[]},
+{w:"item",p:"n. (a thing that is usually part of a group)",m:"东西",e:"",rel:[]},
+{w:"match",p:"v. (to look similar to something)",m:"相配",e:"",rel:[]},
+{w:"princess",p:"n. (the daughter of a king or queen)",m:"公主",e:"",rel:[]},
+{w:"social",p:"adj. (having a need to be with others)",m:"交际",e:"",rel:[]},
+{w:"tear",p:"v. (to pull something into parts)",m:"撕裂",e:"",rel:[]},
+{w:"add",p:"v. (to put one thing with another thing or things)",m:"添加",e:"",rel:[{w:"additional",m:"",r:"关联记忆"}]},
+{w:"blind",p:"adj. (not able to see)",m:"盲的",e:"",rel:[]},
+{w:"button",p:"n. (a small round thing used to close an opening in clothing)",m:"纽扣",e:"",rel:[]},
+{w:"create",p:"v. (to make something)",m:"创造，设计",e:"",rel:[{w:"creature",m:"",r:"关联记忆"}]},
+{w:"memory",p:"n. (something from the past that is remembered)",m:"记忆",e:"",rel:[]},
+{w:"prince",p:"n. (the son of a king or queen)",m:"王子",e:"",rel:[]},
+{w:"string",p:"n. (a long thread used to keep things together)",m:"细绳",e:"",rel:[]},
+{w:"thick",p:"adj. (having a large distance from top to bottom)",m:"厚",e:"",rel:[{w:"thin",m:"",r:"关联记忆"}]},
+{w:"tight",p:"adj. (fitting close to the body)",m:"紧身",e:"",rel:[]},
+{w:"tradition",p:"n. (a custom that has been around for a long time)",m:"传统",e:"",rel:[]},
+{w:"audience",p:"n. (a group of people watching an event or show)",m:"观众",e:"",rel:[]},
+{w:"college",p:"n. (a school where students study after high school)",m:"大学",e:"",rel:[{w:"university",m:"",r:"关联记忆"}]},
+{w:"comfortable",p:"adj. (feeling relaxed)",m:"舒服的",e:"",rel:[]},
+{w:"honest",p:"adj. (good and saying things that are true)",m:"诚实，正直",e:"",rel:[]},
+{w:"imagine",p:"v. (to think of things that are not real)",m:"想象",e:"",rel:[{w:"image",m:"图像",r:"同类词"},{w:"imagination",m:"",r:"关联记忆"}]},
+{w:"level",p:"n. (an amount of something)",m:"级别，水位",e:"",rel:[]},
+{w:"sentence",p:"n. (a set of words that make a statement or question)",m:"句子",e:"",rel:[]},
+{w:"stress",p:"n. (worry caused by problems in your life)",m:"压力",e:"",rel:[]},
+{w:"suddenly",p:"adv. (very quickly)",m:"突然",e:"",rel:[]},
+{w:"topic",p:"n. (a subject people talk or write about)",m:"题目",e:"",rel:[]},
+{w:"afraid",p:"adj. (feeling fear)",m:"害怕",e:"",rel:[{w:"scared",m:"",r:"关联记忆"}]},
+{w:"fair",p:"adj. (good for everyone)",m:"公平",e:"",rel:[{w:"justice",m:"",r:"关联记忆"}]},
+{w:"focus",p:"v. (to put all of your thoughts on one thing)",m:"聚焦，中心点",e:"",rel:[]},
+{w:"foreign",p:"adj. (from a different country)",m:"外国",e:"",rel:[]},
+{w:"habit",p:"n. (something you do often, usually without thinking about it)",m:"习惯",e:"",rel:[]},
+{w:"invent",p:"v. (to make something for the first time)",m:"发明",e:"",rel:[]},
+{w:"language",p:"n. (the words and symbols used by people of one country or area)",m:"语言",e:"",rel:[]},
+{w:"nation",p:"n. (a country)",m:"国家",e:"",rel:[]},
+{w:"still",p:"adj. (not moving)",m:"静止的；不动的",e:"",rel:[]},
+{w:"wise",p:"adj. (knowing the right things to do)",m:"高明的",e:"",rel:[]},
+{w:"actually",p:"adv. (in fact)",m:"实际",e:"",rel:[]},
+{w:"camp",p:"v. (to sleep outside in a tent)",m:"营地，扎寨",e:"",rel:[]},
+{w:"collect",p:"v. (to bring things together into one group)",m:"收集",e:"",rel:[]},
+{w:"form",p:"v. (to make)",m:"形成",e:"",rel:[]},
+{w:"kick",p:"v. (to hit something with your foot)",m:"踢",e:"",rel:[]},
+{w:"reach",p:"v. (to stretch out the arm to touch or get with your hand)",m:"伸手",e:"",rel:[]},
+{w:"review",p:"v. (to look at or study something again)",m:"复习",e:"",rel:[]},
+{w:"simple",p:"adj. (easy)",m:"简单",e:"",rel:[{w:"complex",m:"",r:"关联记忆"}]},
+{w:"soccer",p:"n. (a sport in which a ball is kicked into a goal)",m:"足球",e:"",rel:[]},
+{w:"symbol",p:"n. (a shape with a special meaning)",m:"象征",e:"",rel:[]},
+{w:"allow",p:"v. (to let someone do something)",m:"允许",e:"",rel:[]},
+{w:"bat",p:"n. (a flying animal that hunts at night)",m:"蝙蝠",e:"",rel:[]},
+{w:"exercise",p:"v. (to move the body as a way to get healthy)",m:"锻炼",e:"",rel:[]},
+{w:"force",p:"v. (to make people do things they do not want to do)",m:"强迫",e:"",rel:[]},
+{w:"leaf",p:"n. (the flat green part of a plant)",m:"叶子",e:"",rel:[]},
+{w:"member",p:"n. (a person in a group or club)",m:"成员",e:"",rel:[]},
+{w:"real",p:"adj. (actually happening; being what it looks like)",m:"真的",e:"",rel:[]},
+{w:"sign",p:"n. (a flat board or paper with a message on it)",m:"标志",e:"",rel:[]},
+{w:"step",p:"v. (to move your foot up and put it down in a different spot)",m:"迈步",e:"",rel:[]},
+{w:"treat",p:"n. (something nice that you do not eat or do often)",m:"款待",e:"",rel:[]},
+{w:"bill",p:"n. (a piece of paper money)",m:"纸币；账单",e:"",rel:[]},
+{w:"blow",p:"v. (to move something with air)",m:"吹",e:"",rel:[]},
+{w:"century",p:"n. (one hundred years)",m:"一百，世纪",e:"",rel:[]},
+{w:"custom",p:"n. (the usual way of doing something in a culture)",m:"习俗",e:"",rel:[]},
+{w:"experience",p:"v. (to see, feel, or do something)",m:"体验",e:"",rel:[]},
+{w:"international",p:"adj. (happening in or between two or more countries)",m:"国际",e:"",rel:[]},
+{w:"island",p:"n. (a piece of land in the middle of water)",m:"岛",e:"",rel:[]},
+{w:"journey",p:"n. (a long trip)",m:"旅行",e:"",rel:[{w:"trip",m:"",r:"关联记忆"},{w:"travel",m:"",r:"关联记忆"}]},
+{w:"meal",p:"n. (food that is prepared and eaten)",m:"进餐",e:"",rel:[]},
+{w:"return",p:"v. (to come back after being away)",m:"回；回报",e:"",rel:[]},
+{w:"airplane",p:"n. (a flying machine)",m:"飞机",e:"",rel:[{w:"aircraft",m:"",r:"关联记忆"},{w:"helicopter",m:"",r:"关联记忆"},{w:"jet",m:"",r:"关联记忆"}]},
+{w:"airport",p:"n. (a place where airplanes arrive and leave)",m:"机场",e:"",rel:[]},
+{w:"culture",p:"n. (the way of life of a group of people)",m:"文化",e:"",rel:[]},
+{w:"decide",p:"v. (to make a choice)",m:"决定",e:"",rel:[{w:"decision",m:"决定",r:"关联记忆"},{w:"decide to do",m:"",r:"关联记忆"}]},
+{w:"leave",p:"v. (to go away from)",m:"离开",e:"",rel:[{w:"left (过去式)",m:"",r:"关联记忆"}]},
+{w:"modern",p:"adj. (of the latest kind)",m:"现代的/时髦",e:"",rel:[]},
+{w:"order",p:"v. (to ask for food or drink at a restaurant)",m:"点",e:"",rel:[]},
+{w:"sand",p:"n. (very tiny pieces of rock)",m:"沙子",e:"",rel:[{w:"beach",m:"",r:"关联记忆"}]},
+{w:"spot",p:"n. (an area, place, or location)",m:"地点",e:"",rel:[]},
+{w:"strange",p:"adj. (different from what is usual)",m:"奇怪的，陌生的",e:"",rel:[]},
+{w:"advice",p:"n. (an opinion about what someone should or should not do)",m:"建议",e:"",rel:[{w:"suggestion",m:"",r:"关联记忆"},{w:"suggest",m:"建议",r:"关联记忆"}]},
+{w:"case",p:"n. (a small box or bag)",m:"盒，袋",e:"",rel:[]},
+{w:"exam",p:"n. (a test)",m:"考试",e:"",rel:[{w:"examination",m:"",r:"关联记忆"}]},
+{w:"happen",p:"v. (to take place)",m:"发生",e:"",rel:[{w:"take place",m:"",r:"关联记忆"}]},
+{w:"lazy",p:"adj. (not wanting to work or move)",m:"懒",e:"",rel:[{w:"hardworking",m:"",r:"关联记忆"}]},
+{w:"message",p:"n. (information that is sent or given to someone)",m:"消息",e:"",rel:[]},
+{w:"stupid",p:"adj. (dumb; foolish)",m:"糊涂的",e:"",rel:[]},
+{w:"succeed",p:"v. (to do well; to do what you tried to do)",m:"成功，达成的",e:"",rel:[{w:"success",m:"",r:"关联记忆"},{w:"successful",m:"",r:"关联记忆"}]},
+{w:"terrible",p:"adj. (very bad)",m:"可怕的，糟糕的，差的",e:"",rel:[]},
+{w:"upset",p:"adj. (worried; not happy)",m:"烦躁",e:"",rel:[{w:"nervous",m:"",r:"关联记忆"}]},
+{w:"electricity",p:"n. (something used to give light and make things work)",m:"电",e:"",rel:[]},
+{w:"fact",p:"n. (something that is true)",m:"事实",e:"",rel:[]},
+{w:"fold",p:"v. (to bend one part of something over another part)",m:"叠",e:"",rel:[]},
+{w:"key",p:"n. (an object used to lock or unlock a door or to start a car)",m:"钥匙",e:"",rel:[]},
+{w:"mind",p:"v. (to be unhappy about something, usually used with not)",m:"介意",e:"",rel:[]},
+{w:"power",p:"n. (something you cannot see that is used to make things work)",m:"力",e:"",rel:[]},
+{w:"sock",p:"n. (a soft piece of clothing that covers the foot)",m:"袜子",e:"",rel:[]},
+{w:"solve",p:"v. (to find the answer)",m:"解决",e:"",rel:[]},
+{w:"stick",p:"v. (to attach to something)",m:"贴",e:"",rel:[]},
+{w:"traffic",p:"n. (cars on the road)",m:"拥挤，交通",e:"",rel:[]},
+{w:"cheer",p:"v. (to shout to show happiness or to make others feel good)",m:"欢呼",e:"",rel:[]},
+{w:"contest",p:"n. (an event in which there is a winner)",m:"比赛",e:"",rel:[]},
+{w:"gift",p:"n. (something given to someone)",m:"礼物",e:"",rel:[]},
+{w:"magazine",p:"n. (a thin book that comes out once a week or month)",m:"杂志",e:"",rel:[]},
+{w:"perform",p:"v. (to do something like singing or acting in front of people)",m:"表演",e:"",rel:[]},
+{w:"public",p:"n. ((after in) a place where many people can see you)",m:"公众；公共场所",e:"",rel:[]},
+{w:"scene",p:"n. (a part of a play or movie)",m:"场面",e:"",rel:[]},
+{w:"secret",p:"n. (something that is kept hidden from other people)",m:"秘密",e:"",rel:[]},
+{w:"stage",p:"n. (the part of a theater where people perform)",m:"舞台",e:"",rel:[]},
+{w:"unique",p:"adj. (not like anyone or anything else)",m:"特别的，独一无二的",e:"",rel:[]},
+{w:"area",p:"n. (a part of a larger place)",m:"地区",e:"",rel:[]},
+{w:"choice",p:"n. (something you can choose)",m:"选择",e:"",rel:[]},
+{w:"enter",p:"v. (to go in)",m:"进入",e:"",rel:[]},
+{w:"important",p:"adj. (having great meaning)",m:"重大的",e:"",rel:[]},
+{w:"lie",p:"v. (to be on your back on the ground or in a bed)",m:"躺下",e:"",rel:[]},
+{w:"mad",p:"adj. (angry)",m:"生气的",e:"",rel:[]},
+{w:"nature",p:"n. (everything in the world that is not made by humans)",m:"自然",e:"",rel:[]},
+{w:"protect",p:"v. (to keep safe from harm)",m:"保护",e:"",rel:[]},
+{w:"shout",p:"v. (to say something very loudly)",m:"喊",e:"",rel:[]},
+{w:"usually",p:"adv. (most of the time)",m:"经常",e:"",rel:[]},
+{w:"active",p:"adj. (doing many things)",m:"好动，活泼",e:"",rel:[]},
+{w:"believe",p:"v. (to think that something is true)",m:"相信",e:"",rel:[]},
+{w:"environment",p:"n. (all of the things found in an area, indoors or outdoors)",m:"环境",e:"",rel:[]},
+{w:"forest",p:"n. (a big area of trees)",m:"森林",e:"",rel:[]},
+{w:"human",p:"n. (a person)",m:"人；人类",e:"",rel:[]},
+{w:"hunt",p:"v. (to look for animals to kill)",m:"打猎",e:"",rel:[]},
+{w:"path",p:"n. (a way to go from one place to another)",m:"小路",e:"",rel:[]},
+{w:"safe",p:"adj. (not dangerous)",m:"安全的",e:"",rel:[{w:"dangerous",m:"",r:"关联记忆"}]},
+{w:"service",p:"n. (the job of helping visitors at a place like a restaurant)",m:"服务",e:"",rel:[]},
+{w:"wild",p:"adj. (living or growing without humans' help)",m:"野生的",e:"",rel:[]},
+{w:"bell",p:"n. (something that makes a ringing sound when hit)",m:"铃，钟",e:"",rel:[]},
+{w:"block",p:"n. (a part of a city with streets on all four sides)",m:"街区",e:"",rel:[]},
+{w:"borrow",p:"v. (to take and use something belonging to another person)",m:"借",e:"",rel:[]},
+{w:"bowl",p:"n. (a dish with tall sides)",m:"碗",e:"",rel:[]},
+{w:"confuse",p:"v. (to make it difficult for someone to understand)",m:"混淆",e:"",rel:[]},
+{w:"knock",p:"v. (to hit something with part of your hand)",m:"敲",e:"",rel:[]},
+{w:"result",p:"n. (an exam grade; something that is caused by another)",m:"结果",e:"",rel:[]},
+{w:"seem",p:"v. (to look to be)",m:"看来",e:"",rel:[]},
+{w:"smart",p:"adj. (good at learning or thinking about things)",m:"聪明",e:"",rel:[]},
+{w:"subject",p:"n. (something you study in school)",m:"课程",e:"",rel:[]},
+{w:"burn",p:"v. (to be on fire)",m:"烧伤",e:"",rel:[]},
+{w:"exchange",p:"v. (to give something and get something at the same time)",m:"交换",e:"",rel:[]},
+{w:"introduce",p:"v. (to make a person known to another person)",m:"介绍",e:"",rel:[]},
+{w:"offer",p:"v. (to try to give or do something to help someone)",m:"提供",e:"",rel:[]},
+{w:"pardon",p:"v. (to forgive, often used with me)",m:"原谅，对不起",e:"",rel:[]},
+{w:"popular",p:"adj. (liked by many people)",m:"流行的，受大众欢迎的",e:"",rel:[]},
+{w:"prepare",p:"v. (to make)",m:"准备",e:"",rel:[]},
+{w:"reason",p:"n. (something that says why something was or was not done)",m:"原因",e:"",rel:[]},
+{w:"shake",p:"v. (to hold and move up and down)",m:"握，摇动",e:"",rel:[]},
+{w:"shy",p:"adj. (quiet and not wanting to talk to others)",m:"害羞",e:"",rel:[]},
+{w:"appreciate",p:"v. (to understand the importance of a person or thing)",m:"**感激；重视**",e:"",rel:[]},
+{w:"avoid",p:"v. (to stay away from)",m:"防止，避开",e:"",rel:[]},
+{w:"convenient",p:"adj. (easy to do and time-saving)",m:"方便的",e:"",rel:[]},
+{w:"customer",p:"n. (someone who buys goods or services from a store)",m:"顾客",e:"",rel:[]},
+{w:"destroy",p:"v. (to cause something to end or not be of use anymore)",m:"摧毁",e:"",rel:[]},
+{w:"disappointed",p:"adj. (unhappy because something is not as you expected)",m:"失望的",e:"",rel:[]},
+{w:"medium",p:"adj. (of a size between big and small)",m:"中等的",e:"",rel:[]},
+{w:"pattern",p:"n. (colors or shapes which are repeated on something)",m:"模式，方式",e:"",rel:[]},
+{w:"trick",p:"v. (to make someone believe something that is not true)",m:"欺骗",e:"",rel:[]},
+{w:"value",p:"n. (how much something costs)",m:"价值",e:"",rel:[]},
+{w:"cloth",p:"n. (something used to make clothes)",m:"布料",e:"",rel:[]},
+{w:"equal",p:"adj. (of the same size or number)",m:"**相等的**",e:"",rel:[]},
+{w:"fail",p:"v. (not to succeed)",m:"失败",e:"",rel:[]},
+{w:"false",p:"adj. (not true)",m:"错误的",e:"",rel:[]},
+{w:"goods",p:"n. (things which are made and sold)",m:"商品",e:"",rel:[]},
+{w:"increase",p:"v. (to make bigger or more)",m:"**增加**",e:"",rel:[]},
+{w:"penny",p:"n. (a coin equal to one cent in the US)",m:"美分",e:"",rel:[]},
+{w:"separate",p:"v. (not to be joined)",m:"分开，分散",e:"",rel:[]},
+{w:"total",p:"n. (the number of everything counted)",m:"总计",e:"",rel:[]},
+{w:"wrap",p:"v. (to cover with something)",m:"包",e:"",rel:[]},
+{w:"cough",p:"v. (to force air out through your throat, often when sick)",m:"咳嗽",e:"",rel:[]},
+{w:"crowd",p:"n. (a large group of people)",m:"观众，人群",e:"",rel:[]},
+{w:"curious",p:"adj. (wanting to know about something)",m:"好奇的",e:"",rel:[]},
+{w:"disappear",p:"v. (not to be seen or found)",m:"消失",e:"",rel:[{w:"appear 出现",m:"",r:"关联记忆"}]},
+{w:"edge",p:"n. (the part of something where it ends or starts)",m:"边缘",e:"",rel:[]},
+{w:"guide",p:"n. (someone who directs others on a trip)",m:"导游",e:"",rel:[]},
+{w:"local",p:"adj. (from the place where you live)",m:"当地的",e:"",rel:[]},
+{w:"machine",p:"n. (something that does work using moving parts)",m:"机器",e:"",rel:[]},
+{w:"native",p:"n. (a person who was born or grew up in a certain place)",m:"本地人",e:"",rel:[]},
+{w:"smoke",p:"n. (the cloud of gases that is made by fire)",m:"烟",e:"",rel:[]},
+{w:"amount",p:"n. (how much there is of something)",m:"数量",e:"",rel:[]},
+{w:"cure",p:"n. (something that makes sick people better)",m:"治疗",e:"",rel:[]},
+{w:"disease",p:"n. (a sickness)",m:"疾病",e:"",rel:[]},
+{w:"medical",p:"adj. (of medicine; treating people who are sick or hurt)",m:"医学的",e:"",rel:[{w:"medicine 药",m:"",r:"关联记忆"}]},
+{w:"necessary",p:"adj. (needed)",m:"必要的",e:"",rel:[]},
+{w:"produce",p:"v. (to make or cause)",m:"引起，造成",e:"",rel:[]},
+{w:"reduce",p:"v. (to make smaller in size, number, or amount)",m:"减少",e:"",rel:[{w:"increase 增加",m:"",r:"关联记忆"}]},
+{w:"serious",p:"adj. (having important or dangerous possible results)",m:"严重的",e:"",rel:[]},
+{w:"source",p:"n. (a person or thing that gives what is wanted or needed)",m:"来源",e:"",rel:[]},
+{w:"supply",p:"v. (to give someone something so they can use it)",m:"供给",e:"",rel:[{w:"demand 需求",m:"",r:"关联记忆"}]},
+{w:"castle",p:"n. (a large home where a king or queen usually lives)",m:"城堡",e:"",rel:[]},
+{w:"decision",p:"n. (a choice)",m:"决定",e:"",rel:[{w:"decide",m:"决定",r:"关联记忆"}]},
+{w:"empire",p:"n. (a kingdom)",m:"王国",e:"",rel:[]},
+{w:"explore",p:"v. (to look at something in a careful way to learn about it)",m:"探究",e:"",rel:[]},
+{w:"flight",p:"n. (a trip on an airplane)",m:"航班",e:"",rel:[]},
+{w:"guard",p:"v. (to watch in order to protect)",m:"看守",e:"",rel:[]},
+{w:"incredible",p:"adj. (very good)",m:"不可思议的",e:"",rel:[]},
+{w:"serve",p:"v. (to give someone food in a restaurant or at home)",m:"服务",e:"",rel:[]},
+{w:"skin",p:"n. (the outer part that covers humans and animals)",m:"皮",e:"",rel:[]},
+{w:"southern",p:"adj. (being in or toward the south)",m:"南方的",e:"",rel:[]},
+{w:"adult",p:"n. (someone who is fully grown)",m:"成年",e:"",rel:[{w:"teenage",m:"",r:"关联记忆"},{w:"child",m:"",r:"关联记忆"},{w:"infant",m:"",r:"关联记忆"}]},
+{w:"classic",p:"adj. (of good quality and popular for a long time)",m:"经典的，流行的",e:"",rel:[]},
+{w:"desert",p:"v. (to leave a place so it is empty)",m:"荒废，弃去",e:"",rel:[]},
+{w:"discover",p:"v. (to find)",m:"发现",e:"",rel:[]},
+{w:"female",p:"adj. (being a girl or woman)",m:"女性的",e:"",rel:[{w:"male",m:"",r:"关联记忆"}]},
+{w:"flow",p:"v. (to move like water)",m:"流动",e:"",rel:[]},
+{w:"mystery",p:"n. (something strange and not understood)",m:"谜",e:"",rel:[]},
+{w:"opinion",p:"n. (a belief about something)",m:"意见，认为",e:"",rel:[]},
+{w:"pleasure",p:"n. (a feeling of happiness)",m:"**快乐；愉悦**",e:"",rel:[]},
+{w:"publish",p:"v. (to make books or magazines for sale)",m:"出版",e:"",rel:[]},
+{w:"base",p:"v. (to use as the starting point for something)",m:"基于，开头，起点",e:"",rel:[]},
+{w:"character",p:"n. (a person in a book or movie)",m:"人物",e:"",rel:[]},
+{w:"clever",p:"adj. (very smart)",m:"聪明的",e:"",rel:[]},
+{w:"enemy",p:"n. (someone who hates you)",m:"敌人",e:"",rel:[]},
+{w:"length",p:"n. (how long something is from one end to the other)",m:"长度",e:"",rel:[]},
+{w:"promise",p:"v. (to tell someone that you will do something for sure)",m:"允诺",e:"",rel:[]},
+{w:"quality",p:"n. (how good or bad something is)",m:"**质量**",e:"",rel:[]},
+{w:"regularly",p:"adv. (often)",m:"经常的，频繁的",e:"",rel:[]},
+{w:"survive",p:"v. (to stay alive)",m:"幸存",e:"",rel:[]},
+{w:"title",p:"n. (a name of something like a book or movie)",m:"标题",e:"",rel:[]},
+{w:"admire",p:"v. (to like and think good things about others)",m:"崇拜，仰慕",e:"",rel:[]},
+{w:"ancient",p:"adj. (very old)",m:"古老的",e:"",rel:[]},
+{w:"attractive",p:"adj. (looking or sounding nice)",m:"迷人的",e:"",rel:[]},
+{w:"giant",p:"adj. (very large)",m:"巨大",e:"",rel:[]},
+{w:"pack",p:"v. (to put items into a bag or suitcase to take somewhere)",m:"收拾，打包",e:"",rel:[]},
+{w:"prefer",p:"v. (to like something more than something else)",m:"更喜欢",e:"",rel:[]},
+{w:"rent",p:"v. (to pay money to use a thing that belongs to someone else)",m:"出租",e:"",rel:[]},
+{w:"respect",p:"v. (to think someone is special and important)",m:"尊重",e:"",rel:[]},
+{w:"view",p:"v. (to look at or watch something)",m:"观看",e:"",rel:[]},
+{w:"wave",p:"v. (to move your hand to say hello or goodbye)",m:"挥手",e:"",rel:[]},
+{w:"avenue",p:"n. (a wide street)",m:"大街",e:"",rel:[]},
+{w:"expect",p:"v. (to think something is likely to happen)",m:"预计",e:"",rel:[]},
+{w:"explain",p:"v. (to make something easy to understand)",m:"说明",e:"",rel:[]},
+{w:"rub",p:"v. (to press with the fingers and move them from side to side)",m:"擦",e:"",rel:[]},
+{w:"shine",p:"v. (to produce bright light)",m:"照耀",e:"",rel:[]},
+{w:"strength",p:"n. (great physical power)",m:"力量",e:"",rel:[]},
+{w:"suggest",p:"v. (to say that something is good or a good idea)",m:"建议",e:"",rel:[]},
+{w:"tour",p:"n. (a journey to see several places)",m:"参观",e:"",rel:[]},
+{w:"western",p:"adj. (of or from the west)",m:"西方的",e:"",rel:[]},
+{w:"wheel",p:"n. (something round which moves by turning)",m:"车轮",e:"",rel:[]},
+{w:"chance",p:"n. (an opportunity to do something)",m:"**机会**",e:"",rel:[]},
+{w:"extra",p:"adj. (more than is usual)",m:"额外",e:"",rel:[]},
+{w:"hall",p:"n. (a large open space in a building)",m:"礼堂",e:"",rel:[]},
+{w:"immediately",p:"adv. (right away)",m:"立即",e:"",rel:[]},
+{w:"intend",p:"v. (to want or plan to do)",m:"打算",e:"",rel:[]},
+{w:"mention",p:"v. (to talk or write about something, often quickly)",m:"提到",e:"",rel:[]},
+{w:"reaction",p:"n. (the way someone acts or feels after something happens)",m:"反应",e:"",rel:[]},
+{w:"score",p:"v. (to win a point in a game)",m:"得分",e:"",rel:[]},
+{w:"search",p:"v. (to look for)",m:"搜查",e:"",rel:[]},
+{w:"worse",p:"adj. (more terrible than other things)",m:"更糟",e:"",rel:[]},
+{w:"bit",p:"n. (a small piece or amount)",m:"小块",e:"",rel:[]},
+{w:"common",p:"adj. (usual; happening or seen often)",m:"**常见的；普通的**",e:"",rel:[]},
+{w:"diet",p:"n. (the food that someone usually eats)",m:"饮食",e:"",rel:[]},
+{w:"evidence",p:"n. (something that shows something else is true)",m:"证明",e:"",rel:[]},
+{w:"fit",p:"adj. (strong and healthy)",m:"合适，健康",e:"",rel:[]},
+{w:"limit",p:"v. (to keep at a low level or keep from getting larger)",m:"限制",e:"",rel:[]},
+{w:"physical",p:"adj. (of the body)",m:"身体的",e:"",rel:[]},
+{w:"poison",p:"n. (something that can make you sick if eaten or drunk)",m:"毒",e:"",rel:[]},
+{w:"sale",p:"n. (the act of selling something for money)",m:"出售",e:"",rel:[]},
+{w:"type",p:"n. (a kind or variety)",m:"类型",e:"",rel:[]}
 ];
 
-// ====== PHONETIC CACHE ======
-const PHONETIC_CACHE_KEY = 'xx_phonetic_cache';
-let phoneticCache = {};
-try{phoneticCache=JSON.parse(localStorage.getItem(PHONETIC_CACHE_KEY)||'{}')}catch(e){phoneticCache={}}
-function savePhoneticCache(){localStorage.setItem(PHONETIC_CACHE_KEY,JSON.stringify(phoneticCache))}
+const ROUND_SIZE=20, TOTAL_ROUNDS=23, PASS_RATE=90, DUEL_SIZE=30, DUEL_UNLOCK=3;
+const API_BASE='http://8.138.202.82:3000';
+const TIME_LIMIT=10;
 
+let playerName='', currentRound=1, completedRounds=[], roundStats={}, duelStats={attempts:0,bestAcc:0};
+let G={seq:[],i:0,ok:0,bad:0,res:[],mode:'main',roundNum:1,wrongSet:new Set(),startTime:0,usedHint:false};
+let phoneticCache={}, currentAudio=null;
+
+// ====== INIT ======
+function loadStorage(){
+  try{phoneticCache=JSON.parse(localStorage.getItem('xx_ph')||'{}')}catch(e){phoneticCache={}}
+  try{var p=JSON.parse(localStorage.getItem('xx_progress')||'{}');playerName=p.name||'';currentRound=p.currentRound||1;completedRounds=p.completedRounds||[];roundStats=p.roundStats||{};duelStats=p.duelStats||{attempts:0,bestAcc:0}}catch(e){playerName='';currentRound=1;completedRounds=[];roundStats={};duelStats={attempts:0,bestAcc:0}}
+}
+function saveProgress(){
+  localStorage.setItem('xx_progress',JSON.stringify({name:playerName,currentRound:currentRound,completedRounds:completedRounds,roundStats:roundStats,duelStats:duelStats}));
+  localStorage.setItem('xx_ph',JSON.stringify(phoneticCache));
+}
+
+// ====== PHONETIC ======
 async function fetchPhonetic(word){
   if(phoneticCache[word])return phoneticCache[word];
   try{
-    const res=await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+encodeURIComponent(word));
+    var res=await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+encodeURIComponent(word));
     if(!res.ok)throw new Error('API error');
-    const data=await res.json();
-    let ph='';
+    var data=await res.json();
+    var ph='';
     if(data&&data[0]){
       ph=data[0].phonetic||'';
-      if(!ph&&data[0].phonetics){
-        const p=data[0].phonetics.find(x=>x.text);
-        if(p)ph=p.text;
-      }
+      if(!ph&&data[0].phonetics){var p=data[0].phonetics.find(function(x){return x.text});if(p)ph=p.text}
     }
-    phoneticCache[word]=ph||'';
-    savePhoneticCache();
-    return ph;
-  }catch(e){
-    return '';
-  }
+    phoneticCache[word]=ph||'';saveProgress();return ph;
+  }catch(e){return ''}
 }
 
-
-// ====== AUTO UPLOAD CONFIG ======
-const CONFIG = {
-  API_BASE: 'http://8.138.202.82:3000',  // ← 你的ECS公网IP
-  STUDENT: '萱萱',
-  AUTO_UPLOAD: true
-};
-
-async function autoUpload(record) {
-  if (!CONFIG.AUTO_UPLOAD || !CONFIG.API_BASE || CONFIG.API_BASE.includes('YOUR_ECS_IP')) return;
-  try {
-    const payload = {
-      ...record,
-      student: CONFIG.STUDENT,
-      device: navigator.userAgent.slice(0, 100)
-    };
-    const res = await fetch(CONFIG.API_BASE + '/api/record', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if (res.ok) {
-      console.log('✅ 记录已上传');
-      // 标记本次已上传，避免重复
-      localStorage.setItem('xx_last_upload_' + record.roundId, 'ok');
-    }
-  } catch(e) {
-    console.log('⚠️ 上传失败（离线或后端未启动）:', e.message);
-    // 静默失败，不打扰孩子，保留在 localStorage
-  }
-}
-
-let MEM={},HIST=[],G={seq:[],retestSeq:[],i:0,ok:0,bad:0,streak:0,maxStreak:0,res:[],phase:'first',wrongSet:new Set(),roundCount:0,usedHint:false};
-const ROUND_SIZE=20,PASS_RATE=90,TIME_LIMIT=10;
-let currentAudio=null;
-
+// ====== NAME ======
 function enter(){
-  if('speechSynthesis' in window){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance('hello');u.volume=0.01;u.lang='en-US';window.speechSynthesis.speak(u);}
-  try{var a=new Audio();a.play().catch(function(){});}catch(e){}
+  loadStorage();
+  if(!playerName){document.getElementById('nameModal').classList.remove('hidden');return}
   document.getElementById('splash').classList.add('gone');
-  setTimeout(function(){document.getElementById('splash').style.display='none';document.getElementById('app').classList.remove('hidden');init();},600);
+  setTimeout(function(){document.getElementById('splash').style.display='none';document.getElementById('app').classList.remove('hidden');init()},600);
+}
+function saveName(){
+  var n=document.getElementById('nameInput').value.trim();
+  if(!n){alert('请输入昵称');return}
+  playerName=n;saveProgress();
+  document.getElementById('nameModal').classList.add('hidden');
+  document.getElementById('splash').classList.add('gone');
+  setTimeout(function(){document.getElementById('splash').style.display='none';document.getElementById('app').classList.remove('hidden');init()},600);
+}
+function showNameModal(){
+  document.getElementById('nameInput').value=playerName;
+  document.getElementById('nameModal').classList.remove('hidden');
 }
 
-function init(){try{MEM=JSON.parse(localStorage.getItem('xx_v3_mem')||'{}');HIST=JSON.parse(localStorage.getItem('xx_v3_hist')||'[]')}catch(e){MEM={};HIST=[]}document.getElementById('today').textContent=fmt(new Date());renderHome();}
-function save(){localStorage.setItem('xx_v3_mem',JSON.stringify(MEM));localStorage.setItem('xx_v3_hist',JSON.stringify(HIST));}
+// ====== HOME ======
+function init(){
+  document.getElementById('welcomeTitle').textContent='你好，'+playerName+'！👋';
+  document.getElementById('playerNameDisplay').textContent=playerName;
+  document.getElementById('today').textContent=fmtDate(new Date());
+  document.getElementById('s-current').textContent=currentRound;
+  document.getElementById('s-completed').textContent=completedRounds.length;
+  document.getElementById('s-rate').textContent=calcRate()+'%';
+  renderMainTask();renderDuelEntry();renderHistory();
+}
 
-// HOME
-function renderHome(){
-  var m=Object.values(MEM).filter(function(x){return(x.l||0)>=3}).length;
-  document.getElementById('s-total').textContent=m;
-  document.getElementById('s-streak').textContent=calcStreak();
-  document.getElementById('s-rate').textContent=calcWeekRate()+'%';
-  var tc=document.getElementById('tasks');tc.innerHTML='';
-  var t=genTask();tc.appendChild(t);
-  if(HIST.length){document.getElementById('h-sec').style.display='block';renderHist()}else{document.getElementById('h-sec').style.display='none'}
-}
-function genTask(){
-  var pool=BANK.slice().sort(function(){return Math.random()-.5}).slice(0,ROUND_SIZE);
-  return mkCard({title:'今日单词闯关',sub:'共 '+ROUND_SIZE+' 个单词',words:pool.map(function(x){return x.w}),mode:'mixed',due:'今日',new:true});
-}
-function mkCard(tk){
+function renderMainTask(){
+  var c=document.getElementById('mainTask');c.innerHTML='';
   var d=document.createElement('div');d.className='task-card';
-  d.innerHTML='<div class="task-header"><div class="task-title">'+tk.title+'</div><div class="task-badge">新任务</div></div><div class="task-meta"><span>📋 '+tk.words.length+' 个单词</span><span>⏰ '+tk.due+'</span></div><button class="task-btn" onclick="startG()">开始闯关</button>';
-  return d;
+  var isLocked=completedRounds.length+1<currentRound;
+  var badge=isLocked?'🔒 需先通过上一轮':'新挑战';
+  var btnText=isLocked?'请先完成轮次'+(currentRound-1)+' →':'开始闯关';
+  d.innerHTML='<div class="task-header"><div class="task-title">📖 第'+currentRound+'轮 · 主线闯关</div><div class="task-badge">'+badge+'</div></div><div class="task-meta">共 '+getRoundWords(currentRound).length+' 个单词 · 正确率≥'+PASS_RATE+'%解锁下一轮</div><button class="task-btn" '+(isLocked?'disabled':'')+' onclick="startMainRound('+currentRound+')">'+btnText+'</button>';
+  c.appendChild(d);
 }
-function renderHist(){
-  var c=document.getElementById('h-list');c.innerHTML='';
-  HIST.slice(-5).reverse().forEach(function(h){
-    var sc=h.acc>=80?'g':h.acc>=60?'y':'r';
-    var ic=h.acc>=80?'🌟':h.acc>=60?'👍':'💪';
+
+function renderDuelEntry(){
+  var c=document.getElementById('duelEntry');c.innerHTML='';
+  var unlocked=completedRounds.length>=DUEL_UNLOCK;
+  var d=document.createElement('div');
+  d.className='duel-card'+(unlocked?'':' locked');
+  if(unlocked){
+    d.onclick=function(){startDuel()};
+    d.innerHTML='<h3>⚔️ 单词大乱斗</h3><p>从已解锁的 '+completedRounds.length*ROUND_SIZE+' 个单词中随机挑战30题 · 无提示 · 纯速度</p>';
+  }else{
+    d.innerHTML='<div class="lock-icon">🔒</div><h3>单词大乱斗</h3><p>还需完成 '+(DUEL_UNLOCK-completedRounds.length)+' 轮即可解锁（当前 '+completedRounds.length+'/'+DUEL_UNLOCK+'）</p>';
+  }
+  c.appendChild(d);
+}
+
+function renderHistory(){
+  var keys=Object.keys(roundStats).sort(function(a,b){return parseInt(b)-parseInt(a)});
+  if(!keys.length){document.getElementById('hSec').style.display='none';return}
+  document.getElementById('hSec').style.display='block';
+  var c=document.getElementById('hList');c.innerHTML='';
+  keys.slice(0,5).forEach(function(k){
+    var stats=roundStats[k];
+    if(!stats||!stats.length)return;
+    var last=stats[stats.length-1];
+    var sc=last.acc>=90?'g':last.acc>=60?'y':'r';
+    var ic=last.acc>=90?'🏆':last.acc>=60?'👍':'💪';
     var d=document.createElement('div');d.className='history-item';
-    d.innerHTML='<div class="history-icon '+sc+'">'+ic+'</div><div class="history-info"><div class="history-title">'+h.t+'</div><div class="history-date">'+h.d+' · '+h.ok+'/'+h.tot+' 正确</div></div><div class="history-score '+sc+'">'+h.acc+'%';
+    d.innerHTML='<div class="history-icon '+sc+'">'+ic+'</div><div class="history-info"><div class="history-title">第'+k+'轮 · 尝试'+stats.length+'次</div><div class="history-date">最近: '+last.acc+'% 正确率 · '+last.date+'</div></div><div class="history-score '+sc+'">'+last.acc+'%';
     c.appendChild(d);
   });
 }
 
-// EXPORT
-function exportData(){
-  var data={exportTime:new Date().toISOString(),student:'萱萱',version:'v3',stats:{totalWords:BANK.length,mastered:Object.values(MEM).filter(function(x){return(x.l||0)>=3}).length,sessions:HIST.length},memory:MEM,history:HIST};
-  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');a.href=url;a.download='萱萱单词学习数据_'+fmt(new Date())+'.json';
-  a.click();URL.revokeObjectURL(url);
+function getRoundWords(rn){
+  var start=(rn-1)*ROUND_SIZE;
+  var end=Math.min(start+ROUND_SIZE,BANK.length);
+  return BANK.slice(start,end);
 }
 
-// GAME
-function startG(){
-  G.seq=BANK.slice().sort(function(){return Math.random()-.5}).slice(0,ROUND_SIZE);
-  G.retestSeq=[];G.i=0;G.ok=0;G.bad=0;G.streak=0;G.maxStreak=0;G.res=[];
-  G.phase='first';G.wrongSet=new Set();G.roundCount++;
+// ====== MAIN ROUND ======
+function startMainRound(rn){
+  G.mode='main';G.roundNum=rn;G.i=0;G.ok=0;G.bad=0;G.res=[];G.wrongSet=new Set();G.usedHint=false;
+  var words=getRoundWords(rn).slice().sort(function(){return Math.random()-.5});
+  G.seq=words;
   document.getElementById('app').classList.add('hidden');
   document.getElementById('game').classList.remove('hidden');
+  document.getElementById('rtag').classList.add('hidden');
+  document.getElementById('dtag').classList.add('hidden');
+  document.getElementById('hintBtn').classList.remove('hidden');
   renderQ();
 }
 
+// ====== DUEL ======
+function startDuel(){
+  if(completedRounds.length<DUEL_UNLOCK){alert('请先完成'+DUEL_UNLOCK+'轮主线闯关');return}
+  G.mode='duel';G.i=0;G.ok=0;G.bad=0;G.res=[];G.wrongSet=new Set();G.usedHint=false;
+  var pool=[];
+  completedRounds.forEach(function(rn){pool=pool.concat(getRoundWords(rn))});
+  G.seq=pool.slice().sort(function(){return Math.random()-.5}).slice(0,DUEL_SIZE);
+  G.startTime=Date.now();
+  document.getElementById('app').classList.add('hidden');
+  document.getElementById('game').classList.remove('hidden');
+  document.getElementById('rtag').classList.add('hidden');
+  document.getElementById('dtag').classList.remove('hidden');
+  document.getElementById('hintBtn').classList.add('hidden');
+  renderQ();
+}
+
+// ====== GAME RENDER ======
 function renderQ(){
-  var q;
+  if(G.i>=G.seq.length){finish();return}
+  var q=G.seq[G.i];
   G.usedHint=false;
-  document.getElementById('htag').classList.add('hidden');
+  document.getElementById('htag')&&document.getElementById('htag').classList.add('hidden');
   document.getElementById('hintBtn').disabled=false;
   document.getElementById('hintBox').classList.add('hidden');
-  document.getElementById('relBox').classList.add('hidden');
-  document.getElementById('ph').textContent='...';
-  document.getElementById('sub').textContent='';
-  if(G.phase==='first'){
-    if(G.i>=G.seq.length){
-      if(G.wrongSet.size>0){G.phase='retest';G.i=0;G.retestSeq=[];G.wrongSet.forEach(function(w){var found=BANK.find(function(x){return x.w===w});if(found)G.retestSeq.push(found);});showRetestBanner();return;}
-      else{finish();return}
-    }
-    q=G.seq[G.i];document.getElementById('rtag').classList.add('hidden');
-    document.getElementById('pg').style.width=(G.i/G.seq.length*100)+'%';
-  }else if(G.phase==='retest'){
-    if(G.i>=G.retestSeq.length){finish();return}
-    q=G.retestSeq[G.i];document.getElementById('rtag').classList.remove('hidden');
-    document.getElementById('pg').style.width=(G.i/G.retestSeq.length*100)+'%';
-  }
-  if(!q){finish();return}
-
-  document.getElementById('g-ok').textContent=G.ok;
-  document.getElementById('g-bad').textContent=G.bad;
+  document.getElementById('rstrip').classList.add('hidden');
+  document.getElementById('gOk').textContent=G.ok;
+  document.getElementById('gBad').textContent=G.bad;
   document.getElementById('wd').textContent=q.w;
   document.getElementById('ph').textContent='loading...';
-  document.getElementById('sub').textContent='';
-  document.getElementById('rstrip').classList.add('hidden');
+  var total=G.mode==='main'?G.seq.length:DUEL_SIZE;
+  document.getElementById('pg').style.width=(G.i/total*100)+'%';
   var opts=genOpts(q);renderOpts(opts,q);
   document.getElementById('timer').textContent=TIME_LIMIT;
   document.getElementById('timer').className='timer';
   startT();
-
-  // Load phonetic asynchronously
-  fetchPhonetic(q.w).then(function(ph){
-    var el=document.getElementById('ph');
-    if(ph){el.textContent=ph;el.style.color='var(--p)';}
-    else{el.textContent='暂无音标';el.style.color='var(--t2)';}
-  });
-
-  setTimeout(function(){speak(q.w);},400);
-}
-
-function showRetestBanner(){
-  document.getElementById('rstrip').textContent='📚 接下来是错题重练 · 共 '+G.wrongSet.size+' 题';
-  document.getElementById('rstrip').className='result-strip info';
-  document.getElementById('rstrip').classList.remove('hidden');
-  document.getElementById('opts').innerHTML='';
-  document.getElementById('hintBtn').classList.add('hidden');
-  setTimeout(function(){document.getElementById('rstrip').classList.add('hidden');document.getElementById('hintBtn').classList.remove('hidden');renderQ();},2000);
+  fetchPhonetic(q.w).then(function(ph){var el=document.getElementById('ph');if(ph){el.textContent=ph;el.style.color='var(--p)'}else{el.textContent='暂无音标';el.style.color='var(--t2)'}});
+  setTimeout(function(){speak(q.w)},400);
 }
 
 function genOpts(correct){
@@ -826,155 +917,199 @@ function renderOpts(opts,correct){
   var c=document.getElementById('opts');c.innerHTML='';
   opts.forEach(function(o,idx){
     var b=document.createElement('button');b.className='opt-btn';b.textContent=String.fromCharCode(65+idx)+'. '+o.m;b.dataset.ok=o.ok?'true':'false';
-    b.onclick=function(){pick(o.ok,b,opts,correct)};
-    c.appendChild(b);
+    b.onclick=function(){pick(o.ok,b)};c.appendChild(b);
   });
 }
 
 var tmr=null,tLeft=TIME_LIMIT;
-function startT(){clearInterval(tmr);tLeft=TIME_LIMIT;tmr=setInterval(function(){
-  tLeft-=.1;var el=document.getElementById('timer');el.textContent=Math.max(0,Math.ceil(tLeft));
-  if(tLeft<=3)el.className='timer urgent';
-  if(tLeft<=0){clearInterval(tmr);timeout();}
-},100)}
+function startT(){clearInterval(tmr);tLeft=TIME_LIMIT;tmr=setInterval(function(){tLeft-=.1;var el=document.getElementById('timer');el.textContent=Math.max(0,Math.ceil(tLeft));if(tLeft<=3)el.className='timer urgent';if(tLeft<=0){clearInterval(tmr);timeout()}},100)}
 function timeout(){document.querySelectorAll('.opt-btn').forEach(function(b){b.classList.add('disabled')});showAns(false,null,true)}
 
 function showHint(){
-  clearInterval(tmr);
-  G.usedHint=true;
-  document.getElementById('htag').classList.remove('hidden');
+  if(G.mode==='duel')return;
+  clearInterval(tmr);G.usedHint=true;
   document.getElementById('hintBtn').disabled=true;
-  var q=G.phase==='first'?G.seq[G.i]:G.retestSeq[G.i];
+  var q=G.seq[G.i];
   document.getElementById('hintPos').textContent='词性：'+q.p;
   document.getElementById('hintEx').innerHTML=q.e.replace(new RegExp(q.w,'gi'),'<b>'+q.w+'</b>');
   document.getElementById('hintBox').classList.remove('hidden');
 }
 
-function pick(isCorrect,btn,opts,correct){
+function pick(isCorrect,btn){
   clearInterval(tmr);
-  document.querySelectorAll('.opt-btn').forEach(function(b){b.classList.add('disabled');if(b.dataset.ok==='true')b.classList.add('correct');});
+  document.querySelectorAll('.opt-btn').forEach(function(b){b.classList.add('disabled');if(b.dataset.ok==='true')b.classList.add('correct')});
   if(!isCorrect)btn.classList.add('wrong');
   showAns(isCorrect,btn,false);
 }
 
 function showAns(ok,btn,wasTimeout){
-  var q=G.phase==='first'?G.seq[G.i]:G.retestSeq[G.i];
+  var q=G.seq[G.i];
   var t=(TIME_LIMIT-Math.max(0,tLeft)).toFixed(1);
-  if(G.phase==='first'){
-    var statOk=ok&&!G.usedHint;
-    G.res.push({w:q.w,ok:statOk,time:parseFloat(t),phase:'first',hint:G.usedHint});
-    if(statOk){G.ok++;G.streak++;if(G.streak>G.maxStreak)G.maxStreak=G.streak;document.getElementById('rstrip').textContent=G.streak>=3?'🔥 连续 '+G.streak+' 题正确！':'✅ 正确！';document.getElementById('rstrip').className='result-strip ok';}
-    else{G.bad++;G.streak=0;if(!G.usedHint)G.wrongSet.add(q.w);if(G.usedHint){document.getElementById('rstrip').textContent='⚠️ 用了提示，这题算答错哦';}else{document.getElementById('rstrip').textContent=wasTimeout?'⏰ 时间到！':'❌ 再想想看';}document.getElementById('rstrip').className='result-strip bad';}
-  }else{
-    if(ok){document.getElementById('rstrip').textContent='✅ 这次对了！';document.getElementById('rstrip').className='result-strip ok';}
-    else{document.getElementById('rstrip').textContent='❌ 还需要多练习';document.getElementById('rstrip').className='result-strip bad';}
-  }
+  G.res.push({w:q.w,ok:ok,time:parseFloat(t),hint:G.usedHint||false});
+  if(ok){G.ok++;document.getElementById('rstrip').textContent='✅ 正确！';document.getElementById('rstrip').className='result-strip ok'}
+  else{G.bad++;if(wasTimeout){document.getElementById('rstrip').textContent='⏰ 时间到！'}else{document.getElementById('rstrip').textContent='❌ 再想想看'}document.getElementById('rstrip').className='result-strip bad'}
   document.getElementById('rstrip').classList.remove('hidden');
-  if(q.rel&&q.rel.length>0){
-    var relHtml='';
-    q.rel.forEach(function(r){relHtml+='<div class="rel-item">• <b>'+r.w+'</b>：'+r.m+'（'+r.r+'）</div>';});
-    document.getElementById('relContent').innerHTML=relHtml+'<div class="rel-note">把它们放在一起记，印象更深刻 💡</div>';
-    document.getElementById('relBox').classList.remove('hidden');
-  }
-  setTimeout(nextQ,2500);
+  setTimeout(nextQ,1800);
 }
-
 function nextQ(){G.i++;renderQ()}
 
-function speak(w){
-  if(!w)return;
-  if(currentAudio){currentAudio.pause();currentAudio=null;}
-  if('speechSynthesis' in window){
-    window.speechSynthesis.cancel();
-    var u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.85;u.pitch=1;
-    var voices=window.speechSynthesis.getVoices();
-    var enVoice=voices.find(function(v){return v.lang&&v.lang.startsWith('en')});
-    if(enVoice)u.voice=enVoice;
-    window.speechSynthesis.speak(u);
-    setTimeout(function(){tryYoudao(w);},800);
-    return;
-  }
-  tryYoudao(w);
-}
-function tryYoudao(w){
-  var url='https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(w)+'&type=2';
-  var audio=new Audio(url);
-  currentAudio=audio;
-  audio.play().catch(function(e){});
-}
-function speakNow(){
-  var w=G.phase==='first'?(G.seq[G.i]?G.seq[G.i].w:null):(G.retestSeq[G.i]?G.retestSeq[G.i].w:null);
-  if(w)speak(w);
-}
+function speak(w){if(!w)return;if(currentAudio){currentAudio.pause();currentAudio=null}if('speechSynthesis' in window){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.85;u.pitch=1;var voices=window.speechSynthesis.getVoices();var enVoice=voices.find(function(v){return v.lang&&v.lang.startsWith('en')});if(enVoice)u.voice=enVoice;window.speechSynthesis.speak(u);setTimeout(function(){tryYoudao(w)},800);return}tryYoudao(w)}
+function tryYoudao(w){var url='https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(w)+'&type=2';var audio=new Audio(url);currentAudio=audio;audio.play().catch(function(){})}
+function speakNow(){var w=G.seq[G.i]?G.seq[G.i].w:null;if(w)speak(w)}
 
-// FINISH
+function quitGame(){if(confirm('确定退出？当前进度不会保存。')){clearInterval(tmr);if(currentAudio)currentAudio.pause();document.getElementById('game').classList.add('hidden');goHome()}}
+
+// ====== FINISH ======
 function finish(){
-  var total=G.ok+G.bad;
+  var total=G.seq.length;
   var acc=total>0?Math.round(G.ok/total*100):0;
-  var firstRes=G.res.filter(function(r){return r.phase==='first'});
-  var times=firstRes.map(function(r){return r.time});
+  var times=G.res.map(function(r){return r.time});
   var avg=times.length?(times.reduce(function(a,b){return a+b},0)/times.length).toFixed(1):'0.0';
-  var rec={roundId:'round_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),t:'第'+G.roundCount+'轮闯关',d:fmt(new Date()),tot:total,ok:G.ok,bad:G.bad,acc:acc,avg:avg,max:G.maxStreak,words:firstRes};
-  HIST.push(rec);save();updateMem(firstRes);autoUpload(rec);
-  document.getElementById('game').classList.add('hidden');
-  document.getElementById('result').classList.remove('hidden');
-  document.getElementById('bs').textContent=acc+'%';
-  document.getElementById('b-ok').textContent=G.ok;
-  document.getElementById('b-bad').textContent=G.bad;
-  document.getElementById('b-avg').textContent=avg+'s';
-  var em,tit,sub;
-  if(acc>=PASS_RATE){em='🏆';tit='闯关成功！';sub='正确率 '+acc+'% · 解锁下一轮！';document.getElementById('nxt-btn').textContent='下一轮 →';}
-  else{em='💪';tit='继续加油！';sub='正确率 '+acc+'% · 再来一次巩固一下';document.getElementById('nxt-btn').textContent='再来一次';}
-  if(acc>=95){em='🌟';tit='太棒了！';sub='几乎全对！继续挑战下一轮吧！'}
-  document.getElementById('re').textContent=em;
-  document.getElementById('rt').textContent=tit;
-  document.getElementById('rs').textContent=sub;
-  var rv=document.getElementById('rv');rv.innerHTML='';
-  firstRes.forEach(function(r){
-    var w=BANK.find(function(x){return x.w===r.w});
-    var d=document.createElement('div');d.className='rw';
-    var tg=r.ok?'<span class="rw-tg m">已掌握</span>':'<span class="rw-tg s">待加强</span>';
-    if(r.hint)tg='<span class="rw-tg c">用了提示</span>';
-    d.innerHTML='<div class="rw-ic">'+(r.ok?'✅':'❌')+'</div><div class="rw-inf"><div class="rw-w">'+r.w+' <span style="color:var(--t2);font-size:12px">'+(w?w.p:'')+'</span></div><div class="rw-m">'+(w?w.m:'')+'</div></div>'+tg;
-    rv.appendChild(d);
-  });
-}
 
-function nextRound(){
-  var last=HIST[HIST.length-1];
-  if(last&&last.acc>=PASS_RATE){G.roundCount++;G.seq=BANK.slice().sort(function(){return Math.random()-.5}).slice(0,ROUND_SIZE);}
-  else{
-    var wrongWords=Array.from(G.wrongSet);
-    var need=ROUND_SIZE-wrongWords.length;
-    var newPool=BANK.filter(function(x){return !wrongWords.includes(x.w)}).slice().sort(function(){return Math.random()-.5}).slice(0,Math.max(0,need));
-    G.seq=wrongWords.map(function(w){return BANK.find(function(x){return x.w===w})}).concat(newPool).filter(Boolean);
-    while(G.seq.length<ROUND_SIZE){var extra=BANK[Math.floor(Math.random()*BANK.length)];if(!G.seq.find(function(x){return x.w===extra.w}))G.seq.push(extra);}
-    G.seq=G.seq.slice(0,ROUND_SIZE);
+  if(G.mode==='main'){
+    var rec={acc:acc,ok:G.ok,bad:G.bad,avg:avg,date:fmtDate(new Date()),total:total,res:G.res};
+    if(!roundStats[G.roundNum])roundStats[G.roundNum]=[];
+    roundStats[G.roundNum].push(rec);
+    if(acc>=PASS_RATE&&completedRounds.indexOf(G.roundNum)===-1){
+      completedRounds.push(G.roundNum);
+      if(G.roundNum===currentRound&&currentRound<TOTAL_ROUNDS)currentRound++;
+    }
+    saveProgress();
+    autoUploadMain(rec);
+    document.getElementById('game').classList.add('hidden');
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('bs').textContent=acc+'%';
+    document.getElementById('bOk').textContent=G.ok;
+    document.getElementById('bBad').textContent=G.bad;
+    document.getElementById('bAvg').textContent=avg+'s';
+    var em,tit,sub,btnText;
+    if(acc>=PASS_RATE){em='🏆';tit='闯关成功！';sub='正确率 '+acc+'% · 解锁下一轮！';btnText='下一轮 →'}
+    else{em='💪';tit='继续加油！';sub='正确率 '+acc+'% · 再来一次巩固一下';btnText='再来一次'}
+    if(acc>=95){em='🌟';tit='太棒了！';sub='几乎全对！'}
+    document.getElementById('re').textContent=em;document.getElementById('rt').textContent=tit;document.getElementById('rs').textContent=sub;
+    document.getElementById('nxtBtn').textContent=btnText;
+    var rv=document.getElementById('rv');rv.innerHTML='';
+    G.res.forEach(function(r){
+      var w=BANK.find(function(x){return x.w===r.w});
+      var d=document.createElement('div');d.className='rw';
+      var tg=r.ok?'<span class="rw-tg m">✓</span>':'<span class="rw-tg s">✗</span>';
+      d.innerHTML='<div class="rw-ic">'+(r.ok?'✅':'❌')+'</div><div class="rw-inf"><div class="rw-w">'+r.w+' <span style="color:var(--t2);font-size:12px">'+(w?w.p:'')+'</span></div><div class="rw-m">'+(w?w.m:'')+'</div></div>'+tg;
+      rv.appendChild(d);
+    });
+  }else{
+    var totalTime=Math.round((Date.now()-G.startTime)/1000);
+    duelStats.attempts++;if(acc>duelStats.bestAcc)duelStats.bestAcc=acc;
+    saveProgress();
+    autoUploadDuel({acc:acc,ok:G.ok,bad:G.bad,totalTime:totalTime,res:G.res});
+    document.getElementById('game').classList.add('hidden');
+    document.getElementById('duelResult').classList.remove('hidden');
+    document.getElementById('dbs').textContent=acc+'%';
+    document.getElementById('dbOk').textContent=G.ok;
+    document.getElementById('dbBad').textContent=G.bad;
+    document.getElementById('dbTime').textContent=totalTime+'s';
+    var dem=acc>80?'🏆':'💪',dtit=acc>80?'上榜成功！':'继续加油',dsub=acc>80?'正确率'+acc+'% · 已进入排行榜':'正确率'+acc+'% · 还需努力';
+    if(acc<=80){dtit='还需努力';dsub='正确率'+acc+'% · 超过80%才能上榜'}
+    document.getElementById('dre').textContent=dem;document.getElementById('drt').textContent=dtit;document.getElementById('drs').textContent=dsub;
   }
-  G.retestSeq=[];G.i=0;G.ok=0;G.bad=0;G.streak=0;G.maxStreak=0;G.res=[];
-  G.phase='first';G.wrongSet=new Set();
+}
+
+function nextAction(){
+  var lastAcc=G.mode==='main'&&roundStats[G.roundNum]?roundStats[G.roundNum][roundStats[G.roundNum].length-1].acc:0;
+  if(G.mode==='main'&&lastAcc>=PASS_RATE&&G.roundNum<TOTAL_ROUNDS){
+    startMainRound(currentRound);
+  }else if(G.mode==='main'){
+    startMainRound(G.roundNum);
+  }
+}
+
+function goHome(){
+  document.getElementById('game').classList.add('hidden');
   document.getElementById('result').classList.add('hidden');
-  document.getElementById('game').classList.remove('hidden');
-  renderQ();
+  document.getElementById('duelResult').classList.add('hidden');
+  document.getElementById('lbScreen').classList.add('hidden');
+  document.getElementById('reviewScreen').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  init();
 }
-function goHome(){document.getElementById('result').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome()}
-function quit(){if(confirm('确定退出？进度将不会保存。')){clearInterval(tmr);if(currentAudio){currentAudio.pause();}document.getElementById('game').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome()}}
 
-// MEMORY
-function updateMem(firstRes){
-  firstRes.forEach(function(r){
-    if(!MEM[r.w])MEM[r.w]={l:0,seen:0,ok:0,streak:0,hist:[]};
-    var m=MEM[r.w];m.seen++;m.hist.push({d:new Date().toISOString(),ok:r.ok,time:r.time,hint:r.hint||false});
-    if(r.ok){m.ok++;m.streak++;if(m.streak>=3)m.l=Math.min(5,m.l+2);else m.l=Math.min(5,m.l+1);}
-    else{m.streak=0;m.l=Math.max(0,m.l-1);}
+// ====== AUTO UPLOAD ======
+async function autoUploadMain(rec){
+  if(!API_BASE)return;
+  try{
+    var payload={student:playerName||'萱萱',roundId:'round_'+G.roundNum+'_'+Date.now(),timestamp:new Date().toISOString(),device:navigator.userAgent.slice(0,100),total:rec.total,ok:rec.ok,bad:rec.bad,acc:rec.acc,avg:rec.avg,roundNum:G.roundNum,mode:'main',details:rec.res};
+    await fetch(API_BASE+'/api/record',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  }catch(e){console.log('upload failed',e.message)}
+}
+async function autoUploadDuel(rec){
+  if(!API_BASE)return;
+  try{
+    var payload={player:playerName||'萱萱',acc:rec.acc,totalTime:rec.totalTime,date:new Date().toISOString(),device:navigator.userAgent.slice(0,100),details:{ok:rec.ok,bad:rec.bad,res:rec.res}};
+    await fetch(API_BASE+'/api/duel_record',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  }catch(e){console.log('duel upload failed',e.message)}
+}
+
+// ====== LEADERBOARD ======
+async function showLeaderboard(){
+  document.getElementById('app').classList.add('hidden');
+  document.getElementById('lbScreen').classList.remove('hidden');
+  document.getElementById('lbLoading').classList.remove('hidden');
+  document.getElementById('lbTable').classList.add('hidden');
+  try{
+    var res=await fetch(API_BASE+'/api/leaderboard');
+    var data=await res.json();
+    document.getElementById('lbLoading').classList.add('hidden');
+    var c=document.getElementById('lbTable');c.classList.remove('hidden');c.innerHTML='';
+    if(!data.entries||!data.entries.length){c.innerHTML='<div style="padding:20px;text-align:center;color:var(--t2)">暂无记录，快来挑战吧！</div>';return}
+    data.entries.forEach(function(e,idx){
+      var d=document.createElement('div');d.className='lb-row';
+      var rk=idx+1;var rkClass=rk<=3?'top':'';
+      var rkIcon=rk===1?'🥇':rk===2?'🥈':rk===3?'🥉':'#'+rk;
+      d.innerHTML='<div class="lb-rank '+rkClass+'">'+rkIcon+'</div><div class="lb-name">'+e.player+'</div><div class="lb-acc">'+e.acc+'%</div><div class="lb-time">'+e.totalTime+'s</div>';
+      c.appendChild(d);
+    });
+  }catch(e){
+    document.getElementById('lbLoading').textContent='加载失败，请检查网络';
+  }
+}
+
+// ====== REVIEW ======
+function showReview(){
+  document.getElementById('app').classList.add('hidden');
+  document.getElementById('reviewScreen').classList.remove('hidden');
+  var c=document.getElementById('reviewList');c.innerHTML='';
+  var available=[];
+  for(var i=1;i<=Math.max(currentRound,Math.max.apply(null,completedRounds.concat([0])));i++){
+    available.push(i);
+  }
+  if(!available.length){c.innerHTML='<div style="text-align:center;padding:20px;color:var(--t2)">暂无已解锁轮次</div>';return}
+  available.forEach(function(rn){
+    var d=document.createElement('div');d.className='review-card';
+    var isDone=completedRounds.indexOf(rn)!==-1;
+    var badge=isDone?'<span class="r-badge done">已通过</span>':'<span class="r-badge retry">需巩固</span>';
+    var stats=roundStats[rn];var last=stats&&stats.length?stats[stats.length-1]:null;
+    var meta=last?'最近 '+last.acc+'% · 尝试'+stats.length+'次':'尚未挑战';
+    d.innerHTML='<div class="r-title">第'+rn+'轮</div>'+badge+'<div class="r-meta">'+meta+' · '+getRoundWords(rn).length+'个单词</div>';
+    d.onclick=function(){startMainRound(rn)};
+    c.appendChild(d);
   });
-  save();
 }
 
-// UTILS
-function fmt(d){return (d.getMonth()+1)+'月'+d.getDate()+'日 周'+'日一二三四五六'[d.getDay()]}
-function calcStreak(){if(!HIST.length)return 0;return new Set(HIST.map(function(h){return h.d})).size}
-function calcWeekRate(){var wk=new Date();wk.setDate(wk.getDate()-7);var rec=HIST.filter(function(h){return new Date(h.d)>=wk});if(!rec.length)return 0;var t=rec.reduce(function(s,h){return s+h.tot},0),o=rec.reduce(function(s,h){return s+h.ok},0);return t?Math.round(o/t*100):0}
+// ====== EXPORT ======
+function exportData(){
+  var data={exportTime:new Date().toISOString(),player:playerName,version:'v6',progress:{currentRound:currentRound,completedRounds:completedRounds,roundStats:roundStats,duelStats:duelStats},bankSize:BANK.length};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='萱萱单词_'+playerName+'_'+fmtDate(new Date())+'.json';
+  a.click();URL.revokeObjectURL(url);
+}
+
+// ====== UTILS ======
+function fmtDate(d){return (d.getMonth()+1)+'月'+d.getDate()+'日'}
+function calcRate(){
+  var totalOk=0,totalAll=0;
+  Object.values(roundStats).forEach(function(stats){if(stats&&stats.length){var last=stats[stats.length-1];totalOk+=last.ok||0;totalAll+=last.total||0}});
+  return totalAll?Math.round(totalOk/totalAll*100):0;
+}
 </script>
 </body>
 </html>
