@@ -18,6 +18,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 .splash p{color:rgba(255,255,255,.8);font-size:16px}
 .splash-btn{margin-top:40px;padding:14px 48px;background:#fff;color:#764ba2;border:none;border-radius:30px;font-size:18px;font-weight:600;cursor:pointer}
 .splash-btn:active{transform:scale(.95)}
+.splash .audio-note{color:rgba(255,255,255,.6);font-size:12px;margin-top:12px}
 
 .app{max-width:480px;margin:0 auto;padding:20px}
 .header{text-align:center;margin-bottom:24px}
@@ -46,6 +47,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 .history-info{flex:1}.history-title{font-size:15px;font-weight:500}.history-date{font-size:12px;color:var(--t2);margin-top:2px}
 .history-score{font-size:18px;font-weight:700}.history-score.g{color:var(--ok)}.history-score.y{color:var(--warn)}.history-score.r{color:var(--bad)}
 
+.export-btn{width:100%;padding:12px;background:var(--card);border:1.5px solid var(--b);border-radius:14px;font-size:14px;color:var(--t2);cursor:pointer;margin-top:12px}
+
 .game-screen{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;flex-direction:column}
 .game-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;background:var(--card)}
 .game-header .back{font-size:24px;cursor:pointer;padding:4px}
@@ -60,6 +63,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 
 .retest-tag{position:absolute;top:12px;right:12px;padding:4px 12px;background:#fef2f2;color:var(--bad);border-radius:12px;font-size:12px;font-weight:600}
 .hint-used-tag{position:absolute;top:12px;left:12px;padding:4px 12px;background:#fffbeb;color:var(--warn);border-radius:12px;font-size:12px;font-weight:600}
+.audio-fail{position:absolute;bottom:12px;right:12px;padding:4px 10px;background:#f8fafc;color:var(--t2);border-radius:8px;font-size:11px}
 
 .timer{width:52px;height:52px;border-radius:50%;border:3px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--t2);margin:0 auto 16px;transition:all .3s}
 .timer.urgent{border-color:var(--bad);color:var(--bad);animation:pu .5s infinite}
@@ -84,6 +88,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 
 .speak-btn{width:48px;height:48px;border-radius:50%;border:2px solid var(--p);background:#fff;color:var(--p);font-size:20px;cursor:pointer;margin-bottom:16px;display:flex;align-items:center;justify-content:center}
 .speak-btn:active{background:var(--p);color:#fff}
+.speak-btn.off{opacity:.4;border-color:var(--t2);color:var(--t2)}
 
 .hint-btn{width:100%;max-width:400px;padding:12px;background:var(--bg);color:var(--t2);border:1.5px solid var(--b);border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:12px}
 .hint-btn:disabled{opacity:.5;cursor:not-allowed}
@@ -120,7 +125,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 </head>
 <body>
 
-<div class="splash" id="splash"><div class="splash-avatar">👧</div><h1>萱萱单词闯关</h1><p>每天进步一点点，坚持就是胜利</p><button class="splash-btn" onclick="enter()">开始吧</button></div>
+<div class="splash" id="splash"><div class="splash-avatar">👧</div><h1>萱萱单词闯关</h1><p>每天进步一点点，坚持就是胜利</p><button class="splash-btn" onclick="enter()">开始吧</button><div class="audio-note" id="audioNote"></div></div>
 
 <div class="app hidden" id="app">
 <div class="header"><h2>你好，萱萱！👋</h2><p class="subtitle" id="today"></p></div>
@@ -131,6 +136,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 </div>
 <div id="tasks"></div>
 <div class="history-section" id="h-sec"><h3>📚 闯关记录</h3><div id="h-list"></div></div>
+<button class="export-btn" onclick="exportData()">📥 导出学习数据（备份用）</button>
 </div>
 
 <div class="game-screen hidden" id="game">
@@ -141,6 +147,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 <div class="retest-tag hidden" id="rtag">错题重练</div>
 <div class="hint-used-tag hidden" id="htag">已用提示</div>
 <button class="speak-btn" id="spk" onclick="speakNow()" title="播放发音">🔊</button>
+<div class="audio-fail hidden" id="afail">当前浏览器不支持语音播报</div>
 <div class="word-display" id="wd">word</div>
 <div class="phonetic" id="ph">pos</div>
 </div>
@@ -521,19 +528,23 @@ const BANK=[
 
 let MEM={},HIST=[],G={seq:[],retestSeq:[],i:0,ok:0,bad:0,streak:0,maxStreak:0,res:[],phase:'first',wrongSet:new Set(),roundCount:0,usedHint:false};
 const ROUND_SIZE=20,PASS_RATE=90,TIME_LIMIT=10;
+let AUDIO_CTX=null, SPEECH_OK=false, YOUDAO_OK=false;
 
 function enter(){
-  // Unlock audio on mobile - use a silent utterance
+  // Unlock both speech and audio context on user gesture
   if('speechSynthesis' in window){
     window.speechSynthesis.cancel();
-    var u=new SpeechSynthesisUtterance('.');u.volume=0.01;u.lang='en-US';
+    var u=new SpeechSynthesisUtterance('hello');u.volume=0.01;u.lang='en-US';
     window.speechSynthesis.speak(u);
-    if(window.speechSynthesis.getVoices().length===0){
-      window.speechSynthesis.onvoiceschanged=function(){
-        window.speechSynthesis.getVoices();
-      };
-    }
+    SPEECH_OK=true;
   }
+  // Try to unlock Audio for Youdao fallback
+  try{
+    var a=new Audio();
+    a.play().catch(function(){});
+    YOUDAO_OK=true;
+  }catch(e){}
+
   document.getElementById('splash').classList.add('gone');
   setTimeout(function(){
     document.getElementById('splash').style.display='none';
@@ -542,8 +553,8 @@ function enter(){
   },600);
 }
 
-function init(){try{MEM=JSON.parse(localStorage.getItem('xx_mem')||'{}');HIST=JSON.parse(localStorage.getItem('xx_hist')||'[]')}catch(e){MEM={};HIST=[]}document.getElementById('today').textContent=fmt(new Date());renderHome()}
-function save(){localStorage.setItem('xx_mem',JSON.stringify(MEM));localStorage.setItem('xx_hist',JSON.stringify(HIST))}
+function init(){try{MEM=JSON.parse(localStorage.getItem('xx_v2_mem')||'{}');HIST=JSON.parse(localStorage.getItem('xx_v2_hist')||'[]')}catch(e){MEM={};HIST=[]}document.getElementById('today').textContent=fmt(new Date());renderHome()}
+function save(){localStorage.setItem('xx_v2_mem',JSON.stringify(MEM));localStorage.setItem('xx_v2_hist',JSON.stringify(HIST))}
 
 // HOME
 function renderHome(){
@@ -574,6 +585,15 @@ function renderHist(){
     d.innerHTML='<div class="history-icon '+sc+'">'+ic+'</div><div class="history-info"><div class="history-title">'+h.t+'</div><div class="history-date">'+h.d+' · '+h.ok+'/'+h.tot+' 正确</div></div><div class="history-score '+sc+'">'+h.acc+'%';
     c.appendChild(d);
   });
+}
+
+// EXPORT
+function exportData(){
+  var data={exportTime:new Date().toISOString(),student:'萱萱',stats:{totalWords:BANK.length,mastered:Object.values(MEM).filter(function(x){return(x.l||0)>=3}).length,sessions:HIST.length},memory:MEM,history:HIST};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='萱萱单词学习数据_'+fmt(new Date())+'.json';
+  a.click();URL.revokeObjectURL(url);
 }
 
 // GAME
@@ -626,7 +646,7 @@ function renderQ(){
   document.getElementById('timer').textContent=TIME_LIMIT;
   document.getElementById('timer').className='timer';
   startT();
-  setTimeout(function(){speak(q.w);},300);
+  setTimeout(function(){speak(q.w);},400);
 }
 
 function showRetestBanner(){
@@ -733,18 +753,39 @@ function showAns(ok,btn,wasTimeout){
 
 function nextQ(){G.i++;renderQ()}
 
+// ====== TTS: Browser speech + Youdao fallback ======
+var currentAudio=null;
 function speak(w){
-  if(!('speechSynthesis' in window))return;
-  window.speechSynthesis.cancel();
-  var u=new SpeechSynthesisUtterance(w);
-  u.lang='en-US';u.rate=.85;u.pitch=1;
-  var voices=window.speechSynthesis.getVoices();
-  if(voices&&voices.length>0){
+  if(!w)return;
+  // Stop any previous audio
+  if(currentAudio){currentAudio.pause();currentAudio=null;}
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(w);
+    u.lang='en-US';u.rate=.85;u.pitch=1;
+    var voices=window.speechSynthesis.getVoices();
     var enVoice=voices.find(function(v){return v.lang&&v.lang.startsWith('en')});
     if(enVoice)u.voice=enVoice;
+    window.speechSynthesis.speak(u);
+    // If speech works, great. If not, Youdao fallback after short delay
+    setTimeout(function(){tryYoudao(w);},800);
+    return;
   }
-  window.speechSynthesis.speak(u);
+  tryYoudao(w);
 }
+
+function tryYoudao(w){
+  // Youdao TTS - works in most Chinese browsers including WeChat
+  var url='https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(w)+'&type=2';
+  var audio=new Audio(url);
+  currentAudio=audio;
+  audio.play().then(function(){
+    document.getElementById('afail').classList.add('hidden');
+  }).catch(function(e){
+    document.getElementById('afail').classList.remove('hidden');
+  });
+}
+
 function speakNow(){
   var w=G.phase==='first'?(G.seq[G.i]?G.seq[G.i].w:null):(G.retestSeq[G.i]?G.retestSeq[G.i].w:null);
   if(w)speak(w);
@@ -809,13 +850,13 @@ function nextRound(){
   renderQ();
 }
 function goHome(){document.getElementById('result').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome()}
-function quit(){if(confirm('确定退出？进度将不会保存。')){clearInterval(tmr);document.getElementById('game').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome()}}
+function quit(){if(confirm('确定退出？进度将不会保存。')){clearInterval(tmr);if(currentAudio){currentAudio.pause();}document.getElementById('game').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome()}}
 
 // MEMORY
 function updateMem(firstRes){
   firstRes.forEach(function(r){
     if(!MEM[r.w])MEM[r.w]={l:0,seen:0,ok:0,streak:0,hist:[]};
-    var m=MEM[r.w];m.seen++;m.hist.push({d:new Date().toISOString(),ok:r.ok});
+    var m=MEM[r.w];m.seen++;m.hist.push({d:new Date().toISOString(),ok:r.ok,time:r.time,hint:r.hint||false});
     if(r.ok){m.ok++;m.streak++;if(m.streak>=3)m.l=Math.min(5,m.l+2);else m.l=Math.min(5,m.l+1);}
     else{m.streak=0;m.l=Math.max(0,m.l-1);}
   });
