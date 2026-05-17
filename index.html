@@ -62,11 +62,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 .game-stats{display:flex;gap:12px;font-size:14px;font-weight:600}.game-stats .c{color:var(--ok)}.game-stats .w{color:var(--bad)}
 
 .card-area{flex:1;display:flex;flex-direction:column;align-items:center;padding:20px;overflow-y:auto}
-.word-card{width:100%;max-width:400px;background:var(--card);border-radius:28px;padding:36px 24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.08);margin-bottom:16px}
+.word-card{width:100%;max-width:400px;background:var(--card);border-radius:28px;padding:36px 24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.08);margin-bottom:16px;position:relative}
 .word-display{font-size:40px;font-weight:800;letter-spacing:2px;margin-bottom:4px}
 .phonetic{font-size:16px;color:var(--t2);font-style:italic;margin-bottom:20px}
 .speak-btn{width:48px;height:48px;border-radius:50%;border:2px solid var(--p);background:#fff;color:var(--p);font-size:20px;cursor:pointer;margin-bottom:16px;display:flex;align-items:center;justify-content:center}
 .speak-btn:active{background:var(--p);color:#fff}
+
+.retest-tag{position:absolute;top:12px;right:12px;padding:4px 12px;background:#fef2f2;color:var(--bad);border-radius:12px;font-size:12px;font-weight:600}
 
 .timer{width:52px;height:52px;border-radius:50%;border:3px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--t2);margin:0 auto 16px;transition:all .3s}
 .timer.urgent{border-color:var(--bad);color:var(--bad);animation:pu .5s infinite}
@@ -82,9 +84,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 .result-strip{padding:12px;border-radius:12px;text-align:center;font-weight:600;margin-bottom:12px;width:100%;max-width:400px}
 .result-strip.ok{background:#f0fdf4;color:#166534}
 .result-strip.bad{background:#fef2f2;color:#991b1b}
-
-.next-btn{width:100%;max-width:400px;padding:16px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer}
-.next-btn:disabled{opacity:.4}
+.result-strip.info{background:#eff6ff;color:#1e40af}
 
 /* Result */
 .result-screen{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;flex-direction:column;align-items:center;padding:40px 20px;overflow-y:auto}
@@ -114,10 +114,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 </head>
 <body>
 
-<!-- Splash -->
 <div class="splash" id="splash"><div class="splash-avatar">👧</div><h1>萱萱单词闯关</h1><p>每天进步一点点，坚持就是胜利</p><button class="splash-btn" onclick="enter()">开始吧</button></div>
 
-<!-- Home -->
 <div class="app hidden" id="app">
 <div class="header"><h2>你好，萱萱！👋</h2><p class="subtitle" id="today"></p></div>
 <div class="stats-row">
@@ -129,23 +127,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 <div class="history-section" id="h-sec"><h3>📚 闯关记录</h3><div id="h-list"></div></div>
 </div>
 
-<!-- Game -->
 <div class="game-screen hidden" id="game">
 <div class="game-header"><div class="back" onclick="quit()">←</div><div class="game-progress"><div class="progress-track"><div class="progress-fill" id="pg" style="width:0%"></div></div></div><div class="game-stats"><div class="c">✓ <span id="g-ok">0</span></div><div class="w">✗ <span id="g-bad">0</span></div></div></div>
 <div class="card-area">
 <div class="timer" id="timer">10</div>
 <div class="word-card">
+<div class="retest-tag hidden" id="rtag">错题重练</div>
 <button class="speak-btn" id="spk" onclick="speakNow()" title="播放发音">🔊</button>
 <div class="word-display" id="wd">abandon</div>
 <div class="phonetic" id="ph">/əˈbændən/</div>
 </div>
 <div class="result-strip hidden" id="rstrip"></div>
 <div class="options" id="opts"></div>
-<button class="next-btn hidden" id="nxt" onclick="nextQ()">下一题 →</button>
 </div>
 </div>
 
-<!-- Result -->
 <div class="result-screen hidden" id="result">
 <div class="result-emoji" id="re">🎉</div><div class="result-title" id="rt">闯关完成！</div><div class="result-subtitle" id="rs">继续加油</div>
 <div class="scorecard"><div class="big-score" id="bs">80%</div><div class="score-label">正确率</div><div class="bd"><div class="bd-it g"><div class="bd-n" id="b-ok">8</div><div class="bd-l">答对</div></div><div class="bd-it r"><div class="bd-n" id="b-bad">2</div><div class="bd-l">答错</div></div><div class="bd-it"><div class="bd-n" id="b-avg">3.2s</div><div class="bd-l">平均用时</div></div></div></div>
@@ -154,166 +150,303 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 </div>
 
 <script>
-// ========== DATA ==========
 const BANK=[
-{w:"abandon",p:"/əˈbændən/",m:"放弃，抛弃",e:"Don't abandon your dreams."},
-{w:"ability",p:"/əˈbɪləti/",m:"能力，才能",e:"She has the ability to solve problems."},
-{w:"absent",p:"/ˈæbsənt/",m:"缺席的，不在的",e:"He was absent from school yesterday."},
-{w:"absolute",p:"/ˈæbsəluːt/",m:"绝对的，完全的",e:"I have absolute confidence in you."},
-{w:"absorb",p:"/əbˈzɔːrb/",m:"吸收，吸引",e:"Sponges absorb water easily."},
-{w:"abstract",p:"/ˈæbstrækt/",m:"抽象的，摘要",e:"Art can be very abstract."},
-{w:"abundant",p:"/əˈbʌndənt/",m:"丰富的，大量的",e:"The region has abundant natural resources."},
-{w:"academic",p:"/ˌækəˈdemɪk/",m:"学术的，理论的",e:"She has excellent academic records."},
-{w:"academy",p:"/əˈkædəmi/",m:"学院，研究院",e:"He studies at a military academy."},
-{w:"accelerate",p:"/əkˈseləreɪt/",m:"加速，促进",e:"The car began to accelerate."},
-{w:"accent",p:"/ˈæksent/",m:"口音，重音",e:"She speaks with a British accent."},
-{w:"accept",p:"/əkˈsept/",m:"接受，认可",e:"I accept your apology."},
-{w:"access",p:"/ˈækses/",m:"进入，通道",e:"Students have access to the library."},
-{w:"accident",p:"/ˈæksɪdənt/",m:"事故，意外",e:"There was a car accident on the highway."},
-{w:"accompany",p:"/əˈkʌmpəni/",m:"陪伴，伴随",e:"She asked me to accompany her."},
-{w:"accomplish",p:"/əˈkʌmplɪʃ/",m:"完成，实现",e:"We accomplished our mission."},
-{w:"according",p:"/əˈkɔːrdɪŋ/",m:"根据，按照",e:"According to the weather forecast, it will rain."},
-{w:"account",p:"/əˈkaʊnt/",m:"账户，解释",e:"I have a bank account."},
-{w:"accumulate",p:"/əˈkjuːmjəleɪt/",m:"积累，积聚",e:"Dust accumulates on the furniture."},
-{w:"accurate",p:"/ˈækjərət/",m:"准确的，精确的",e:"The watch is accurate to the second."}
+{w:"abandon",p:"/əˈbændən/",m:"放弃，抛弃"},{w:"ability",p:"/əˈbɪləti/",m:"能力，才能"},{w:"absent",p:"/ˈæbsənt/",m:"缺席的，不在的"},
+{w:"absolute",p:"/ˈæbsəluːt/",m:"绝对的，完全的"},{w:"absorb",p:"/əbˈzɔːrb/",m:"吸收，吸引"},{w:"abstract",p:"/ˈæbstrækt/",m:"抽象的，摘要"},
+{w:"abundant",p:"/əˈbʌndənt/",m:"丰富的，大量的"},{w:"academic",p:"/ˌækəˈdemɪk/",m:"学术的，理论的"},{w:"academy",p:"/əˈkædəmi/",m:"学院，研究院"},
+{w:"accelerate",p:"/əkˈseləreɪt/",m:"加速，促进"},{w:"accent",p:"/ˈæksent/",m:"口音，重音"},{w:"accept",p:"/əkˈsept/",m:"接受，认可"},
+{w:"access",p:"/ˈækses/",m:"进入，通道"},{w:"accident",p:"/ˈæksɪdənt/",m:"事故，意外"},{w:"accompany",p:"/əˈkʌmpəni/",m:"陪伴，伴随"},
+{w:"accomplish",p:"/əˈkʌmplɪʃ/",m:"完成，实现"},{w:"according",p:"/əˈkɔːrdɪŋ/",m:"根据，按照"},{w:"account",p:"/əˈkaʊnt/",m:"账户，解释"},
+{w:"accumulate",p:"/əˈkjuːmjəleɪt/",m:"积累，积聚"},{w:"accurate",p:"/ˈækjərət/",m:"准确的，精确的"}
 ];
 
-let MEM={}, HIST=[], cur=null, G={seq:[],i:0,ok:0,bad:0,streak:0,maxStreak:0,res:[],wrongIdx:[],phase:'first',roundCount:0};
-const ROUND_SIZE=20, PASS_RATE=90, TIME_LIMIT=10;
+let MEM={},HIST=[],G={seq:[],retestSeq:[],i:0,ok:0,bad:0,streak:0,maxStreak:0,res:[],phase:'first',wrongSet:new Set(),roundCount:1};
+const ROUND_SIZE=20,PASS_RATE=90,TIME_LIMIT=10;
 
-// ========== INIT ==========
-function enter(){document.getElementById('splash').classList.add('gone');setTimeout(()=>{document.getElementById('splash').style.display='none';document.getElementById('app').classList.remove('hidden');init()},600)}
+function enter(){
+  // 解锁音频（移动端需要用户手势触发）
+  if('speechSynthesis' in window){
+    const u=new SpeechSynthesisUtterance('');u.volume=0;
+    try{window.speechSynthesis.speak(u);}catch(e){}
+    // 预加载 voices
+    if(window.speechSynthesis.getVoices().length===0){
+      window.speechSynthesis.onvoiceschanged=function(){
+        window.speechSynthesis.getVoices();
+      };
+    }
+  }
+  document.getElementById('splash').classList.add('gone');
+  setTimeout(function(){
+    document.getElementById('splash').style.display='none';
+    document.getElementById('app').classList.remove('hidden');
+    init();
+  },600);
+}
+
 function init(){try{MEM=JSON.parse(localStorage.getItem('xx_mem')||'{}');HIST=JSON.parse(localStorage.getItem('xx_hist')||'[]')}catch(e){MEM={};HIST=[]}document.getElementById('today').textContent=fmt(new Date());renderHome()}
 function save(){localStorage.setItem('xx_mem',JSON.stringify(MEM));localStorage.setItem('xx_hist',JSON.stringify(HIST))}
 
 // ========== HOME ==========
 function renderHome(){
-const m=Object.values(MEM).filter(x=>(x.l||0)>=3).length;
-document.getElementById('s-total').textContent=m;
-document.getElementById('s-streak').textContent=calcStreak();
-document.getElementById('s-rate').textContent=calcWeekRate()+'%';
-const tc=document.getElementById('tasks');tc.innerHTML='';
-const t=genTask();tc.appendChild(t);
-if(HIST.length){document.getElementById('h-sec').style.display='block';renderHist()}else{document.getElementById('h-sec').style.display='none'}
+  const m=Object.values(MEM).filter(x=>(x.l||0)>=3).length;
+  document.getElementById('s-total').textContent=m;
+  document.getElementById('s-streak').textContent=calcStreak();
+  document.getElementById('s-rate').textContent=calcWeekRate()+'%';
+  const tc=document.getElementById('tasks');tc.innerHTML='';
+  const t=genTask();tc.appendChild(t);
+  if(HIST.length){document.getElementById('h-sec').style.display='block';renderHist()}else{document.getElementById('h-sec').style.display='none'}
 }
 function genTask(){
-const pool=[...BANK].sort(()=>Math.random()-.5).slice(0,ROUND_SIZE);
-const ids=pool.map(x=>x.w);
-return mkCard({title:'今日单词闯关',sub:`共 ${ROUND_SIZE} 个单词`,words:ids,mode:'mixed',due:'今日',new:true});
+  const pool=[...BANK].sort(function(){return Math.random()-.5}).slice(0,ROUND_SIZE);
+  const ids=pool.map(function(x){return x.w});
+  return mkCard({title:'今日单词闯关',sub:'共 '+ROUND_SIZE+' 个单词',words:ids,mode:'mixed',due:'今日',new:true});
 }
 function mkCard(tk){
-const d=document.createElement('div');d.className='task-card'+(tk.new?'':' urgent');
-d.innerHTML=`<div class="task-header"><div class="task-title">${tk.title}</div><div class="task-badge ${tk.new?'new':'urgent'}">${tk.new?'新任务':'待复习'}</div></div><div class="task-meta"><span>📋 ${tk.words.length} 个单词</span><span>⏰ ${tk.due}</span></div><button class="task-btn" onclick="startG()">开始闯关</button>`;
-return d;
+  const d=document.createElement('div');d.className='task-card'+(tk.new?'':' urgent');
+  d.innerHTML='<div class="task-header"><div class="task-title">'+tk.title+'</div><div class="task-badge '+(tk.new?'new':'urgent')+'">'+(tk.new?'新任务':'待复习')+'</div></div><div class="task-meta"><span>📋 '+tk.words.length+' 个单词</span><span>⏰ '+tk.due+'</span></div><button class="task-btn" onclick="startG()">开始闯关</button>';
+  return d;
 }
 function renderHist(){
-const c=document.getElementById('h-list');c.innerHTML='';
-HIST.slice(-5).reverse().forEach(h=>{
-const sc=h.acc>=80?'g':h.acc>=60?'y':'r';
-const ic=h.acc>=80?'🌟':h.acc>=60?'👍':'💪';
-const d=document.createElement('div');d.className='history-item';
-d.innerHTML=`<div class="history-icon ${sc}">${ic}</div><div class="history-info"><div class="history-title">${h.t}</div><div class="history-date">${h.d} · ${h.ok}/${h.tot} 正确</div></div><div class="history-score ${sc}">${h.acc}%</div>`;
-c.appendChild(d);
-});
+  const c=document.getElementById('h-list');c.innerHTML='';
+  HIST.slice(-5).reverse().forEach(function(h){
+    const sc=h.acc>=80?'g':h.acc>=60?'y':'r';
+    const ic=h.acc>=80?'🌟':h.acc>=60?'👍':'💪';
+    const d=document.createElement('div');d.className='history-item';
+    d.innerHTML='<div class="history-icon '+sc+'">'+ic+'</div><div class="history-info"><div class="history-title">'+h.t+'</div><div class="history-date">'+h.d+' · '+h.ok+'/'+h.tot+' 正确</div></div><div class="history-score '+sc+'">'+h.acc+'%</div>';
+    c.appendChild(d);
+  });
 }
 
 // ========== GAME ==========
 function startG(){
-cur=genTask();G.seq=[...BANK].sort(()=>Math.random()-.5).slice(0,ROUND_SIZE).map((w,idx)=>({...w,_idx:idx,retest:false}));
-G.i=0;G.ok=0;G.bad=0;G.streak=0;G.maxStreak=0;G.res=[];G.wrongIdx=[];G.phase='first';G.roundCount=1;
-document.getElementById('app').classList.add('hidden');document.getElementById('game').classList.remove('hidden');renderQ();
+  G.seq=[...BANK].sort(function(){return Math.random()-.5}).slice(0,ROUND_SIZE);
+  G.retestSeq=[];G.i=0;G.ok=0;G.bad=0;G.streak=0;G.maxStreak=0;G.res=[];
+  G.phase='first';G.wrongSet=new Set();G.roundCount++;
+  document.getElementById('app').classList.add('hidden');
+  document.getElementById('game').classList.remove('hidden');
+  renderQ();
 }
+
 function renderQ(){
-if(G.i>=G.seq.length){
-if(G.phase==='first'&&G.wrongIdx.length>0){G.phase='retest';G.wrongIdx.forEach(idx=>G.seq.push({...G.seq[idx],retest:true}));}
-else if(G.phase==='retest'&&G.wrongIdx.length>0){G.phase='retry';G.wrongIdx=[];G.seq.forEach(x=>{if(!x.retest||!G.res.find(r=>r.w===x.w&&r.ok))G.wrongIdx.push(x._idx);});} // 简化：retest后仍错的
-else{finish();return}
-G.i=G.seq.length-G.wrongIdx.length; // 跳到追加题
+  let q;
+  if(G.phase==='first'){
+    if(G.i>=G.seq.length){
+      // 第一轮结束，检查错题
+      if(G.wrongSet.size>0){
+        G.phase='retest';
+        G.i=0;
+        // 构建错题序列（去重）
+        G.retestSeq=[];
+        G.wrongSet.forEach(function(w){
+          const found=BANK.find(function(x){return x.w===w});
+          if(found) G.retestSeq.push(found);
+        });
+        // 显示过渡提示
+        showRetestBanner();
+        return;
+      }else{
+        finish();return;
+      }
+    }
+    q=G.seq[G.i];
+    document.getElementById('rtag').classList.add('hidden');
+    document.getElementById('pg').style.width=(G.i/G.seq.length*100)+'%';
+  }else if(G.phase==='retest'){
+    if(G.i>=G.retestSeq.length){finish();return}
+    q=G.retestSeq[G.i];
+    document.getElementById('rtag').classList.remove('hidden');
+    document.getElementById('pg').style.width=(G.i/G.retestSeq.length*100)+'%';
+  }
+  if(!q){finish();return}
+
+  document.getElementById('g-ok').textContent=G.ok;
+  document.getElementById('g-bad').textContent=G.bad;
+  document.getElementById('wd').textContent=q.w;
+  document.getElementById('ph').textContent=q.p;
+  document.getElementById('rstrip').classList.add('hidden');
+  const opts=genOpts(q);
+  renderOpts(opts,q);
+  document.getElementById('timer').textContent=TIME_LIMIT;
+  document.getElementById('timer').className='timer';
+  startT();
+  setTimeout(function(){speak(q.w);},100);
 }
-const q=G.seq[G.i];if(!q){finish();return}
-document.getElementById('pg').style.width=(G.i/G.seq.length*100)+'%';
-document.getElementById('g-ok').textContent=G.ok;document.getElementById('g-bad').textContent=G.bad;
-document.getElementById('wd').textContent=q.w;document.getElementById('ph').textContent=q.p;
-document.getElementById('rstrip').classList.add('hidden');document.getElementById('nxt').classList.add('hidden');
-const opts=genOpts(q);renderOpts(opts,q);
-document.getElementById('timer').textContent=TIME_LIMIT;document.getElementById('timer').className='timer';
-startT();speak(q.w);
+
+function showRetestBanner(){
+  document.getElementById('rstrip').textContent='📚 接下来是错题重练 · 共 '+G.wrongSet.size+' 题';
+  document.getElementById('rstrip').className='result-strip info';
+  document.getElementById('rstrip').classList.remove('hidden');
+  document.getElementById('opts').innerHTML='';
+  setTimeout(function(){
+    document.getElementById('rstrip').classList.add('hidden');
+    renderQ();
+  },2000);
 }
+
 function genOpts(correct){
-const wrong=BANK.filter(x=>x.w!==correct.w).sort(()=>Math.random()-.5).slice(0,5);
-const all=[correct,...wrong].sort(()=>Math.random()-.5);
-return all.map(o=>({w:o.w,m:o.m,ok:o.w===correct.w}));
+  const wrong=BANK.filter(function(x){return x.w!==correct.w}).sort(function(){return Math.random()-.5}).slice(0,5);
+  const all=[correct].concat(wrong).sort(function(){return Math.random()-.5});
+  return all.map(function(o){return{w:o.w,m:o.m,ok:o.w===correct.w}});
 }
 function renderOpts(opts,correct){
-const c=document.getElementById('opts');c.innerHTML='';
-opts.forEach((o,idx)=>{
-const b=document.createElement('button');b.className='opt-btn';b.textContent=String.fromCharCode(65+idx)+'. '+o.m;b.dataset.ok=o.ok;
-b.onclick=()=>pick(o.ok,b,opts,correct);
-c.appendChild(b);
-});
+  const c=document.getElementById('opts');c.innerHTML='';
+  opts.forEach(function(o,idx){
+    const b=document.createElement('button');b.className='opt-btn';b.textContent=String.fromCharCode(65+idx)+'. '+o.m;b.dataset.ok=o.ok?'true':'false';
+    b.onclick=function(){pick(o.ok,b,opts,correct)};
+    c.appendChild(b);
+  });
 }
+
 let tmr=null,tLeft=TIME_LIMIT;
-function startT(){clearInterval(tmr);tLeft=TIME_LIMIT;tmr=setInterval(()=>{tLeft-=.1;const el=document.getElementById('timer');el.textContent=Math.max(0,Math.ceil(tLeft));if(tLeft<=3)el.className='timer urgent';if(tLeft<=0){clearInterval(tmr);timeout();}},100)}
-function timeout(){const btns=document.querySelectorAll('.opt-btn');btns.forEach(b=>b.classList.add('disabled'));showAns(false,null,true)}
-function pick(isCorrect,btn,opts,correct){clearInterval(tmr);const btns=document.querySelectorAll('.opt-btn');btns.forEach(b=>{b.classList.add('disabled');if(b.dataset.ok==='true')b.classList.add('correct');});if(!isCorrect){btn.classList.add('wrong');}showAns(isCorrect,btn,false)}
-function showAns(ok,btn,wasTimeout){
-const q=G.seq[G.i];const t=(TIME_LIMIT-Math.max(0,tLeft)).toFixed(1);
-G.res.push({w:q.w,ok:ok,time:parseFloat(t),retest:q.retest});
-if(ok){G.ok++;G.streak++;if(G.streak>G.maxStreak)G.maxStreak=G.streak;document.getElementById('rstrip').textContent=G.streak>=3?`🔥 连续 ${G.streak} 题正确！`:'✅ 正确！';document.getElementById('rstrip').className='result-strip ok';}
-else{G.bad++;G.streak=0;if(!q.retest)G.wrongIdx.push(G.i);document.getElementById('rstrip').textContent=wasTimeout?'⏰ 时间到！':'❌ 再想想看';document.getElementById('rstrip').className='result-strip bad';}
-document.getElementById('rstrip').classList.remove('hidden');document.getElementById('nxt').classList.remove('hidden');
+function startT(){clearInterval(tmr);tLeft=TIME_LIMIT;tmr=setInterval(function(){
+  tLeft-=.1;const el=document.getElementById('timer');el.textContent=Math.max(0,Math.ceil(tLeft));
+  if(tLeft<=3)el.className='timer urgent';
+  if(tLeft<=0){clearInterval(tmr);timeout();}
+},100)}
+function timeout(){document.querySelectorAll('.opt-btn').forEach(function(b){b.classList.add('disabled')});showAns(false,null,true)}
+
+function pick(isCorrect,btn,opts,correct){
+  clearInterval(tmr);
+  document.querySelectorAll('.opt-btn').forEach(function(b){
+    b.classList.add('disabled');
+    if(b.dataset.ok==='true')b.classList.add('correct');
+  });
+  if(!isCorrect)btn.classList.add('wrong');
+  showAns(isCorrect,btn,false);
 }
-function nextQ(){G.i++;renderQ();}
-function speak(w){if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u)}}
-function speakNow(){const w=G.seq[G.i]?.w;if(w)speak(w)}
+
+function showAns(ok,btn,wasTimeout){
+  const q=G.phase==='first'?G.seq[G.i]:G.retestSeq[G.i];
+  const t=(TIME_LIMIT-Math.max(0,tLeft)).toFixed(1);
+
+  if(G.phase==='first'){
+    G.res.push({w:q.w,ok:ok,time:parseFloat(t),phase:'first'});
+    if(ok){
+      G.ok++;G.streak++;
+      if(G.streak>G.maxStreak)G.maxStreak=G.streak;
+      document.getElementById('rstrip').textContent=G.streak>=3?'🔥 连续 '+G.streak+' 题正确！':'✅ 正确！';
+      document.getElementById('rstrip').className='result-strip ok';
+    }else{
+      G.bad++;G.streak=0;
+      G.wrongSet.add(q.w);
+      document.getElementById('rstrip').textContent=wasTimeout?'⏰ 时间到！':'❌ 再想想看';
+      document.getElementById('rstrip').className='result-strip bad';
+    }
+  }else{
+    // retest 不计入正确率
+    if(ok){
+      document.getElementById('rstrip').textContent='✅ 这次对了！';
+      document.getElementById('rstrip').className='result-strip ok';
+    }else{
+      document.getElementById('rstrip').textContent='❌ 还需要多练习';
+      document.getElementById('rstrip').className='result-strip bad';
+    }
+  }
+
+  document.getElementById('rstrip').classList.remove('hidden');
+  // 2秒后自动下一题
+  setTimeout(nextQ,2000);
+}
+
+function nextQ(){G.i++;renderQ()}
+
+function speak(w){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(w);
+  u.lang='en-US';u.rate=.9;
+  // 尝试找一个英文 voice
+  const voices=window.speechSynthesis.getVoices();
+  if(voices&&voices.length>0){
+    const enVoice=voices.find(function(v){return v.lang&&v.lang.startsWith('en')});
+    if(enVoice)u.voice=enVoice;
+  }
+  window.speechSynthesis.speak(u);
+}
+function speakNow(){
+  const w=G.phase==='first'?G.seq[G.i]?.w:G.retestSeq[G.i]?.w;
+  if(w)speak(w);
+}
 
 // ========== FINISH ==========
 function finish(){
-const total=G.res.filter(r=>!r.retest).length;const correct=G.res.filter(r=>!r.retest&&r.ok).length;
-const acc=total>0?Math.round(correct/total*100):0;
-const times=G.res.filter(r=>!r.retest).map(r=>r.time);
-const avg=times.length?(times.reduce((a,b)=>a+b,0)/times.length).toFixed(1):'0.0';
-const rec={t:`第${G.roundCount}轮闯关`,d:fmt(new Date()),tot:total,ok:correct,bad:total-correct,acc:acc,avg:avg,max:G.maxStreak,words:G.res};
-HIST.push(rec);save();updateMem();
-document.getElementById('game').classList.add('hidden');document.getElementById('result').classList.remove('hidden');
-document.getElementById('bs').textContent=acc+'%';document.getElementById('b-ok').textContent=correct;document.getElementById('b-bad').textContent=total-correct;document.getElementById('b-avg').textContent=avg+'s';
-let em,tit,sub;if(acc>=PASS_RATE){em='🏆';tit='闯关成功！';sub=`正确率 ${acc}% · 解锁下一轮！`;document.getElementById('nxt-btn').textContent='下一轮 →';document.getElementById('nxt-btn').style.display='block';}
-else{em='💪';tit='继续加油！';sub=`正确率 ${acc}% · 再来一次巩固一下`;document.getElementById('nxt-btn').textContent='再来一次';document.getElementById('nxt-btn').style.display='block';}
-if(acc>=95){em='🌟';tit='太棒了！';sub='几乎全对！继续挑战下一轮吧！'}
-document.getElementById('re').textContent=em;document.getElementById('rt').textContent=tit;document.getElementById('rs').textContent=sub;
-const rv=document.getElementById('rv');rv.innerHTML='';
-G.res.filter(r=>!r.retest).forEach(r=>{
-const w=BANK.find(x=>x.w===r.w);
-const d=document.createElement('div');d.className='rw';
-const tg=r.ok?'<span class="rw-tg m">已掌握</span>':'<span class="rw-tg s">待加强</span>';
-d.innerHTML=`<div class="rw-ic">${r.ok?'✅':'❌'}</div><div class="rw-inf"><div class="rw-w">${r.w} <span style="color:var(--t2);font-size:12px">${w?.p||''}</span></div><div class="rw-m">${w?.m||''}</div></div>${tg}`;
-rv.appendChild(d);
-});
+  // 只统计 first 阶段的 20 题
+  const total=G.ok+G.bad;
+  const acc=total>0?Math.round(G.ok/total*100):0;
+  const firstRes=G.res.filter(function(r){return r.phase==='first'});
+  const times=firstRes.map(function(r){return r.time});
+  const avg=times.length?(times.reduce(function(a,b){return a+b},0)/times.length).toFixed(1):'0.0';
+  const rec={t:'第'+G.roundCount+'轮闯关',d:fmt(new Date()),tot:total,ok:G.ok,bad:G.bad,acc:acc,avg:avg,max:G.maxStreak,words:firstRes};
+  HIST.push(rec);save();updateMem(firstRes);
+
+  document.getElementById('game').classList.add('hidden');
+  document.getElementById('result').classList.remove('hidden');
+  document.getElementById('bs').textContent=acc+'%';
+  document.getElementById('b-ok').textContent=G.ok;
+  document.getElementById('b-bad').textContent=G.bad;
+  document.getElementById('b-avg').textContent=avg+'s';
+
+  let em,tit,sub;
+  if(acc>=PASS_RATE){em='🏆';tit='闯关成功！';sub='正确率 '+acc+'% · 解锁下一轮！';document.getElementById('nxt-btn').textContent='下一轮 →';}
+  else{em='💪';tit='继续加油！';sub='正确率 '+acc+'% · 再来一次巩固一下';document.getElementById('nxt-btn').textContent='再来一次';}
+  if(acc>=95){em='🌟';tit='太棒了！';sub='几乎全对！继续挑战下一轮吧！'}
+  document.getElementById('re').textContent=em;
+  document.getElementById('rt').textContent=tit;
+  document.getElementById('rs').textContent=sub;
+
+  const rv=document.getElementById('rv');rv.innerHTML='';
+  firstRes.forEach(function(r){
+    const w=BANK.find(function(x){return x.w===r.w});
+    const d=document.createElement('div');d.className='rw';
+    const tg=r.ok?'<span class="rw-tg m">已掌握</span>':'<span class="rw-tg s">待加强</span>';
+    d.innerHTML='<div class="rw-ic">'+(r.ok?'✅':'❌')+'</div><div class="rw-inf"><div class="rw-w">'+r.w+' <span style="color:var(--t2);font-size:12px">'+(w?w.p:'')+'</span></div><div class="rw-m">'+(w?w.m:'')+'</div></div>'+tg;
+    rv.appendChild(d);
+  });
 }
+
 function nextRound(){
-const last=HIST[HIST.length-1];if(last&&last.acc>=PASS_RATE){G.roundCount++;G.seq=[...BANK].sort(()=>Math.random()-.5).slice(0,ROUND_SIZE).map((w,idx)=>({...w,_idx:idx,retest:false}));}
-else{G.seq=[...BANK].sort(()=>Math.random()-.5).slice(0,ROUND_SIZE).map((w,idx)=>({...w,_idx:idx,retest:false}));}
-G.i=0;G.ok=0;G.bad=0;G.streak=0;G.maxStreak=0;G.res=[];G.wrongIdx=[];G.phase='first';
-document.getElementById('result').classList.add('hidden');document.getElementById('game').classList.remove('hidden');renderQ();
+  const last=HIST[HIST.length-1];
+  if(last&&last.acc>=PASS_RATE){
+    G.roundCount++;
+    G.seq=[...BANK].sort(function(){return Math.random()-.5}).slice(0,ROUND_SIZE);
+  }else{
+    // 再来一次：保留上一轮错题 + 新题补满20个
+    const wrongWords=Array.from(G.wrongSet);
+    const need=ROUND_SIZE-wrongWords.length;
+    const newPool=BANK.filter(function(x){return !wrongWords.includes(x.w)}).sort(function(){return Math.random()-.5}).slice(0,Math.max(0,need));
+    G.seq=wrongWords.map(function(w){return BANK.find(function(x){return x.w===w})}).concat(newPool).filter(Boolean);
+    // 如果不够20个，再随机补
+    while(G.seq.length<ROUND_SIZE){
+      const extra=BANK[Math.floor(Math.random()*BANK.length)];
+      if(!G.seq.find(function(x){return x.w===extra.w}))G.seq.push(extra);
+    }
+    G.seq=G.seq.slice(0,ROUND_SIZE);
+  }
+  G.retestSeq=[];G.i=0;G.ok=0;G.bad=0;G.streak=0;G.maxStreak=0;G.res=[];
+  G.phase='first';G.wrongSet=new Set();
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('game').classList.remove('hidden');
+  renderQ();
 }
-function goHome(){document.getElementById('result').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome();}
-function quit(){if(confirm('确定退出？进度将不会保存。')){clearInterval(tmr);document.getElementById('game').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome();}}
+
+function goHome(){document.getElementById('result').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome()}
+function quit(){if(confirm('确定退出？进度将不会保存。')){clearInterval(tmr);document.getElementById('game').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderHome()}}
 
 // ========== MEMORY ==========
-function updateMem(){
-G.res.filter(r=>!r.retest).forEach(r=>{
-if(!MEM[r.w])MEM[r.w]={l:0,seen:0,ok:0,streak:0,hist:[]};
-const m=MEM[r.w];m.seen++;m.hist.push({d:new Date().toISOString(),ok:r.ok});
-if(r.ok){m.ok++;m.streak++;if(m.streak>=3)m.l=Math.min(5,m.l+2);else m.l=Math.min(5,m.l+1);}
-else{m.streak=0;m.l=Math.max(0,m.l-1);}
-});
-save();
+function updateMem(firstRes){
+  firstRes.forEach(function(r){
+    if(!MEM[r.w])MEM[r.w]={l:0,seen:0,ok:0,streak:0,hist:[]};
+    const m=MEM[r.w];m.seen++;m.hist.push({d:new Date().toISOString(),ok:r.ok});
+    if(r.ok){m.ok++;m.streak++;if(m.streak>=3)m.l=Math.min(5,m.l+2);else m.l=Math.min(5,m.l+1);}
+    else{m.streak=0;m.l=Math.max(0,m.l-1);}
+  });
+  save();
 }
 
 // ========== UTILS ==========
-function fmt(d){return `${d.getMonth()+1}月${d.getDate()}日 周${['日','一','二','三','四','五','六'][d.getDay()]}`;}
-function calcStreak(){if(!HIST.length)return 0;return new Set(HIST.map(h=>h.d)).size;}
-function calcWeekRate(){const wk=new Date();wk.setDate(wk.getDate()-7);const rec=HIST.filter(h=>new Date(h.d)>=wk);if(!rec.length)return 0;const t=rec.reduce((s,h)=>s+h.tot,0),o=rec.reduce((s,h)=>s+h.ok,0);return t?Math.round(o/t*100):0;}
+function fmt(d){return (d.getMonth()+1)+'月'+d.getDate()+'日 周'+'日一二三四五六'[d.getDay()]}
+function calcStreak(){if(!HIST.length)return 0;return new Set(HIST.map(function(h){return h.d})).size}
+function calcWeekRate(){const wk=new Date();wk.setDate(wk.getDate()-7);const rec=HIST.filter(function(h){return new Date(h.d)>=wk});if(!rec.length)return 0;const t=rec.reduce(function(s,h){return s+h.tot},0),o=rec.reduce(function(s,h){return s+h.ok},0);return t?Math.round(o/t*100):0}
 </script>
 </body>
 </html>
