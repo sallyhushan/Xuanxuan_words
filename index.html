@@ -226,7 +226,7 @@ document.getElementById('app').classList.add('hidden');document.getElementById('
 function renderQ(){
 if(G.i>=G.seq.length){
 if(G.phase==='first'&&G.wrongIdx.length>0){G.phase='retest';G.wrongIdx.forEach(idx=>G.seq.push({...G.seq[idx],retest:true}));}
-else if(G.phase==='retest'&&G.wrongIdx.length>0){G.phase='retry';G.wrongIdx=[];G.seq.forEach(x=>{if(!x.retest||!G.res.find(r=>r.w===x.w&&r.ok)})G.wrongIdx.push(x._idx);} // 简化：retest后仍错的
+else if(G.phase==='retest'&&G.wrongIdx.length>0){G.phase='retry';G.wrongIdx=[];G.seq.forEach(x=>{if(!x.retest||!G.res.find(r=>r.w===x.w&&r.ok))G.wrongIdx.push(x._idx);});} // 简化：retest后仍错的
 else{finish();return}
 G.i=G.seq.length-G.wrongIdx.length; // 跳到追加题
 }
