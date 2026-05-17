@@ -138,16 +138,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 <div class="stat-card"><div class="num" id="s-rate">0%</div><div class="label">本周正确率</div></div>
 </div>
 <div id="tasks"></div>
+<div style="text-align:center;margin-top:8px"><button class="export-btn" onclick="exportData()" style="padding:8px 16px;font-size:12px;background:var(--card);border:1px solid var(--b);border-radius:10px;color:var(--t2);cursor:pointer">📥 导出本地备份</button></div>
 <div class="history-section" id="h-sec"><h3>📚 闯关记录</h3><div id="h-list"></div></div>
-<button class="export-btn" onclick="exportData()">📥 导出学习数据</button>
-<div class="cloud-setup" id="cloudSetup">
-<h4>☁️ 云同步（可选）</h4>
-<p style="font-size:12px;color:var(--t2);margin-bottom:8px">输入同步码可在多设备同步进度。首次使用留空会自动生成。</p>
-<input type="text" id="syncCode" placeholder="同步码（如 xuanxuan_abc123）" />
-<button class="sync-btn" onclick="saveToCloud()">💾 保存到云端</button>
-<button class="sync-btn" style="margin-top:8px;background:var(--bg);color:var(--t);border:1.5px solid var(--b)" onclick="loadFromCloud()">🔄 从云端恢复</button>
-<div id="syncMsg" style="font-size:12px;margin-top:8px;color:var(--ok)"></div>
-</div>
+
+
 </div>
 
 <div class="game-screen hidden" id="game">
@@ -675,6 +669,38 @@ async function fetchPhonetic(word){
   }
 }
 
+
+// ====== AUTO UPLOAD CONFIG ======
+const CONFIG = {
+  API_BASE: 'http://YOUR_ECS_IP:3000',  // ← 改成你的阿里云ECS公网IP或域名
+  STUDENT: '萱萱',
+  AUTO_UPLOAD: true
+};
+
+async function autoUpload(record) {
+  if (!CONFIG.AUTO_UPLOAD || !CONFIG.API_BASE || CONFIG.API_BASE.includes('YOUR_ECS_IP')) return;
+  try {
+    const payload = {
+      ...record,
+      student: CONFIG.STUDENT,
+      device: navigator.userAgent.slice(0, 100)
+    };
+    const res = await fetch(CONFIG.API_BASE + '/api/record', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      console.log('✅ 记录已上传');
+      // 标记本次已上传，避免重复
+      localStorage.setItem('xx_last_upload_' + record.roundId, 'ok');
+    }
+  } catch(e) {
+    console.log('⚠️ 上传失败（离线或后端未启动）:', e.message);
+    // 静默失败，不打扰孩子，保留在 localStorage
+  }
+}
+
 let MEM={},HIST=[],G={seq:[],retestSeq:[],i:0,ok:0,bad:0,streak:0,maxStreak:0,res:[],phase:'first',wrongSet:new Set(),roundCount:0,usedHint:false};
 const ROUND_SIZE=20,PASS_RATE=90,TIME_LIMIT=10;
 let currentAudio=null;
@@ -729,31 +755,6 @@ function exportData(){
 }
 
 // ====== CLOUD SYNC (jsonblob.io - free, no auth) ======
-const BLOB_BASE = 'https://jsonblob.com/api/jsonBlob';
-async function saveToCloud(){
-  var code=document.getElementById('syncCode').value.trim();
-  if(!code){code='xuanxuan_'+Math.random().toString(36).substr(2,8);document.getElementById('syncCode').value=code;}
-  var data={student:'萱萱',version:'v3',memory:MEM,history:HIST,updatedAt:new Date().toISOString()};
-  try{
-    // jsonblob: PUT to update existing, POST to create
-    var res=await fetch(BLOB_BASE+'/'+code,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    if(res.status===404){
-      // Create new blob
-      var createRes=await fetch(BLOB_BASE,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
-      var newId=await createRes.text();
-      document.getElementById('syncCode').value=newId;
-      document.getElementById('syncMsg').textContent='✅ 已创建新的云端备份！同步码：'+newId+'（请牢记）';
-    }else{
-      document.getElementById('syncMsg').textContent='✅ 已保存到云端！同步码：'+code;
-    }
-  }catch(e){
-    document.getElementById('syncMsg').style.color='var(--bad)';
-    document.getElementById('syncMsg').textContent='❌ 云端保存失败，请检查网络或导出JSON备用';
-  }
-}
-async function loadFromCloud(){
-  var code=document.getElementById('syncCode').value.trim();
-  if(!code){document.getElementById('syncMsg').style.color='var(--bad)';document.getElementById('syncMsg').textContent='请输入同步码';return;}
   try{
     var res=await fetch(BLOB_BASE+'/'+code);
     if(!res.ok)throw new Error('not found');
@@ -929,8 +930,8 @@ function finish(){
   var firstRes=G.res.filter(function(r){return r.phase==='first'});
   var times=firstRes.map(function(r){return r.time});
   var avg=times.length?(times.reduce(function(a,b){return a+b},0)/times.length).toFixed(1):'0.0';
-  var rec={t:'第'+G.roundCount+'轮闯关',d:fmt(new Date()),tot:total,ok:G.ok,bad:G.bad,acc:acc,avg:avg,max:G.maxStreak,words:firstRes};
-  HIST.push(rec);save();updateMem(firstRes);
+  var rec={roundId:'round_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),t:'第+G.roundCount+'轮闯关',d:fmt(new Date()),tot:total,ok:G.ok,bad:G.bad,acc:acc,avg:avg,max:G.maxStreak,words:firstRes};
+  HIST.push(rec);save();updateMem(firstRes);autoUpload(rec);
   document.getElementById('game').classList.add('hidden');
   document.getElementById('result').classList.remove('hidden');
   document.getElementById('bs').textContent=acc+'%';
