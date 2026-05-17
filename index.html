@@ -754,22 +754,6 @@ function exportData(){
   a.click();URL.revokeObjectURL(url);
 }
 
-// ====== CLOUD SYNC (jsonblob.io - free, no auth) ======
-  try{
-    var res=await fetch(BLOB_BASE+'/'+code);
-    if(!res.ok)throw new Error('not found');
-    var data=await res.json();
-    if(data.memory)MEM=data.memory;
-    if(data.history)HIST=data.history;
-    save();renderHome();
-    document.getElementById('syncMsg').style.color='var(--ok)';
-    document.getElementById('syncMsg').textContent='✅ 已从云端恢复数据！';
-  }catch(e){
-    document.getElementById('syncMsg').style.color='var(--bad)';
-    document.getElementById('syncMsg').textContent='❌ 未找到该同步码的数据，请检查是否输入正确';
-  }
-}
-
 // GAME
 function startG(){
   G.seq=BANK.slice().sort(function(){return Math.random()-.5}).slice(0,ROUND_SIZE);
@@ -930,7 +914,7 @@ function finish(){
   var firstRes=G.res.filter(function(r){return r.phase==='first'});
   var times=firstRes.map(function(r){return r.time});
   var avg=times.length?(times.reduce(function(a,b){return a+b},0)/times.length).toFixed(1):'0.0';
-  var rec={roundId:'round_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),t:'第+G.roundCount+'轮闯关',d:fmt(new Date()),tot:total,ok:G.ok,bad:G.bad,acc:acc,avg:avg,max:G.maxStreak,words:firstRes};
+  var rec={roundId:'round_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),t:'第'+G.roundCount+'轮闯关',d:fmt(new Date()),tot:total,ok:G.ok,bad:G.bad,acc:acc,avg:avg,max:G.maxStreak,words:firstRes};
   HIST.push(rec);save();updateMem(firstRes);autoUpload(rec);
   document.getElementById('game').classList.add('hidden');
   document.getElementById('result').classList.remove('hidden');
