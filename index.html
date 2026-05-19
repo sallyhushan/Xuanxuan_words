@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>萱萱单词闯关</title>
+<title>萱萱和小伙伴们的单词闯关</title>
 <style>
 :root{--p:#6366f1;--p2:#4f46e5;--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;--bg:#f8fafc;--card:#fff;--t:#1e293b;--t2:#64748b;--b:#e2e8f0}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -148,6 +148,59 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 .review-card .r-badge.retry{background:#fffbeb;color:var(--warn)}
 
 .duel-tag{position:absolute;top:10px;left:10px;padding:3px 10px;background:#fef2f2;color:var(--bad);border-radius:10px;font-size:11px;font-weight:600}
+
+/* ===== v5.13 Hub Styles ===== */
+.home-header{margin-bottom:20px}
+.home-top{display:flex;align-items:baseline;gap:8px}
+.home-title{font-size:22px;font-weight:700}
+.home-nick{font-size:12px;color:var(--t2);cursor:pointer;text-decoration:underline;opacity:.7}
+.home-nick:hover{opacity:1}
+.home-date{font-size:13px;color:var(--t2);margin-top:4px}
+
+.main-hub{background:var(--card);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.hub-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.hub-round{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.hub-round-num{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
+.hub-meta{font-size:12px;color:var(--t2);line-height:1.5}
+
+.hub-stats{display:flex;gap:8px;margin-bottom:16px}
+.hub-stat{flex:1;background:var(--bg);border-radius:10px;padding:10px;text-align:center}
+.hub-stat .n{font-size:20px;font-weight:700;color:var(--p)}
+.hub-stat .l{font-size:11px;color:var(--t2);margin-top:2px}
+.hub-stat .n.ok{color:var(--ok)}
+.hub-stat .n.warn{color:var(--warn)}
+
+.hub-btn{width:100%;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s;margin-bottom:12px}
+.hub-btn:hover{opacity:.9}
+.hub-btn:disabled{opacity:.5;cursor:not-allowed}
+.hub-btn.primary{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff}
+
+.hub-tools{display:flex;gap:10px}
+.hub-tool{flex:1;background:var(--bg);border:1.5px solid var(--b);border-radius:10px;padding:12px;text-align:center;cursor:pointer;font-size:13px;color:var(--t2);transition:all .2s}
+.hub-tool:hover{background:#eef2ff;border-color:var(--p)}
+.hub-tool .icon{font-size:18px;margin-bottom:4px;display:block}
+.hub-tool .count{font-size:11px;color:var(--t2);margin-top:2px}
+.hub-tool .count.new{color:var(--bad);font-weight:600}
+
+.hub-fold{margin-top:16px;border-top:1.5px solid var(--b);padding-top:14px}
+.hub-fold-hd{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:4px 0}
+.hub-fold-hd span{font-size:13px;color:var(--t2);font-weight:500}
+.hub-fold-hd .arr{font-size:12px;transition:transform .2s;color:var(--t2)}
+.hub-fold-hd.open .arr{transform:rotate(180deg)}
+.hub-fold-bd{display:none;padding-top:10px}
+.hub-fold-bd.open{display:block}
+
+.duel-hub{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.duel-hub.locked{background:linear-gradient(135deg,#94a3b8,#64748b)}
+.duel-hub-title{font-size:18px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.duel-hub-meta{font-size:13px;opacity:.9;margin-bottom:16px}
+.duel-hub-btn{width:100%;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:12px;background:rgba(255,255,255,.95);color:#d97706}
+.duel-hub-btn:disabled{opacity:.6;cursor:not-allowed}
+.duel-hub.locked .duel-hub-btn{background:rgba(255,255,255,.6);color:#475569}
+.duel-hub-tools{display:flex;gap:10px}
+.duel-hub-tool{flex:1;background:rgba(255,255,255,.2);border:none;border-radius:10px;padding:12px;text-align:center;cursor:pointer;font-size:13px;color:#fff;transition:all .2s}
+.duel-hub-tool:hover{background:rgba(255,255,255,.35)}
+
 </style>
 </head>
 <body>
@@ -155,7 +208,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
 <!-- SPLASH -->
 <div class="splash" id="splash">
   <div class="splash-avatar">👧</div>
-  <h1>萱萱单词闯关</h1>
+  <h1>萱萱和小伙伴们的单词闯关</h1>
   <p>每天进步一点点，坚持就是胜利</p>
   <button class="task-btn" style="margin-top:32px;width:auto;padding:14px 48px;border-radius:30px" onclick="enter()">开始吧</button>
 </div>
@@ -170,30 +223,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-
   </div>
 </div>
 
+<!-- NAME CHANGE MODAL -->
+<div class="name-modal hidden" id="changeNameModal">
+  <div class="name-box">
+    <h2>⚠️ 修改昵称</h2>
+    <p style="color:var(--bad);font-size:13px">⚠️ 修改昵称会清空当前闯关记录！</p>
+    <input type="text" id="changeNameInput" placeholder="输入新昵称" maxlength="10">
+    <button onclick="confirmChangeName()">确认修改</button>
+    <button style="margin-top:8px;background:#f1f5f9;color:#64748b" onclick="closeChangeName()">取消</button>
+  </div>
+</div>
+
 <!-- HOME -->
 <div class="app hidden" id="app">
-  <div class="header">
-    <h2 id="welcomeTitle">你好！👋</h2>
-    <p class="subtitle" id="today">今日</p>
-  </div>
-  <div class="player-bar">
-    <div class="name" id="playerNameDisplay">玩家</div>
-    <div class="edit" onclick="showNameModal()">修改昵称</div>
-  </div>
-  <div class="stats-row">
-    <div class="stat-card"><div class="num" id="s-current">1</div><div class="label">当前轮次</div></div>
-    <div class="stat-card"><div class="num" id="s-completed">0</div><div class="label">已通过</div></div>
-    <div class="stat-card"><div class="num" id="s-rate">0%</div><div class="label">本周正确率</div></div>
+  <div class="home-header">
+    <div class="home-top">
+      <div class="home-title" id="welcomeTitle">你好！👋</div>
+      <div class="home-nick" onclick="showChangeName()">修改昵称</div>
+    </div>
+    <div class="home-date" id="today">今日</div>
   </div>
   <div id="mainTask"></div>
   <div id="duelEntry"></div>
-  <button class="leaderboard-btn" onclick="showLeaderboard()">🏆 查看排行榜</button>
-  <button class="review-btn" onclick="showReview()">📚 复习已解锁轮次</button>
-  <div class="history-section" id="hSec">
-    <h3>📖 闯关记录</h3>
-    <div id="hList"></div>
-  </div>
-  <button class="review-btn" onclick="exportData()">📥 导出本地备份</button>
+  <div style="text-align:center;padding:16px 0 0;font-size:12px;color:var(--t2);opacity:.6" id="verFooter">版本</div>
 </div>
 
 <!-- GAME SCREEN -->
@@ -744,8 +796,8 @@ const BANK=[
 {w:"temperature",p:"n. (how hot or cold a person or thing is)",m:"温度",e:"When Cassie is sick, her **temperature** rises.",rel:[]}
 ];
 
-const ROUND_SIZE=20, TOTAL_ROUNDS=23, PASS_RATE=90, DUEL_SIZE=30, DUEL_UNLOCK=3;
-const API_BASE='http://8.138.202.82:3000';
+const ROUND_SIZE=20, TOTAL_ROUNDS=23, PASS_RATE=90, DUEL_SIZE=30, DUEL_UNLOCK=1;
+const API_BASE='';
 const TIME_LIMIT=10;
 
 let playerName='', currentRound=1, completedRounds=[], roundStats={}, duelStats={attempts:0,bestAcc:0};
@@ -760,6 +812,26 @@ function loadStorage(){
 function saveProgress(){
   localStorage.setItem('xx_progress',JSON.stringify({name:playerName,currentRound:currentRound,completedRounds:completedRounds,roundStats:roundStats,duelStats:duelStats}));
   localStorage.setItem('xx_ph',JSON.stringify(phoneticCache));
+}
+
+// ====== CLOUD PROGRESS ======
+async function loadCloudProgress(){
+  if(!playerName)return;
+  try{
+    var res=await fetch(API_BASE+'/api/progress?player='+encodeURIComponent(playerName));
+    var data=await res.json();
+    if(data.progress&&data.progress.completedRounds&&data.progress.completedRounds.length>0){
+      var localEmpty=!completedRounds||completedRounds.length===0;
+      if(localEmpty){
+        currentRound=data.progress.currentRound||1;
+        completedRounds=data.progress.completedRounds||[];
+        roundStats=data.progress.roundStats||{};
+        duelStats=data.progress.duelStats||{attempts:0,bestAcc:0};
+        saveProgress();
+        init();
+      }
+    }
+  }catch(e){console.log('cloud progress failed',e.message)}
 }
 
 // ====== PHONETIC ======
@@ -783,61 +855,86 @@ function enter(){
   loadStorage();
   if(!playerName){document.getElementById('nameModal').classList.remove('hidden');return}
   document.getElementById('splash').classList.add('gone');
-  setTimeout(function(){document.getElementById('splash').style.display='none';document.getElementById('app').classList.remove('hidden');init()},600);
+  loadCloudProgress().then(function(){
+    setTimeout(function(){document.getElementById('splash').style.display='none';document.getElementById('app').classList.remove('hidden');init()},600);
+  });
 }
 function saveName(){
   var n=document.getElementById('nameInput').value.trim();
   if(!n){alert('请输入昵称');return}
   playerName=n;saveProgress();
   document.getElementById('nameModal').classList.add('hidden');
-  document.getElementById('splash').classList.add('gone');
-  setTimeout(function(){document.getElementById('splash').style.display='none';document.getElementById('app').classList.remove('hidden');init()},600);
+  loadCloudProgress().then(function(){
+    document.getElementById('splash').classList.add('gone');
+    setTimeout(function(){document.getElementById('splash').style.display='none';document.getElementById('app').classList.remove('hidden');init()},600);
+  });
 }
 function showNameModal(){
   document.getElementById('nameInput').value=playerName;
   document.getElementById('nameModal').classList.remove('hidden');
 }
 
+function showChangeName(){
+  document.getElementById('changeNameInput').value=playerName;
+  document.getElementById('changeNameModal').classList.remove('hidden');
+}
+function closeChangeName(){
+  document.getElementById('changeNameModal').classList.add('hidden');
+}
+function confirmChangeName(){
+  var n=document.getElementById('changeNameInput').value.trim();
+  if(!n){alert('请输入昵称');return}
+  playerName=n;
+  currentRound=1;completedRounds=[];roundStats={};duelStats={attempts:0,bestAcc:0};
+  saveProgress();
+  document.getElementById('changeNameModal').classList.add('hidden');
+  init();
+}
+
 // ====== HOME ======
 function init(){
-  document.getElementById('welcomeTitle').textContent='你好，'+playerName+'！👋';
-  document.getElementById('playerNameDisplay').textContent=playerName;
+  document.getElementById('welcomeTitle').textContent='欢迎回来，'+playerName+'！';
   document.getElementById('today').textContent=fmtDate(new Date());
-  document.getElementById('s-current').textContent=currentRound;
-  document.getElementById('s-completed').textContent=completedRounds.length;
-  document.getElementById('s-rate').textContent=calcRate()+'%';
+  document.getElementById('verFooter').textContent='v5.14';
   renderMainTask();renderDuelEntry();renderHistory();
 }
 
 function renderMainTask(){
   var c=document.getElementById('mainTask');c.innerHTML='';
-  var d=document.createElement('div');d.className='task-card';
+  var d=document.createElement('div');d.className='main-hub';
   var isLocked=completedRounds.length+1<currentRound;
-  var badge=isLocked?'🔒 需先通过上一轮':'新挑战';
-  var btnText=isLocked?'请先完成轮次'+(currentRound-1)+' →':'开始闯关';
-  d.innerHTML='<div class="task-header"><div class="task-title">📖 第'+currentRound+'轮 · 主线闯关</div><div class="task-badge">'+badge+'</div></div><div class="task-meta">共 '+getRoundWords(currentRound).length+' 个单词 · 正确率≥'+PASS_RATE+'%解锁下一轮</div><button class="task-btn" '+(isLocked?'disabled':'')+' onclick="startMainRound('+currentRound+')">'+btnText+'</button>';
+  var btnText=isLocked?'请先完成轮次'+(currentRound-1)+' →':'🚀 开始第 '+currentRound+' 轮闯关';
+  var reviewCount=completedRounds.length;
+  var reviewLabel=reviewCount>0?'已解锁 '+reviewCount+' 轮':'暂无解锁';
+  var progressPct=Math.round(completedRounds.length/TOTAL_ROUNDS*100);
+  d.innerHTML='<div class="hub-header"><div><div class="hub-round"><div class="hub-round-num">'+currentRound+'</div><span>主线闯关 <span class="round-total">/ 共 '+TOTAL_ROUNDS+' 轮</span></span></div><div style="width:100%;height:6px;background:var(--b);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--p),#a855f7);border-radius:3px;width:'+progressPct+'%"></div></div><div style="font-size:12px;color:var(--t2);text-align:right;margin-top:4px">已通过 '+completedRounds.length+'/'+TOTAL_ROUNDS+' 轮 · 加油！</div></div></div>'+
+    '<div class="hub-stats"><div class="hub-stat"><div class="n">'+currentRound+'</div><div class="l">当前轮次</div></div><div class="hub-stat"><div class="n ok">'+completedRounds.length+'</div><div class="l">已通过</div></div><div class="hub-stat"><div class="n warn">'+calcRate()+'%</div><div class="l">本周正确率</div></div></div>'+
+    '<button class="hub-btn primary" '+(isLocked?'disabled':'')+' onclick="startMainRound('+currentRound+')">'+btnText+'</button>'+
+    '<div class="hub-tools"><div class="hub-tool" onclick="showReview()"><span class="icon">📚</span><div>复习模式</div><div class="count">'+reviewLabel+'</div></div><div class="hub-tool" onclick="alert(\'萱萱爸爸还在开发，小朋友们不要急\')"><span class="icon">📝</span><div>错题本</div><div class="count new">开发中</div></div></div>'+
+    '<div class="hub-fold"><div class="hub-fold-hd" onclick="this.classList.toggle(\'open\');this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'.arr\').textContent=this.classList.contains(\'open\')?\'▲\':\'▼\'"><span>📋 闯关记录</span><span class="arr">▼</span></div><div class="hub-fold-bd" id="hList"></div></div>';
   c.appendChild(d);
+  renderHistory();
 }
 
 function renderDuelEntry(){
   var c=document.getElementById('duelEntry');c.innerHTML='';
   var unlocked=completedRounds.length>=DUEL_UNLOCK;
   var d=document.createElement('div');
-  d.className='duel-card'+(unlocked?'':' locked');
+  d.className='duel-hub'+(unlocked?'':' locked');
   if(unlocked){
-    d.onclick=function(){startDuel()};
-    d.innerHTML='<h3>⚔️ 单词大乱斗</h3><p>从已解锁的 '+completedRounds.length*ROUND_SIZE+' 个单词中随机挑战30题 · 无提示 · 纯速度</p>';
+    d.innerHTML='<div class="duel-hub-title">⚔️ 单词大乱斗</div><div class="duel-hub-meta">'+DUEL_SIZE+' 题 · 无提示 · 从全部 '+BANK.length+' 个单词中随机抽取</div><button class="duel-hub-btn" onclick="startDuel()">开始大乱斗</button><div class="duel-hub-tools"><div class="duel-hub-tool" onclick="showLeaderboard()">🏆 排行榜</div><div class="duel-hub-tool" onclick="showDuelStats()">📊 我的战绩</div></div>';
   }else{
-    d.innerHTML='<div class="lock-icon">🔒</div><h3>单词大乱斗</h3><p>还需完成 '+(DUEL_UNLOCK-completedRounds.length)+' 轮即可解锁（当前 '+completedRounds.length+'/'+DUEL_UNLOCK+'）</p>';
+    d.innerHTML='<div class="duel-hub-title">⚔️ 单词大乱斗 🔒</div><div class="duel-hub-meta">完成 '+DUEL_UNLOCK+' 轮主线闯关即可解锁（当前 '+completedRounds.length+'/'+DUEL_UNLOCK+'）</div><button class="duel-hub-btn" disabled>请先完成主线闯关</button>';
   }
   c.appendChild(d);
 }
 
 function renderHistory(){
+  var c=document.getElementById('hList');
+  if(!c)return;
   var keys=Object.keys(roundStats).sort(function(a,b){return parseInt(b)-parseInt(a)});
-  if(!keys.length){document.getElementById('hSec').style.display='none';return}
-  document.getElementById('hSec').style.display='block';
-  var c=document.getElementById('hList');c.innerHTML='';
+  if(!keys.length){c.innerHTML='<div style="text-align:center;padding:12px;color:var(--t2);font-size:13px">暂无闯关记录</div>';return}
+  c.innerHTML='';
   keys.slice(0,5).forEach(function(k){
     var stats=roundStats[k];
     if(!stats||!stats.length)return;
@@ -858,9 +955,13 @@ function getRoundWords(rn){
 
 // ====== MAIN ROUND ======
 function startMainRound(rn){
+  if('speechSynthesis' in window){window.speechSynthesis.cancel()}
+  if(currentAudio){currentAudio.pause();currentAudio=null}
   G.mode='main';G.roundNum=rn;G.i=0;G.ok=0;G.bad=0;G.res=[];G.wrongSet=new Set();G.usedHint=false;
   var words=getRoundWords(rn).slice().sort(function(){return Math.random()-.5});
   G.seq=words;
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('duelResult').classList.add('hidden');
   document.getElementById('app').classList.add('hidden');
   document.getElementById('game').classList.remove('hidden');
   document.getElementById('rtag').classList.add('hidden');
@@ -871,12 +972,15 @@ function startMainRound(rn){
 
 // ====== DUEL ======
 function startDuel(){
+  if('speechSynthesis' in window){window.speechSynthesis.cancel()}
+  if(currentAudio){currentAudio.pause();currentAudio=null}
   if(completedRounds.length<DUEL_UNLOCK){alert('请先完成'+DUEL_UNLOCK+'轮主线闯关');return}
   G.mode='duel';G.i=0;G.ok=0;G.bad=0;G.res=[];G.wrongSet=new Set();G.usedHint=false;
-  var pool=[];
-  completedRounds.forEach(function(rn){pool=pool.concat(getRoundWords(rn))});
-  G.seq=pool.slice().sort(function(){return Math.random()-.5}).slice(0,DUEL_SIZE);
+  // v5.14: 从全词库中随机抽取
+  G.seq=BANK.slice().sort(function(){return Math.random()-.5}).slice(0,DUEL_SIZE);
   G.startTime=Date.now();
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('duelResult').classList.add('hidden');
   document.getElementById('app').classList.add('hidden');
   document.getElementById('game').classList.remove('hidden');
   document.getElementById('rtag').classList.add('hidden');
@@ -947,7 +1051,7 @@ function showAns(ok,btn,wasTimeout){
   var q=G.seq[G.i];
   var t=(TIME_LIMIT-Math.max(0,tLeft)).toFixed(1);
   G.res.push({w:q.w,ok:ok,time:parseFloat(t),hint:G.usedHint||false});
-  if(ok){G.ok++;document.getElementById('rstrip').textContent='✅ 正确！';document.getElementById('rstrip').className='result-strip ok'}
+  if(ok){G.ok++;document.getElementById('rstrip').textContent=G.mode==='main'&&G.usedHint?'✅ 正确（提示）！':'✅ 正确！';document.getElementById('rstrip').className='result-strip ok'}
   else{G.bad++;if(wasTimeout){document.getElementById('rstrip').textContent='⏰ 时间到！'}else{document.getElementById('rstrip').textContent='❌ 再想想看'}document.getElementById('rstrip').className='result-strip bad'}
   document.getElementById('rstrip').classList.remove('hidden');
   setTimeout(nextQ,1800);
@@ -977,6 +1081,9 @@ function finish(){
     }
     saveProgress();
     autoUploadMain(rec);
+    if('speechSynthesis' in window){window.speechSynthesis.cancel()}
+    if(currentAudio){currentAudio.pause();currentAudio=null}
+    clearInterval(tmr);tmr=null;
     document.getElementById('game').classList.add('hidden');
     document.getElementById('result').classList.remove('hidden');
     document.getElementById('bs').textContent=acc+'%';
@@ -1024,6 +1131,9 @@ function nextAction(){
 }
 
 function goHome(){
+  if('speechSynthesis' in window){window.speechSynthesis.cancel()}
+  if(currentAudio){currentAudio.pause();currentAudio=null}
+  if(tmr){clearInterval(tmr);tmr=null}
   document.getElementById('game').classList.add('hidden');
   document.getElementById('result').classList.add('hidden');
   document.getElementById('duelResult').classList.add('hidden');
@@ -1035,14 +1145,14 @@ function goHome(){
 
 // ====== AUTO UPLOAD ======
 async function autoUploadMain(rec){
-  if(!API_BASE)return;
+  if(!playerName)return;
   try{
     var payload={student:playerName||'萱萱',roundId:'round_'+G.roundNum+'_'+Date.now(),timestamp:new Date().toISOString(),device:navigator.userAgent.slice(0,100),total:rec.total,ok:rec.ok,bad:rec.bad,acc:rec.acc,avg:rec.avg,roundNum:G.roundNum,mode:'main',details:rec.res};
     await fetch(API_BASE+'/api/record',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   }catch(e){console.log('upload failed',e.message)}
 }
 async function autoUploadDuel(rec){
-  if(!API_BASE)return;
+  if(!playerName)return;
   try{
     var payload={player:playerName||'萱萱',acc:rec.acc,totalTime:rec.totalTime,date:new Date().toISOString(),device:navigator.userAgent.slice(0,100),details:{ok:rec.ok,bad:rec.bad,res:rec.res}};
     await fetch(API_BASE+'/api/duel_record',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
@@ -1075,6 +1185,24 @@ async function showLeaderboard(){
 }
 
 // ====== REVIEW ======
+function showDuelStats(){
+  var stats=progress.duelStats||{attempts:0,bestAcc:0};
+  var msg='📊 我的战绩\n━━━━━━━━━━\n大乱斗次数: '+(stats.attempts||0)+'\n最高正确率: '+(stats.bestAcc||0)+'%\n';
+  if(stats.attempts>0){
+    var lbPath=API_BASE+'/api/leaderboard';
+    fetch(lbPath).then(function(r){return r.json()}).then(function(data){
+      var entries=data.entries||[];
+      var myEntries=entries.filter(function(e){return e.player===playerName});
+      var avgAcc=myEntries.length?Math.round(myEntries.reduce(function(s,e){return s+e.acc},0)/myEntries.length):0;
+      var onBoard=myEntries.length;
+      msg+='平均正确率: '+avgAcc+'%\n上榜次数: '+onBoard+'\n';
+      alert(msg);
+    }).catch(function(){alert(msg);});
+  }else{
+    alert(msg+'\n加油挑战，抢占排行榜！');
+  }
+}
+
 function showReview(){
   document.getElementById('app').classList.add('hidden');
   document.getElementById('reviewScreen').classList.remove('hidden');
@@ -1096,14 +1224,6 @@ function showReview(){
   });
 }
 
-// ====== EXPORT ======
-function exportData(){
-  var data={exportTime:new Date().toISOString(),player:playerName,version:'v6',progress:{currentRound:currentRound,completedRounds:completedRounds,roundStats:roundStats,duelStats:duelStats},bankSize:BANK.length};
-  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');a.href=url;a.download='萱萱单词_'+playerName+'_'+fmtDate(new Date())+'.json';
-  a.click();URL.revokeObjectURL(url);
-}
 
 // ====== UTILS ======
 function fmtDate(d){return (d.getMonth()+1)+'月'+d.getDate()+'日'}
